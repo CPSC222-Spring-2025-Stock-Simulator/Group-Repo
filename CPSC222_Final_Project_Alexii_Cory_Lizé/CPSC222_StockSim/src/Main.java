@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import StockGUI.StockGUI;
@@ -78,7 +79,7 @@ public class Main extends Application
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(StockGUI.class.getResource("StockGUI.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Stock Simulator");
