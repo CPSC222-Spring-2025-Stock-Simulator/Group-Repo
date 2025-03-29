@@ -1,7 +1,8 @@
 import java.util.Random;
 import java.util.Scanner;
 
-public class CLI implements Runnable{
+public class CLI implements Runnable
+{
 
     Random random;
     Scanner scanner = new Scanner(System.in);
