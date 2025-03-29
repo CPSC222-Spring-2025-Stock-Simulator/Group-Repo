@@ -4,6 +4,7 @@ import java.util.Random;
 public class Main
 {
     private static CLI cli;
+    private static StockGUI gui;
     private static volatile boolean isRunning = false ;
     public static void main(String[] args)
     {
@@ -64,5 +65,9 @@ public class Main
 
     public static CLI getCli() {
         return cli;
+    }
+
+    public static StockGUI getGui() {
+        return gui;
     }
 }
