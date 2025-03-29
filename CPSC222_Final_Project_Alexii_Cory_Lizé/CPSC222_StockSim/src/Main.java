@@ -1,12 +1,14 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Main
 {
     public static void main(String[] args)
     {
+        Random random = new Random();
         boolean isRunning = true ;
 
-        CLI cli = new CLI() ;
+        CLI cli = new CLI(random) ;
         int startingMoney = cli.getStartingMoney() ;
         int peopleCount = cli.getPeople() ;
         int cycleCount = cli.getCycleCount() ;
@@ -40,4 +42,5 @@ public class Main
             }
         }
     }
+
 }
