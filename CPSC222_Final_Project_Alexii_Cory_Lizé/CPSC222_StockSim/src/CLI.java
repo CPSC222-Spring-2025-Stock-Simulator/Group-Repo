@@ -25,6 +25,7 @@ public class CLI implements Runnable{
      * Starts program
      */
     public void run(){
+        System.out.println("$ " + greenText + "Welcome to the StockSim CLI type HELP for a list of commands" + textReset);
         running = true;
         while(running){
             requestInteraction();
@@ -51,6 +52,7 @@ public class CLI implements Runnable{
                 help();
                 break;
             case "QUIT":
+                System.out.println(cyanText + "Quitting Program" + textReset);
                 // Hard quits the program
                 running = false;
                 //TODO: End everything else
@@ -58,10 +60,12 @@ public class CLI implements Runnable{
             case "PAUSE":
                 // Temporarily pauses the program
                 //TODO: Pause the program
+                System.out.println(cyanText + "Program Paused" + textReset);
                 break;
             case "PLAY":
                 // Runs the program
                 //TODO: Unpause the program
+                System.out.println(cyanText + "Program Unpaused" + textReset);
                 break;
             case "SETPEOPLE":
                 // Sets the number of people
@@ -71,6 +75,7 @@ public class CLI implements Runnable{
                         int i =  Integer.parseInt(userInput[1]);
                         i = Math.abs(i);
                         setPeople(i);
+                        System.out.println(cyanText + "People set to " + i + textReset);
                         // Get and process an integer value
                     } catch (Exception e){
                         System.out.println(redText + "Invalid Integer" + textReset);
@@ -88,6 +93,7 @@ public class CLI implements Runnable{
                         int i =  Integer.parseInt(userInput[1]);
                         i = Math.abs(i);
                         setStartingMoney(i);
+                        System.out.println(cyanText + "Money set to " + i + textReset);
                     } catch (Exception e){
                         System.out.println(redText + "Invalid Integer" + textReset);
                     }
@@ -99,9 +105,10 @@ public class CLI implements Runnable{
             case "SETDELAY":
                 if(userInput.length > 1){
                     try {
-                        int i =  Integer.parseInt(userInput[1]);
+                        double i =  Double.parseDouble(userInput[1]);
                         i = Math.abs(i);
                         setCycleLength(i);
+                        System.out.println(cyanText + "Delay set to " + i + " seconds " + textReset);
                     } catch (Exception e){
                         System.out.println(redText + "Invalid Integer" + textReset);
                     }
@@ -116,6 +123,7 @@ public class CLI implements Runnable{
                         int i =  Integer.parseInt(userInput[1]);
                         i = Math.abs(i);
                         setCycleCount(i);
+                        System.out.println(cyanText + "Cycles set to " + i + textReset);
                     } catch (Exception e){
                         System.out.println(redText + "Invalid Integer" + textReset);
                     }
@@ -131,20 +139,25 @@ public class CLI implements Runnable{
                         if(i<-10) i = -10;
                         if(i>10) i = 10;
                         forceEvent(i);
+                        System.out.println(cyanText + "Event " + i  + " executed"+ textReset);
                     } catch (Exception e){
                         System.out.println(redText + "Invalid Integer" + textReset);
                     }
                 }
                 else{
-                    forceEvent(random.nextInt(0,21) - 10);
+                    int i = random.nextInt(0,21) - 10;
+                    forceEvent(i);
+                    System.out.println(cyanText + "Event " + i  + " executed"+ textReset);
                 }
                 break;
             case "FORCEUPDATE":
                 //TODO: add this.
+                System.out.println(cyanText + "GUI Refreshed"+ textReset);
+
                 break;
             default:
                 if(userInput.length > 1 || !userInput[0].isEmpty()){
-                    System.out.println(cyanText + "Unknown Command" + textReset);
+                    System.out.println(redText + "Unknown Command" + textReset);
                 }
         }
 
