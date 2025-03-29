@@ -6,6 +6,7 @@ public class Main
     private static CLI cli;
     private static StockGUI gui;
     private static volatile boolean isRunning = false ;
+    private static volatile boolean isPaused = false ;
     public static void main(String[] args)
     {
         Random random = new Random();
@@ -54,7 +55,9 @@ public class Main
 
 
 
-
+                while (isPaused) {
+                    Thread.onSpinWait();
+                }
             }
         }
     }
@@ -69,5 +72,9 @@ public class Main
 
     public static StockGUI getGui() {
         return gui;
+    }
+
+    public static void setIsPaused(boolean isPaused) {
+        Main.isPaused = isPaused;
     }
 }

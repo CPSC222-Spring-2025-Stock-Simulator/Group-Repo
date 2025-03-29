@@ -67,7 +67,7 @@ public class CLI implements Runnable{
                 System.out.println(cyanText + "Quitting Program" + textReset);
                 // Hard quits the program
                 running = false;
-                //TODO: End everything else
+                quit();
                 break;
             case "PAUSE":
                 // Temporarily pauses the program
@@ -165,7 +165,7 @@ public class CLI implements Runnable{
                         if(i>10) i = 10;
                         // Preventing values that are out of range
                         forceEvent(i);
-                        System.out.println(cyanText + "Event " + i  + " executed"+ textReset);
+                        System.out.println(cyanText + "Event " + i + " executed" + textReset);
                         // Get and process an integer value
                     } catch (Exception e){
                         System.out.println(redText + "Invalid Integer" + textReset);
@@ -176,7 +176,7 @@ public class CLI implements Runnable{
                     // Chooses a random event if not given a specific value
                     int i = random.nextInt(0,21) - 10;
                     forceEvent(i);
-                    System.out.println(cyanText + "Event " + i  + " executed"+ textReset);
+                    System.out.println(cyanText + "Event " + i + " executed"+ textReset);
                 }
                 break;
             case "FORCEUPDATE":
@@ -254,21 +254,21 @@ public class CLI implements Runnable{
      * Ends program and closes
      */
     public void quit(){
-
+        //TODO: End everything else
     }
 
     /**
      * Pauses program
      */
     public void pause(){
-
+        Main.setIsPaused(true);
     }
 
     /**
      * Unpauses program
      */
     public void play(){
-
+        Main.setIsPaused(false);
     }
 
     /**
@@ -331,13 +331,6 @@ public class CLI implements Runnable{
     public int getCycleCount()
     {
         return cycleCount ;
-    }
-
-    /**
-     * Forces a random event to occur
-     */
-    public void forceEvent(){
-
     }
 
     /**

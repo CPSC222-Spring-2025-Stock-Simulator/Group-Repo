@@ -8,6 +8,8 @@ public class StockGUI {
     private JTextArea textArea2;
     private final CLI mainCLI = Main.getCli();
 
+
+
     public void updateGUI(){}
     //TODO: Refreshes the GUI
 
