@@ -1,4 +1,9 @@
-public class Person
+
+
+
+
+
+public class Person implements Runnable
 {
     private final Integer ID;
 
@@ -14,7 +19,7 @@ public class Person
     // How much current money a person has
     private int currentMoney;
 
-    // How tolerant
+    // How tolerant someone is to buy
     private int tolerance;
 
     /**
@@ -31,9 +36,24 @@ public class Person
 
 
 
-    public void makeDecision()
+    public void makeDecision(int stockPrice)
     {
+        
+    }
 
+
+    @Override
+    public void run()
+    {
+        while(true)
+        {
+
+
+
+
+
+
+        }
     }
 
 

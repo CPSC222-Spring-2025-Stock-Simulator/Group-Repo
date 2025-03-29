@@ -1,3 +1,14 @@
 public class Stock
-{                               //TODO: Make stonks
+{
+    private int startPrice;
+    private int price;
+    private int velocity;
+    private int acceleration;
+
+    public Stock()
+    {
+
+    }
+
+
 }

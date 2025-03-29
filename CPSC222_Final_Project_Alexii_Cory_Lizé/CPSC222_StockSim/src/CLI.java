@@ -1,8 +1,9 @@
 public class CLI{
 
-    int startingMoney = 1000;
-    int startingPeople = 100;
-    double delay = 1.0;
+    private int startingMoney = 1000 ;
+    private int people = 100 ;
+    private double cycleLength = 1.0 ;
+    private int cycleCount = 50 ;
     // Delay is measured in seconds
 
     public CLI (){
@@ -46,17 +47,17 @@ public class CLI{
 
     /**
      * Sets the number of people for the program
-     * @param startingPeople The number of starting people
+     * @param people The number of starting people
      */
-    public void setStartingPeople(int startingPeople){
-        this.startingPeople = startingPeople;
+    public void setPeople(int people){
+        this.people = people;
     }
 
     /**
      * @return The number of starting people
      */
-    public int getStartingPeople() {
-        return startingPeople;
+    public int getPeople() {
+        return people;
     }
 
     /**
@@ -76,17 +77,34 @@ public class CLI{
 
     /**
      * Sets the delay between cycles in seconds
-     * @param delay Delay between cycles in seconds (can be decimal)
+     * @param cycleLength Delay between cycles in seconds (can be decimal)
      */
-    public void setDelay(double delay){
-        this.delay = delay;
+    public void setCycleLength(double cycleLength){
+        this.cycleLength = cycleLength;
     }
 
     /**
      * @return Delay between cycles in seconds
      */
-    public double getDelay() {
-        return delay;
+    public double getCycleLength() {
+        return cycleLength;
+    }
+
+    /**
+     * sets amount of cycle to occur before ending the program
+     * @param cycleCount
+     */
+    public void setCycleCount(int cycleCount)
+    {
+        this.cycleCount = cycleCount ;
+    }
+
+    /**
+     * @return returns amount of cycle to happen before program ends
+     */
+    public int getCycleCount()
+    {
+        return cycleCount ;
     }
 
     /**
