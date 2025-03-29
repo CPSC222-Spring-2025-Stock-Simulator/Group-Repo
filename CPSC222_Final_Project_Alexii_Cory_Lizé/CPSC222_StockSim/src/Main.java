@@ -1,13 +1,19 @@
 import java.util.ArrayList;
 import java.util.Random;
+import StockGUI.StockGUI;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-public class Main
+public class Main extends Application
 {
     private static CLI cli;
     private static StockGUI gui;
     private static volatile boolean isRunning = false ;
     public static void main(String[] args)
     {
+        launch();
         Random random = new Random();
 
 
@@ -69,5 +75,14 @@ public class Main
 
     public static StockGUI getGui() {
         return gui;
+    }
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        FXMLLoader fxmlLoader = new FXMLLoader(StockGUI.class.getResource("StockGUI.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setTitle("Stock Simulator");
+        stage.setScene(scene);
+        stage.show();
     }
 }
