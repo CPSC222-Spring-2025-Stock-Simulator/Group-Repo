@@ -3,12 +3,13 @@ import java.util.Random;
 
 public class Main
 {
+    private static CLI cli;
     public static void main(String[] args)
     {
         Random random = new Random();
         boolean isRunning = true ;
 
-        CLI cli = new CLI(random) ;
+        cli = new CLI(random) ;
         int startingMoney = cli.getStartingMoney() ;
         int peopleCount = cli.getPeople() ;
         int cycleCount = cli.getCycleCount() ;
@@ -43,4 +44,7 @@ public class Main
         }
     }
 
+    public static CLI getCli() {
+        return cli;
+    }
 }

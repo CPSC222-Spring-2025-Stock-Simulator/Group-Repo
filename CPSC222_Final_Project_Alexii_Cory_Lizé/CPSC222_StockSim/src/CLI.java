@@ -4,19 +4,26 @@ import java.util.Scanner;
 public class CLI implements Runnable{
 
     Random random;
-    boolean running;
+    Scanner scanner = new Scanner(System.in);
+
     String redText = "\u001B[31m";
     String greenText = "\u001B[32m";
     String cyanText = "\u001B[36m";
     String textReset = "\u001B[0m";
+    // Text Colouring
+
+    boolean running = false;
     private int startingMoney = 1000 ;
     private int people = 100 ;
-    private double cycleLength = 1.0 ;
     private int cycleCount = 50 ;
-    // Delay is measured in seconds
+    private double cycleLength = 1.0 ;
+    // By seconds
 
-    Scanner scanner = new Scanner(System.in);
 
+    /**
+     * The Command Line Index for the program
+     * @param r The Random object for the program
+     */
     public CLI (Random r){
         random = r;
     }
@@ -89,86 +96,103 @@ public class CLI implements Runnable{
                 break;
             case "SETMONEY":
                 if(userInput.length > 1){
+                    // Requires an integer input in the second index
                     try {
                         int i =  Integer.parseInt(userInput[1]);
                         i = Math.abs(i);
                         setStartingMoney(i);
                         System.out.println(cyanText + "Money set to " + i + textReset);
+                        // Get and process an integer value
                     } catch (Exception e){
                         System.out.println(redText + "Invalid Integer" + textReset);
+                        // Handle non-integer values
                     }
                 }
                 else{
                     System.out.println(redText + "Invalid Input" + textReset);
+                    // Handles the case in which no other input is given
                 }
                 break;
             case "SETDELAY":
                 if(userInput.length > 1){
+                    // Requires a double input in the second index
                     try {
                         double i =  Double.parseDouble(userInput[1]);
                         i = Math.abs(i);
                         setCycleLength(i);
                         System.out.println(cyanText + "Delay set to " + i + " seconds " + textReset);
+                        // Get and process a double value
                     } catch (Exception e){
-                        System.out.println(redText + "Invalid Integer" + textReset);
+                        System.out.println(redText + "Invalid Value" + textReset);
+                        // Handle non-numeric values
                     }
                 }
                 else{
                     System.out.println(redText + "Invalid Input" + textReset);
+                    // Handles the case in which no other input is given
                 }
                 break;
             case "SETCYCLES":
                 if(userInput.length > 1){
+                    // Requires an integer input in the second index
                     try {
                         int i =  Integer.parseInt(userInput[1]);
                         i = Math.abs(i);
                         setCycleCount(i);
                         System.out.println(cyanText + "Cycles set to " + i + textReset);
+                        // Get and process an integer value
                     } catch (Exception e){
                         System.out.println(redText + "Invalid Integer" + textReset);
+                        // Handle non-integer values
                     }
                 }
                 else{
                     System.out.println(redText + "Invalid Input" + textReset);
+                    // Handles the case in which no other input is given
                 }
                 break;
             case "FORCEEVENT":
                 if(userInput.length > 1){
+                    // Requires an integer input in the second index
                     try {
                         int i =  Integer.parseInt(userInput[1]);
                         if(i<-10) i = -10;
                         if(i>10) i = 10;
+                        // Preventing values that are out of range
                         forceEvent(i);
                         System.out.println(cyanText + "Event " + i  + " executed"+ textReset);
+                        // Get and process an integer value
                     } catch (Exception e){
                         System.out.println(redText + "Invalid Integer" + textReset);
+                        // Handle non-integer values
                     }
                 }
                 else{
+                    // Chooses a random event if not given a specific value
                     int i = random.nextInt(0,21) - 10;
                     forceEvent(i);
                     System.out.println(cyanText + "Event " + i  + " executed"+ textReset);
                 }
                 break;
             case "FORCEUPDATE":
+                // Forces a GUI refresh
                 //TODO: add this.
                 System.out.println(cyanText + "GUI Refreshed"+ textReset);
 
                 break;
             default:
                 if(userInput.length > 1 || !userInput[0].isEmpty()){
+                    // If given a nonempty input, prints an error message
                     System.out.println(redText + "Unknown Command" + textReset);
                 }
         }
-
-
     }
 
     private void help(){
         System.out.println(
                 greenText +
                 """
-                        
+                
                 ┏━━━━━━━━━━━┓
                 ┃ Functions ┃
                 ┗━━━━━━━━━━━┛
@@ -313,6 +337,5 @@ public class CLI implements Runnable{
      * Forces a GUI refresh
      */
     public void forceUpdate(){
-
     }
 }
