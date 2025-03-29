@@ -1,8 +1,11 @@
+package Backend;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import StockGUI.StockGUI;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -21,21 +24,21 @@ public class Main extends Application
         cli = new CLI(random) ;
         Thread t = new Thread(cli);
         t.start();
-        // Start and run the CLI
+        // Start and run the Backend.CLI
         launch();
         // TODO: Start the GUI here
 
         while (!isRunning) {
             Thread.onSpinWait();
         }
-        // Wait for start to be typed in the CLI
+        // Wait for start to be typed in the Backend.CLI
         //TODO: If a start button has been implemented it should also pass this
 
 
         int startingMoney = cli.getStartingMoney() ;
         int peopleCount = cli.getPeople() ;
         int cycleCount = cli.getCycleCount() ;
-        // Grabs initial values. Will be the default values unless modified through the CLI
+        // Grabs initial values. Will be the default values unless modified through the Backend.CLI
 
         System.out.print("PROGRAM STARTED\n$ ");
         //TODO: Remove this
@@ -82,7 +85,7 @@ public class Main extends Application
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(StockGUI.class.getResource("StockGUI.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Stock Simulator");
+        stage.setTitle("Backend.Stock Simulator");
         stage.setScene(scene);
         stage.show();
     }
