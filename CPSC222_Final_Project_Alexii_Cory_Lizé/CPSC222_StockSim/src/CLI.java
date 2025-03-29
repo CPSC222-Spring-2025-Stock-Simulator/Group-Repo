@@ -352,5 +352,6 @@ public class CLI implements Runnable{
      * Forces a GUI refresh
      */
     public void forceUpdate(){
+        Main.getGui().updateGUI();
     }
 }
