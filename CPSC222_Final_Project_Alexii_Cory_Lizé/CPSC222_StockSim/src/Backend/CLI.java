@@ -1,3 +1,5 @@
+package Backend;
+
 import java.util.Random;
 import java.util.Scanner;
 
@@ -32,7 +34,7 @@ public class CLI implements Runnable{
      * Starts program
      */
     public void run(){
-        System.out.println("$ " + greenText + "Welcome to the StockSim CLI type HELP for a list of commands" + textReset);
+        System.out.println("$ " + greenText + "Welcome to the StockSim Backend.CLI type HELP for a list of commands" + textReset);
         running = true;
         while(running){
             requestInteraction();
