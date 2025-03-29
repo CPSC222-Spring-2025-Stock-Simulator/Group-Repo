@@ -53,7 +53,9 @@
                 <preferred-size width="150" height="50"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <text value=""/>
+            </properties>
           </component>
           <component id="9fb85" class="javax.swing.JTextArea" binding="textArea2" default-binding="true">
             <constraints>

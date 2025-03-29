@@ -58,6 +58,11 @@ public class CLI implements Runnable{
                 // Displays the list of functions that the user can utilize
                 help();
                 break;
+            case "START":
+                System.out.println(cyanText + "Starting Program" + textReset);
+                start();
+                // Starts the main program
+                break;
             case "QUIT":
                 System.out.println(cyanText + "Quitting Program" + textReset);
                 // Hard quits the program
@@ -197,6 +202,9 @@ public class CLI implements Runnable{
                 ┃ Functions ┃
                 ┗━━━━━━━━━━━┛
                 
+                > START
+                >> Starts the main program
+                
                 > QUIT
                 >> Ends program immediately
                 
@@ -233,6 +241,13 @@ public class CLI implements Runnable{
                 """
                 + textReset
         );
+    }
+
+    /**
+     * Allows the main program to run
+     */
+    public void start(){
+        Main.setIsRunning(true);
     }
 
     /**
