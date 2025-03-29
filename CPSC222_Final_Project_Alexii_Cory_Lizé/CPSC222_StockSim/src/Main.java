@@ -13,7 +13,7 @@ public class Main extends Application
     private static volatile boolean isRunning = false ;
     public static void main(String[] args)
     {
-        launch();
+
         Random random = new Random();
 
 
@@ -21,7 +21,7 @@ public class Main extends Application
         Thread t = new Thread(cli);
         t.start();
         // Start and run the CLI
-
+        launch();
         // TODO: Start the GUI here
 
         while (!isRunning) {
