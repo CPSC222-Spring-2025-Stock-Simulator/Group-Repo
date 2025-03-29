@@ -10,6 +10,8 @@ public class Main
         int startingMoney = cli.getStartingMoney() ;
         int peopleCount = cli.getPeople() ;
         int cycleCount = cli.getCycleCount() ;
+        Thread t = new Thread(cli);
+        t.start();
 
         while (isRunning)
         {

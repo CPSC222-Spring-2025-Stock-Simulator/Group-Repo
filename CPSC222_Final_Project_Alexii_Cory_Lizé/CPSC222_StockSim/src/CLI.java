@@ -1,10 +1,19 @@
-public class CLI{
+import java.util.Scanner;
 
+public class CLI implements Runnable{
+
+
+    boolean running;
+    String redText = "\u001B[31m";
+    String greenText = "\u001B[32m";
+    String textReset = "\u001B[0m";
     private int startingMoney = 1000 ;
     private int people = 100 ;
     private double cycleLength = 1.0 ;
     private int cycleCount = 50 ;
     // Delay is measured in seconds
+
+    Scanner scanner = new Scanner(System.in);
 
     public CLI (){
 
@@ -14,7 +23,66 @@ public class CLI{
      * Starts program
      */
     public void run(){
+        running = true;
+        while(running){
+            requestInteraction();
+        }
+    }
 
+    private void requestInteraction(){
+        System.out.print("$ ");
+        String[] userInput = scanner.nextLine().split(" ");
+
+
+        switch (userInput[0].toUpperCase()){
+            case "HELP":
+                help();
+                break;
+        }
+
+
+    }
+
+    private void help(){
+        System.out.println(
+                greenText +
+                """
+                        
+                ┏━━━━━━━━━━━┓
+                ┃ Functions ┃
+                ┗━━━━━━━━━━━┛
+                
+                > QUIT
+                >> Ends program immediately
+                
+                > PAUSE
+                >> Stops program from running
+                
+                > PLAY
+                >> Resumes program
+                
+                > STARTINGPEOPLE [value]
+                >> Sets the number of threads to make, 
+                >> only works before the stock starts
+                
+                > STARTINGMONEY [value]
+                >> Sets the amount of money held by each thread, 
+                >> only works before the stock starts
+                
+                > DELAY [value]
+                >> Sets the delay between GUI refreshes
+                
+                > FORCEEVENT
+                >> Forces a random event to occur
+                
+                > FORCEEVENT [value] 
+                >> Forces a specific event to occur
+                
+                > FORCEUPDATE
+                >> Forces a refresh of the GUI
+                """
+                + textReset
+        );
     }
 
     /**
@@ -35,13 +103,6 @@ public class CLI{
      * Unpauses program
      */
     public void play(){
-
-    }
-
-    /**
-     * Lists all people and their current amount of money
-     */
-    public void listAll(){
 
     }
 
