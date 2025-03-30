@@ -3,22 +3,12 @@ package Backend;
 
 public class Person implements Runnable
 {
-    private final Integer ID;
+    private final Integer ID ;
+    private int buyPrice ;                                       // What price they are willing to buy at
+    private int sellPrice ;                                     // What price they are willing to sell at
+    private int money;                                  // How much current money a person has
 
-    // What price they are willing to buy at
-    private int buyPrice;
-
-    // What price they are willing to sell at
-    private int sellPrice;
-
-    // How much money person starts with
-    private final int startingMoney;             // This can be changed
-
-    // How much current money a person has
-    private int currentMoney;
-
-    // How tolerant someone is to buy
-    private int tolerance;
+    private int tolerance ;                                     // How tolerant someone is to buy
 
     /**
      * makes a person using ID and starting money
@@ -27,9 +17,8 @@ public class Person implements Runnable
      */
     public Person(Integer ID, int startingMoney)
     {
-        this.startingMoney = startingMoney;
+        this.money = startingMoney;
         this.ID = ID;
-        this.currentMoney = this.startingMoney;
     }
 
 
