@@ -8,6 +8,9 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
 
 public class Main extends Application
@@ -98,9 +101,14 @@ public class Main extends Application
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(StockGUI.class.getResource("StockGUI.fxml"));
+        fxmlLoader.setController(new StockGUI());
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Backend.Stock Simulator");
+        StockGUI stockGUI = new StockGUI();
+        stage.setTitle("Stock Simulator");
+        stockGUI.updateGUI();
         stage.setScene(scene);
         stage.show();
+
+
     }
 }

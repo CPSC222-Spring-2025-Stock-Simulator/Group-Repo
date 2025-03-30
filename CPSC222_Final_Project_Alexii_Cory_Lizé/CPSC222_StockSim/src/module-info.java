@@ -3,6 +3,6 @@ module Group.Repo {
     requires javafx.fxml;
 
     exports Backend;
-    exports StockGUI;
+    opens StockGUI to javafx.fxml;
 
 }
