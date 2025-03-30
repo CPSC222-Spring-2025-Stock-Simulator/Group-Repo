@@ -8,10 +8,10 @@ public class CLI implements Runnable{
     Random random;
     Scanner scanner = new Scanner(System.in);
 
-    String redText = "\u001B[31m";
-    String greenText = "\u001B[32m";
-    String cyanText = "\u001B[36m";
-    String textReset = "\u001B[0m";
+    private final String redText = "\u001B[31m";
+    private final String greenText = "\u001B[32m";
+    private final String cyanText = "\u001B[36m";
+    private final String textReset = "\u001B[0m";
     // Text Colouring
 
     boolean running = false;
@@ -68,7 +68,6 @@ public class CLI implements Runnable{
             case "QUIT":
                 System.out.println(cyanText + "Quitting Program" + textReset);
                 // Hard quits the program
-                running = false;
                 quit();
                 break;
             case "PAUSE":
@@ -256,6 +255,7 @@ public class CLI implements Runnable{
      * Ends program and closes
      */
     public void quit(){
+        running = false;
         //TODO: End everything else
     }
 

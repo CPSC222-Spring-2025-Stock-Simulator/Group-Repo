@@ -1,8 +1,12 @@
 package Backend;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import StockGUI.StockGUI;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -12,26 +16,30 @@ import javafx.stage.Stage;
 
 public class Main extends Application
 {
+
     private static CLI cli;
     private static StockGUI gui;
     private static volatile boolean isRunning = false ;
     private static volatile boolean isPaused = false ;
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) throws FileNotFoundException, InterruptedException {
+
+
 
         Random random = new Random();
-
 
         cli = new CLI(random) ;
         Thread t = new Thread(cli);
         t.start();
         // Start and run the Backend.CLI
+
         launch();
+
         // TODO: Start the GUI here
 
         while (!isRunning) {
             Thread.onSpinWait();
         }
+
         // Wait for start to be typed in the Backend.CLI
         //TODO: If a start button has been implemented it should also pass this
 
