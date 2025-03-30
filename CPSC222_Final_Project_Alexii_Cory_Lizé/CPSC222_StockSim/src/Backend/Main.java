@@ -59,6 +59,10 @@ public class Main extends Application
             for (int i=0 ; i<cycleCount ; i++)                                       // this is where cycles happen
             {
 
+                // person buys, sells, or does nothing
+                    // each person updates teh acceleration
+                    //
+
 
 
 
