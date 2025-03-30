@@ -15,6 +15,7 @@ public class Main extends Application
     private static CLI cli;
     private static StockGUI gui;
     private static volatile boolean isRunning = false ;
+    private static volatile boolean isPaused = false ;
     public static void main(String[] args)
     {
 
@@ -79,6 +80,10 @@ public class Main extends Application
 
     public static StockGUI getGui() {
         return gui;
+    }
+
+    public static void setIsPaused(boolean isPaused) {
+        Main.isPaused = isPaused;
     }
 
     @Override
