@@ -4,6 +4,6 @@ module Group.Repo {
     requires java.logging;
 
     exports Backend;
-    exports StockGUI;
+    opens StockGUI to javafx.fxml;
 
 }

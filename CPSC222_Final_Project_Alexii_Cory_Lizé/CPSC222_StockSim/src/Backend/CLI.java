@@ -16,10 +16,11 @@ public class CLI implements Runnable
     // Text Colouring
 
     boolean running = false;
-    private int startingMoney = 1000 ;
-    private int people = 100 ;
-    private int cycleCount = 50 ;
-    private double cycleLength = 1.0 ;
+    private int startingMoney = API.getPeopleStartMoney();
+    private int people = API.getPeopleAmount() ;
+    private int cycleCount = API.getCycleCount() ;
+    private double cycleLength = API.getCycleLength() ;
+    private int startingStockPrice = API.getStockStartPrice() ;
     // By seconds
 
 
@@ -89,6 +90,7 @@ public class CLI implements Runnable
                         int i =  Integer.parseInt(userInput[1]);
                         i = Math.abs(i);
                         setPeople(i);
+                        API.setPeopleAmount(i);
                         System.out.println(cyanText + "People set to " + i + textReset);
                         // Get and process an integer value
                     } catch (Exception e){
@@ -108,6 +110,7 @@ public class CLI implements Runnable
                         int i =  Integer.parseInt(userInput[1]);
                         i = Math.abs(i);
                         setStartingMoney(i);
+                        API.setPeopleStartMoney(i);
                         System.out.println(cyanText + "Money set to " + i + textReset);
                         // Get and process an integer value
                     } catch (Exception e){
@@ -127,6 +130,7 @@ public class CLI implements Runnable
                         double i =  Double.parseDouble(userInput[1]);
                         i = Math.abs(i);
                         setCycleLength(i);
+                        API.setCycleLength(i);
                         System.out.println(cyanText + "Delay set to " + i + " seconds " + textReset);
                         // Get and process a double value
                     } catch (Exception e){
@@ -146,6 +150,7 @@ public class CLI implements Runnable
                         int i =  Integer.parseInt(userInput[1]);
                         i = Math.abs(i);
                         setCycleCount(i);
+                        API.setCycleCount(i);
                         System.out.println(cyanText + "Cycles set to " + i + textReset);
                         // Get and process an integer value
                     } catch (Exception e){
@@ -349,5 +354,13 @@ public class CLI implements Runnable
      */
     public void forceUpdate(){
         Main.getGui().updateGUI();
+    }
+
+    public int getStartingStockPrice() {
+        return startingStockPrice;
+    }
+
+    public void setStartingStockPrice(int startingStockPrice) {
+        this.startingStockPrice = startingStockPrice;
     }
 }
