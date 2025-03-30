@@ -1,8 +1,8 @@
 module Group.Repo {
-    requires javafx.fxml;
     requires javafx.controls;
+    requires javafx.fxml;
 
-    exports Backend to javafx.graphics;
+    exports Backend;
     exports StockGUI;
 
 }
