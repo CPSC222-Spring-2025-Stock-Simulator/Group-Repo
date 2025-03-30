@@ -39,7 +39,10 @@ public class Main extends Application
         int startingMoney = cli.getStartingMoney() ;
         int peopleCount = cli.getPeople() ;
         int cycleCount = cli.getCycleCount() ;
+        int startingStock = cli.getStartingStockPrice() ;
         // Grabs initial values. Will be the default values unless modified through the Backend.CLI
+
+        Stock stock = new Stock(startingStock) ;
 
         System.out.print("PROGRAM STARTED\n$ ");
         //TODO: Remove this
@@ -60,6 +63,7 @@ public class Main extends Application
 
                 for (Person person : people)
                 {
+                    person.setStockPrice(stock.getPrice());
 
                 }
 

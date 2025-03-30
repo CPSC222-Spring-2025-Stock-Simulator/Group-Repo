@@ -6,9 +6,8 @@ public class Person implements Runnable
     private final Integer ID ;
     private int buyPrice ;                                       // What price they are willing to buy at
     private int sellPrice ;                                     // What price they are willing to sell at
-    private int money;                                  // How much current money a person has
-
-    private int tolerance ;                                     // How tolerant someone is to buy
+    private int money ;                                  // How much current money a person has
+    private int stockPrice ;
 
     /**
      * makes a person using ID and starting money
@@ -17,15 +16,15 @@ public class Person implements Runnable
      */
     public Person(Integer ID, int startingMoney)
     {
-        this.money = startingMoney;
-        this.ID = ID;
+        this.ID = ID ;
+        this.money = startingMoney ;
     }
 
 
 
-    public void makeDecision(int stockPrice)
+    public void makeDecision()
     {
-        
+
     }
 
 
@@ -34,17 +33,10 @@ public class Person implements Runnable
     {
         while(true)
         {
-
-
-
-
+            makeDecision() ;
 
 
         }
     }
-
-
-
-
 
 }
