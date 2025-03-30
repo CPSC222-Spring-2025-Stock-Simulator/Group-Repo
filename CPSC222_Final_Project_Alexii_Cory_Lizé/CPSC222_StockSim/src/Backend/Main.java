@@ -49,8 +49,9 @@ public class Main extends Application
 
         while (isRunning)
         {
-            PersonManager personManager = new PersonManager(peopleCount, startingMoney) ;
+            PersonManager personManager = new PersonManager() ;
             ArrayList<Person> people = personManager.getPeople() ;
+
             for (int i=0 ; i<cycleCount ; i++)                                       // this is where cycles happen
             {
 
@@ -63,7 +64,7 @@ public class Main extends Application
 
                 for (Person person : people)
                 {
-                    person.setStockPrice(stock.getPrice());
+
 
                 }
 

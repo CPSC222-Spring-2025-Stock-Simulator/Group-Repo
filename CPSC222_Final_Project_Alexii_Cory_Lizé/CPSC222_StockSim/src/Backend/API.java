@@ -2,21 +2,30 @@ package Backend;
 
 public class API
 {
+    //------- DEFAULT VALUES ---------------------------------
     private static int peopleStartMoney = 1000;
     private static int stockStartPrice = 10 ;
     private static int peopleAmount = 100 ;
     private static int cycleCount = 50 ;
     private static double cycleLength = 1.0 ;
+    private static int graphLength = 10 ;
+    //-------------------------------------------------------
+
+
+    //------- DYNAMIC VALUES ---------------------------------
+    private static Integer[] stockPriceHistory ;  //TODO: make a setter in CLI
 
     private static int bestPersonID ;
     private static int bestPersonProfit ;
-
 
     private static int worstPersonID ;
     private static int worstPersonProfit ;
 
     private static int currentStockPrice ;
+    //--------------------------------------------------------
 
+
+    //---------- DEFAULT VALUES SETTERS/GETTERS ------------------------------
 
     public static int getPeopleStartMoney()
     {
@@ -67,6 +76,37 @@ public class API
     {
         API.cycleLength = cycleLength;
     }
+
+    //------------------------------------------------------------
+
+
+
+    //------------- DYNAMIC VALUES SETTERS/GETTERS----------------
+
+    public static Integer[] getStockPriceHistory()
+    {
+        return stockPriceHistory ;
+    }
+
+    public static void addNextStockPrice(int stockPrice)
+    {
+        int i=0 ;
+
+        if (stockPriceHistory[graphLength-1] == null)
+
+            while (stockPriceHistory[i] != null)                  // gets to first null value to replace
+                i++ ;
+
+        else
+            for ( ; i<graphLength-1 ; i++)
+                stockPriceHistory[i] = stockPriceHistory[i+1] ;   // if no null, shift everything and replace rightmost
+
+        stockPriceHistory[i] = stockPrice ;
+    }
+
+
+
+    //------------------------------------------------------------
 
 
 }

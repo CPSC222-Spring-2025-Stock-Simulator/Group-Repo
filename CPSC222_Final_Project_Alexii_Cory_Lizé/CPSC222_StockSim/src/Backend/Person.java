@@ -10,21 +10,13 @@ public class Person implements Runnable
     private int stockPrice ;
 
     /**
-     * makes a person using ID and starting money
+     * makes a person using ID
      * @param ID the threads ID
-     * @param startingMoney the amount of money a person starts with
      */
-    public Person(Integer ID, int startingMoney)
+    public Person(Integer ID)
     {
         this.ID = ID ;
-        this.money = startingMoney ;
-    }
-
-
-
-    public void makeDecision()
-    {
-
+        this.money = API.getPeopleStartMoney() ;
     }
 
 
@@ -33,10 +25,14 @@ public class Person implements Runnable
     {
         while(true)
         {
-            makeDecision() ;
+            //makeDecision() ;
 
 
         }
     }
 
+    public void decision()
+    {
+
+    }
 }
