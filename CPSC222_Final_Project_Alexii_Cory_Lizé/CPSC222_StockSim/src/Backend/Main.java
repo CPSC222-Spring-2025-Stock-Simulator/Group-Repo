@@ -2,6 +2,9 @@ package Backend;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import StockGUI.StockGUI;
 import StockGUI.StartScreen;
 import javafx.application.Application;
@@ -15,7 +18,8 @@ public class Main extends Application
     private static StockGUI gui;
     private static volatile boolean isRunning = false ;
     private static volatile boolean isPaused = false ;
-    public static void main(String[] args)
+
+    public static void main(String[] args) throws InterruptedException
     {
 
         Random random = new Random();
@@ -41,40 +45,31 @@ public class Main extends Application
         int startingStock = cli.getStartingStockPrice() ;
         // Grabs initial values. Will be the default values unless modified through the Backend.CLI
 
+
+
+
         Stock stock = new Stock(startingStock) ;
 
         System.out.print("PROGRAM STARTED\n$ ");
         //TODO: Remove this
 
-        while (isRunning)
+        PersonManager personManager = new PersonManager() ;
+        ArrayList<Person> people = personManager.getPeople() ;
+
+        for (int i=0 ; i<cycleCount ; i++)                                       // this is where cycles happen
         {
-            PersonManager personManager = new PersonManager() ;
-            ArrayList<Person> people = personManager.getPeople() ;
 
-            for (int i=0 ; i<cycleCount ; i++)                                       // this is where cycles happen
-            {
-
-                // person buys, sells, or does nothing
-                    // each person updates teh acceleration
-                    //
-
-
-
-
-                for (Person person : people)
-                {
-
-
-                }
+            personManager.startDecisionProcess(stock) ;
+            // past this point, all person threads have either bought/sold or neither
+            // API may be accessed
 
 
 
 
 
 
-
-
-            }
+            if (!isRunning)
+                break ;
         }
     }
 
