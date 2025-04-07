@@ -1,16 +1,12 @@
 package Backend;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import StockGUI.StockGUI;
+import StockGUI.StartScreen;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
 
 public class Main extends Application
@@ -100,11 +96,10 @@ public class Main extends Application
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(StockGUI.class.getResource("StockGUI.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(StockGUI.class.getResource("StartScreen.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
 
-        StockGUI stockGUI = fxmlLoader.getController();
-        stockGUI.updateGUI();
+        StartScreen startScreen = fxmlLoader.getController();
 
         stage.setOnCloseRequest( windowEvent -> {
             stage.close();
