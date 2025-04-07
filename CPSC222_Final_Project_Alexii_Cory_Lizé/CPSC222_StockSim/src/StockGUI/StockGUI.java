@@ -82,6 +82,8 @@ public class StockGUI {
         lineChart.setTitle("Stock Data");
 
         rnd = new Random();
+
+        updateGUI();
     }
 
 
