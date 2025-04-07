@@ -1,12 +1,8 @@
 package Backend;
 
-import java.io.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import StockGUI.StockGUI;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -19,30 +15,26 @@ import javafx.stage.Stage;
 
 public class Main extends Application
 {
-
     private static CLI cli;
     private static StockGUI gui;
     private static volatile boolean isRunning = false ;
     private static volatile boolean isPaused = false ;
-    public static void main(String[] args) throws FileNotFoundException, InterruptedException {
-
-
+    public static void main(String[] args)
+    {
 
         Random random = new Random();
+
 
         cli = new CLI(random) ;
         Thread t = new Thread(cli);
         t.start();
         // Start and run the Backend.CLI
-
-        launch();
-
+        launch(args);
         // TODO: Start the GUI here
 
         while (!isRunning) {
             Thread.onSpinWait();
         }
-
         // Wait for start to be typed in the Backend.CLI
         //TODO: If a start button has been implemented it should also pass this
 
@@ -107,13 +99,19 @@ public class Main extends Application
     }
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(StockGUI.class.getResource("StockGUI.fxml"));
-        fxmlLoader.setController(new StockGUI());
         Scene scene = new Scene(fxmlLoader.load());
-        StockGUI stockGUI = new StockGUI();
-        stage.setTitle("Stock Simulator");
+
+        StockGUI stockGUI = fxmlLoader.getController();
         stockGUI.updateGUI();
+
+        stage.setOnCloseRequest( windowEvent -> {
+            stage.close();
+            System.exit(0);
+        });
+
+        stage.setTitle("Stock Simulator");
         stage.setScene(scene);
         stage.show();
 

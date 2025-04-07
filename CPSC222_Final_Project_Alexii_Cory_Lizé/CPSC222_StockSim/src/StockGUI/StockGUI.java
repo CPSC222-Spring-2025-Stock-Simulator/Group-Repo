@@ -3,16 +3,15 @@ package StockGUI;
 import Backend.CLI;
 import Backend.Main;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.Random;
 
 public class StockGUI {
     CLI mainCLI = Main.getCli();
+    private Random rnd;
 
     @FXML
     public LineChart<Number, Number> lineChart;
@@ -25,22 +24,20 @@ public class StockGUI {
 
     public void updateGUI(){
         //line chart test:
-        XYChart.Series series = new XYChart.Series();
+        System.out.println("Before updateGUI, lineChart is null: " + (lineChart == null));
 
-        series.getData().add(new XYChart.Data(1, 23));
-        series.getData().add(new XYChart.Data(2, 14));
-        series.getData().add(new XYChart.Data(3, 15));
-        series.getData().add(new XYChart.Data(4, 24));
-        series.getData().add(new XYChart.Data(5, 34));
-        series.getData().add(new XYChart.Data(6, 36));
-        series.getData().add(new XYChart.Data(7, 22));
-        series.getData().add(new XYChart.Data(8, 45));
-        series.getData().add(new XYChart.Data(9, 43));
-        series.getData().add(new XYChart.Data(10, 17));
-        series.getData().add(new XYChart.Data(11, 29));
-        series.getData().add(new XYChart.Data(12, 25));
+        // If the lineChart is null, we know the issue lies in the initialization process
+        if (lineChart != null) {
+            XYChart.Series<Number, Number> series = new XYChart.Series<>();
+            for (int i = 1; i < 100 ; i++) {
+                series.getData().add(new XYChart.Data<>(i, rnd.nextInt(1287)));
+            }
 
-        lineChart.getData().addAll(series);
+
+            lineChart.getData().add(series);
+        } else {
+            System.out.println("lineChart is null inside updateGUI()");
+        }
     }
     //TODO: Refreshes the GUI
 
@@ -75,11 +72,16 @@ public class StockGUI {
 
     @FXML
     public void initialize() {
-        if (lineChart == null) {
-            System.out.println("lineChart is null!");
-        } else {
-            System.out.println("lineChart is properly initialized.");
-        }
+        NumberAxis xAxis = new NumberAxis();
+        xAxis.setLabel("X Axis");
+
+        NumberAxis yAxis = new NumberAxis();
+        yAxis.setLabel("Y Axis");
+
+        LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
+        lineChart.setTitle("Stock Data");
+
+        rnd = new Random();
     }
 
 
