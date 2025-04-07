@@ -94,8 +94,8 @@
                                     <Insets right="15.0" />
                                  </padding>
                               </Label>
-                              <Slider fx:id="cycleLenghtSlider" max="5.0" min="0.1" />
-                              <TextField fx:id="cycleLenghtText" prefHeight="25.0" prefWidth="86.0" text="1.0" />
+                              <Slider fx:id="cycleLengthSlider" blockIncrement="0.1" max="5.0" min="0.1" />
+                              <TextField fx:id="cycleLengthText" prefHeight="25.0" prefWidth="86.0" text="1.0" />
                            </children>
                         </HBox>
                         <Button fx:id="startButton" alignment="CENTER" mnemonicParsing="false" onAction="#startClicked" prefHeight="25.0" prefWidth="72.0" text="Start" />

@@ -21,7 +21,7 @@ public class StartScreen {
     private TextField cycleAmountText;
 
     @FXML
-    private Slider cycleLenghtSlider;
+    private Slider cycleLengthSlider;
 
     @FXML
     private TextField cycleLengthText;
@@ -46,10 +46,46 @@ public class StartScreen {
 
     @FXML
     public void initialize(){
+        try {
+            double cA = Double.parseDouble(cycleAmountText.getText());
+            cycleAmountSlider.setValue(cA);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid number in TextField, using default slider value.");
+            cycleAmountSlider.setValue(0);
+        }
+        try {
+            double cL = Double.parseDouble(cycleLengthText.getText());
+            cycleLengthSlider.setValue(cL);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid number in TextField, using default slider value.");
+            cycleLengthSlider.setValue(0);
+        }
+        try {
+            double m = Double.parseDouble(moneyText.getText());
+            moneySlider.setValue(m);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid number in TextField, using default slider value.");
+            moneySlider.setValue(0);
+        }
+        try {
+            double p = Double.parseDouble(peopleText.getText());
+            peopleSlider.setValue(p);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid number in TextField, using default slider value.");
+            peopleSlider.setValue(0);
+        }
+        try {
+            double s = Double.parseDouble(stockText.getText());
+            stockSlider.setValue(s);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid number in TextField, using default slider value.");
+            stockSlider.setValue(0);
+        }
+
         cycleAmountSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             cycleAmountText.setText(String.format("%.0f", newValue.doubleValue()));
         });
-        cycleLenghtSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+        cycleLengthSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             cycleLengthText.setText(String.format("%.1f", newValue.doubleValue()));
         });
         moneySlider.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -61,6 +97,53 @@ public class StartScreen {
         stockSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             stockText.setText(String.format("%.0f", newValue.doubleValue()));
         });
+
+        cycleAmountText.textProperty().addListener((obs, oldVal, newVal) -> {
+            try {
+                double value = Double.parseDouble(newVal);
+                cycleAmountSlider.setValue(value);
+            } catch (NumberFormatException e) {
+                // If the input isn't a number (e.g., user types letters), just ignore
+            }
+        });
+
+        cycleLengthText.textProperty().addListener((obs, oldVal, newVal) -> {
+            try {
+                double value = Double.parseDouble(newVal);
+                cycleLengthSlider.setValue(value);
+            } catch (NumberFormatException e) {
+                // If the input isn't a number (e.g., user types letters), just ignore
+            }
+        });
+
+        moneyText.textProperty().addListener((obs, oldVal, newVal) -> {
+            try {
+                double value = Double.parseDouble(newVal);
+                moneySlider.setValue(value);
+            } catch (NumberFormatException e) {
+                // If the input isn't a number (e.g., user types letters), just ignore
+            }
+        });
+
+        peopleText.textProperty().addListener((obs, oldVal, newVal) -> {
+            try {
+                double value = Double.parseDouble(newVal);
+                peopleSlider.setValue(value);
+            } catch (NumberFormatException e) {
+                // If the input isn't a number (e.g., user types letters), just ignore
+            }
+        });
+
+        stockText.textProperty().addListener((obs, oldVal, newVal) -> {
+            try {
+                double value = Double.parseDouble(newVal);
+                stockSlider.setValue(value);
+            } catch (NumberFormatException e) {
+                // If the input isn't a number (e.g., user types letters), just ignore
+            }
+        });
+
+
     }
 
     @FXML
