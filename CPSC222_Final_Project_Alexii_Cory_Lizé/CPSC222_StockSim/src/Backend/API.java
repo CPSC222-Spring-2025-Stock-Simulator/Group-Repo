@@ -13,7 +13,7 @@ public class API
 
 
     //------- DYNAMIC VALUES ---------------------------------
-    private static Integer[] stockPriceHistory ;  //TODO: make a setter in CLI
+    private static Double[] stockPriceHistory ;
 
     private static int bestPersonID ;
     private static int bestPersonProfit ;
@@ -21,7 +21,7 @@ public class API
     private static int worstPersonID ;
     private static int worstPersonProfit ;
 
-    private static int currentStockPrice ;
+    private static double currentStockPrice ;
     //--------------------------------------------------------
 
 
@@ -83,12 +83,12 @@ public class API
 
     //------------- DYNAMIC VALUES SETTERS/GETTERS----------------
 
-    public static Integer[] getStockPriceHistory()
+    public static Double[] getStockPriceHistory()
     {
         return stockPriceHistory ;
     }
 
-    public static void addNextStockPrice(int stockPrice)
+    public static void addNextStockPrice(double stockPrice)
     {
         int i=0 ;
 
@@ -104,7 +104,15 @@ public class API
         stockPriceHistory[i] = stockPrice ;
     }
 
+    public static double getCurrentStockPrice()
+    {
+        return currentStockPrice ;
+    }
 
+    public static void setCurrentStockPrice(double currentStockPrice)
+    {
+        API.currentStockPrice = currentStockPrice;
+    }
 
     //------------------------------------------------------------
 

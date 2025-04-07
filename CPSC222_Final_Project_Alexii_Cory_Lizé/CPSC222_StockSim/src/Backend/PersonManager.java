@@ -1,12 +1,13 @@
 package Backend;
 
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class PersonManager
 {
-    private ArrayList<Person> people;
+    private static ArrayList<Person> people;
     private final ExecutorService executor ;
 
     public PersonManager()
@@ -17,17 +18,26 @@ public class PersonManager
         {
             people.add(new Person(i)) ;
         }
-
-        int coreCount = Runtime.getRuntime().availableProcessors();
-        executor = Executors.newFixedThreadPool(coreCount);
-
+        this.executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
     }
 
-    public void makeDecision()
+    public void startDecisionProcess(Stock stock) throws InterruptedException
     {
-        for (Person person : people)
+        CountDownLatch latch = new CountDownLatch(people.size());
+
+        for (Person person : people) {
+            executor.submit(() ->
+            {
+                person.decision(stock);
+                latch.countDown();
+            });
+        }
+
+        latch.await(); // Wait for everyone
+
+        synchronized (stock)
         {
-            executor.submit(person::decision); // Submit each person's decision as a task
+            stock.update(); // apply velocity + acceleration to price
         }
     }
 
