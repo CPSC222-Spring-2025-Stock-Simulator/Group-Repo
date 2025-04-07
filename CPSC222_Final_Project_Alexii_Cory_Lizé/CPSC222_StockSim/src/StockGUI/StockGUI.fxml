@@ -1,105 +1,141 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="597.0" prefWidth="816.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StockGUI.StockGUI">
    <children>
-      <VBox layoutX="610.0" spacing="10.0">
-         <children>
-            <Label text="Events" />
-            <ListView prefHeight="200.0" prefWidth="200.0" />
-            <Label text="Best Trader" />
-            <HBox prefHeight="100.0" prefWidth="200.0">
+      <SplitPane dividerPositions="0.7530712530712531" layoutX="8.0" layoutY="7.0" prefHeight="597.0" prefWidth="816.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <items>
+            <VBox>
                <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
+                  <LineChart fx:id="lineChart" VBox.vgrow="ALWAYS">
+                    <xAxis>
+                      <NumberAxis side="BOTTOM" fx:id="xAxis" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis fx:id="yAxis" side="LEFT" />
+                    </yAxis>
+                     <VBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </VBox.margin>
+                  </LineChart>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                      <children>
-                        <Label text="Label" />
-                        <Label layoutX="10.0" layoutY="10.0" text="Label" />
-                        <Label layoutX="10.0" layoutY="10.0" text="Label" />
-                        <Label layoutX="10.0" layoutY="10.0" text="Label" />
-                        <Label layoutX="10.0" layoutY="10.0" text="Label" />
-                        <Label layoutX="10.0" layoutY="10.0" text="Label" />
+                        <VBox>
+                           <children>
+                              <Label text="Amount of People" />
+                              <Label layoutX="10.0" layoutY="10.0" text="Starting Money" />
+                              <Label layoutX="10.0" layoutY="10.0" text="Starting Stock Price" />
+                              <Label layoutX="10.0" layoutY="10.0" text="Current Stock Price" />
+                              <Label layoutX="10.0" layoutY="10.0" text="Amount of Cycles" />
+                              <Label layoutX="10.0" layoutY="10.0" text="Lenght of Cycles" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                              <Text layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                              <Text layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                              <Text layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                              <Text layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                              <Text layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                           </children>
+                        </VBox>
+                        <Region prefHeight="102.0" prefWidth="113.0" HBox.hgrow="ALWAYS" />
+                        <VBox alignment="TOP_CENTER" spacing="10.0">
+                           <children>
+                              <Button mnemonicParsing="false" text="Pause" />
+                              <Button mnemonicParsing="false" text="Stop" />
+                           </children>
+                           <HBox.margin>
+                              <Insets bottom="20.0" top="20.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <Region layoutX="230.0" layoutY="10.0" prefHeight="102.0" prefWidth="154.0" HBox.hgrow="ALWAYS" />
                      </children>
-                  </VBox>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                        <Text layoutX="10.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                        <Text layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                        <Text layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                     </children>
-                  </VBox>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </HBox>
                </children>
-            </HBox>
-            <Label layoutX="10.0" layoutY="227.0" text="Worst Trader" />
-            <HBox layoutX="10.0" layoutY="244.0" prefHeight="100.0" prefWidth="200.0">
+               <padding>
+                  <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+               </padding>
+            </VBox>
+            <VBox alignment="TOP_CENTER" spacing="10.0">
                <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
+                  <Label prefHeight="17.0" prefWidth="40.0" text="Events" />
+                  <ListView prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                  <Label text="Best Trader" />
+                  <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label text="Label" />
-                        <Label layoutX="10.0" layoutY="10.0" text="Label" />
-                        <Label layoutX="10.0" layoutY="10.0" text="Label" />
-                        <Label layoutX="10.0" layoutY="10.0" text="Label" />
-                        <Label layoutX="10.0" layoutY="10.0" text="Label" />
-                        <Label layoutX="10.0" layoutY="10.0" text="Label" />
+                        <VBox>
+                           <children>
+                              <Label text="Person ID" />
+                              <Label layoutX="10.0" layoutY="10.0" text="Profit" />
+                              <Label layoutX="10.0" layoutY="10.0" text="Original Buying Price" />
+                              <Label layoutX="10.0" layoutY="10.0" text="Original Selling Price" />
+                              <Label layoutX="10.0" layoutY="10.0" text="New Buying Price" />
+                              <Label layoutX="10.0" layoutY="10.0" text="New Selling Price" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                              <Text layoutX="10.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                              <Text layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                              <Text layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                           </children>
+                        </VBox>
                      </children>
-                  </VBox>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
+                  </HBox>
+                  <Label layoutX="10.0" layoutY="227.0" text="Worst Trader" />
+                  <HBox layoutX="10.0" layoutY="244.0" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                        <Text layoutX="10.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                        <Text layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                        <Text layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                        <VBox>
+                           <children>
+                              <Label text="Person ID" />
+                              <Label layoutX="10.0" layoutY="10.0" text="Profit" />
+                              <Label layoutX="10.0" layoutY="10.0" text="Original Buying Price" />
+                              <Label layoutX="10.0" layoutY="10.0" text="Original Selling Price" />
+                              <Label layoutX="10.0" layoutY="10.0" text="New Buying Price" />
+                              <Label layoutX="10.0" layoutY="10.0" text="New Selling Price" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                              <Text layoutX="10.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                              <Text layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                              <Text layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                           </children>
+                        </VBox>
                      </children>
-                  </VBox>
+                  </HBox>
                </children>
-            </HBox>
-         </children>
-         <opaqueInsets>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </opaqueInsets>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="20.0" />
-         </padding>
-      </VBox>
-      <VBox prefHeight="591.0" prefWidth="602.0">
-         <children>
-            <LineChart fx:id="lineChart">
-              <xAxis>
-                <NumberAxis side="BOTTOM" fx:id="xAxis" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis fx:id="yAxis" side="LEFT" />
-              </yAxis>
-            </LineChart>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0" />
-                  <VBox prefHeight="200.0" prefWidth="100.0" />
-                  <VBox prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <Button mnemonicParsing="false" text="Button" />
-                        <ToggleButton mnemonicParsing="false" text="ToggleButton" />
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-         </children>
-      </VBox>
+               <opaqueInsets>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="20.0" />
+               </padding>
+            </VBox>
+         </items>
+      </SplitPane>
    </children>
 </AnchorPane>
