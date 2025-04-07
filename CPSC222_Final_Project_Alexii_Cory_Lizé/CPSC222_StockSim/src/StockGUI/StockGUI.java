@@ -1,15 +1,32 @@
 package StockGUI;
 
+import Backend.API;
 import Backend.CLI;
 import Backend.Main;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.text.Text;
 
 import java.util.Random;
 
 public class StockGUI {
+    public Text peopleAmount;
+    public Text moneyStart;
+    public Text stockStart;
+    public Text stockCurrent;
+    public Text cycleAmount;
+    public Text cycleLength;
+    public Text bestPerson;
+    public Text bestProfit;
+    public Text bestBuy;
+    public Text bestSell;
+    public Text worstPerson;
+    public Text worstProfit;
+    public Text worstBuy;
+    public Text worstSell;
+
     CLI mainCLI = Main.getCli();
     private Random rnd;
 
@@ -24,12 +41,10 @@ public class StockGUI {
 
     public void updateGUI(){
         //line chart test:
-        System.out.println("Before updateGUI, lineChart is null: " + (lineChart == null));
-
         // If the lineChart is null, we know the issue lies in the initialization process
         if (lineChart != null) {
             XYChart.Series<Number, Number> series = new XYChart.Series<>();
-            for (int i = 1; i < 100 ; i++) {
+            for (int i = 1; i <= API.getGraphLength(); i++) {
                 series.getData().add(new XYChart.Data<>(i, rnd.nextInt(1287)));
             }
 
@@ -38,6 +53,22 @@ public class StockGUI {
         } else {
             System.out.println("lineChart is null inside updateGUI()");
         }
+
+        //Labels
+        peopleAmount.setText(String.valueOf(API.getPeopleAmount()));
+        moneyStart.setText(String.valueOf(API.getPeopleStartMoney()));
+        stockStart.setText(String.valueOf(API.getStockStartPrice()));
+        stockCurrent.setText(String.valueOf(API.getCurrentStockPrice()));
+        cycleAmount.setText(String.valueOf(API.getCycleCount()));
+        cycleLength.setText(String.valueOf(API.getCycleLength()));
+        bestPerson.setText(String.valueOf(API.getBestPersonID()));
+        bestProfit.setText(String.valueOf(API.getBestPersonProfit()));
+        //bestBuy.setText(String.valueOf(API.getBestPersonID()));
+        //bestSell.setText(String.valueOf(API.getBestPersonID()));
+        worstPerson.setText(String.valueOf(API.getWorstPersonID()));
+        worstProfit.setText(String.valueOf(API.getWorstPersonProfit()));
+        //worstBuy.setText(String.valueOf(API.getBestPersonID()));
+        //worstSell.setText(String.valueOf(API.getBestPersonID()));
     }
     //TODO: Refreshes the GUI
 
@@ -82,6 +113,21 @@ public class StockGUI {
         lineChart.setTitle("Stock Data");
 
         rnd = new Random();
+
+        peopleAmount = new Text();
+        moneyStart = new Text();
+        stockStart = new Text();
+        stockCurrent = new Text();
+        cycleAmount = new Text();
+        cycleLength = new Text();
+        bestPerson = new Text();
+        bestProfit = new Text();
+        bestBuy = new Text();
+        bestSell = new Text();
+        worstPerson = new Text();
+        worstProfit = new Text();
+        worstBuy = new Text();
+        worstSell = new Text();
 
         updateGUI();
     }
