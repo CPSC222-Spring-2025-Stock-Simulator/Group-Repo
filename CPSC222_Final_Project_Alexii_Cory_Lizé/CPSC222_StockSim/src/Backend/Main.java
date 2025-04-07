@@ -29,7 +29,7 @@ public class Main extends Application
         Thread t = new Thread(cli);
         t.start();
         // Start and run the Backend.CLI
-        launch();
+        launch(args);
         // TODO: Start the GUI here
 
         while (!isRunning) {
@@ -99,13 +99,14 @@ public class Main extends Application
     }
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(StockGUI.class.getResource("StockGUI.fxml"));
-        fxmlLoader.setController(new StockGUI());
         Scene scene = new Scene(fxmlLoader.load());
-        StockGUI stockGUI = new StockGUI();
-        stage.setTitle("Stock Simulator");
+
+        StockGUI stockGUI = fxmlLoader.getController();
         stockGUI.updateGUI();
+
+        stage.setTitle("Stock Simulator");
         stage.setScene(scene);
         stage.show();
 
