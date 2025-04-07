@@ -106,6 +106,11 @@ public class Main extends Application
         StockGUI stockGUI = fxmlLoader.getController();
         stockGUI.updateGUI();
 
+        stage.setOnCloseRequest( windowEvent -> {
+            stage.close();
+            System.exit(0);
+        });
+
         stage.setTitle("Stock Simulator");
         stage.setScene(scene);
         stage.show();

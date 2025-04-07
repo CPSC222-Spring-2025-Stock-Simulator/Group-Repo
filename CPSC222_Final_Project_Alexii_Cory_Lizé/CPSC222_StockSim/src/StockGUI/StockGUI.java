@@ -7,8 +7,11 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
+import java.util.Random;
+
 public class StockGUI {
     CLI mainCLI = Main.getCli();
+    private Random rnd;
 
     @FXML
     public LineChart<Number, Number> lineChart;
@@ -26,9 +29,10 @@ public class StockGUI {
         // If the lineChart is null, we know the issue lies in the initialization process
         if (lineChart != null) {
             XYChart.Series<Number, Number> series = new XYChart.Series<>();
-            series.getData().add(new XYChart.Data<>(1, 23));
-            series.getData().add(new XYChart.Data<>(2, 14));
-            series.getData().add(new XYChart.Data<>(3, 15));
+            for (int i = 1; i < 100 ; i++) {
+                series.getData().add(new XYChart.Data<>(i, rnd.nextInt(1287)));
+            }
+
 
             lineChart.getData().add(series);
         } else {
@@ -74,11 +78,10 @@ public class StockGUI {
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("Y Axis");
 
-        // Create the LineChart
         LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
         lineChart.setTitle("Stock Data");
 
-        System.out.println("Line chart initialized: " + (lineChart != null));
+        rnd = new Random();
     }
 
 

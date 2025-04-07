@@ -263,6 +263,7 @@ public class CLI implements Runnable
      */
     public void quit(){
         //TODO: End everything else
+
     }
 
     /**
