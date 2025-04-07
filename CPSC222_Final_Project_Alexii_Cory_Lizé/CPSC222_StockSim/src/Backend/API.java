@@ -8,7 +8,7 @@ public class API
     private static int peopleAmount = 100 ;
     private static int cycleCount = 50 ;
     private static double cycleLength = 1.0 ;
-    private static int graphLength = 10 ;
+    private static final int graphLength = 10 ;
     //-------------------------------------------------------
 
 
@@ -75,6 +75,26 @@ public class API
     public static void setCycleLength(double cycleLength)
     {
         API.cycleLength = cycleLength;
+    }
+
+    public static int getGraphLength() {
+        return graphLength;
+    }
+
+    public static int getBestPersonID() {
+        return bestPersonID;
+    }
+
+    public static int getBestPersonProfit() {
+        return bestPersonProfit;
+    }
+
+    public static int getWorstPersonID() {
+        return worstPersonID;
+    }
+
+    public static int getWorstPersonProfit() {
+        return worstPersonProfit;
     }
 
     //------------------------------------------------------------

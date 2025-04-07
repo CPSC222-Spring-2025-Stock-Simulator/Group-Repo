@@ -1,5 +1,6 @@
 package StockGUI;
 
+import Backend.API;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -148,9 +149,17 @@ public class StartScreen {
 
     @FXML
     private void startClicked(ActionEvent event) throws IOException{
+
+        API.setCycleCount((int) cycleAmountSlider.getValue());
+        API.setPeopleAmount((int) peopleSlider.getValue());
+        API.setPeopleStartMoney((int) moneySlider.getValue());
+        API.setCycleLength(cycleLengthSlider.getValue());
+        API.setStockStartPrice((int) stockSlider.getValue());
+
         Parent parent = FXMLLoader.load(Objects.requireNonNull(StockGUI.class.getResource("StockGUI.fxml")));
         Scene main = new Scene(parent);
         StockGUI stockGUI = new StockGUI();
+
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setTitle("Stock Simulator");
         stockGUI.initialize();
