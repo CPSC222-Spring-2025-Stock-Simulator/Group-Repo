@@ -80,24 +80,25 @@ public class StockGUI {
         peopleAmount.setText(String.valueOf(API.getPeopleAmount()));
         moneyStart.setText(String.valueOf(API.getPeopleStartMoney()));
         stockStart.setText(String.valueOf(API.getStockStartPrice()));
-        stockCurrent.setText(String.valueOf(API.getCurrentStockPrice()));
+        stockCurrent.setText(String.format("%.2f", API.getCurrentStockPrice()));
         cycleAmount.setText(String.valueOf(API.getCycleCount()));
-        cycleLength.setText(String.valueOf(API.getCycleLength()));
+        cycleLength.setText(String.format("%.1f sec", API.getCycleLength()));
         //best
-        bestPerson.setText(String.valueOf(API.getBestPersonID()));
-        bestProfit.setText(String.valueOf(API.getBestPersonProfit()));
-        bestBuy.setText(String.valueOf(API.getBestPersonBuyPrice()));
-        bestSell.setText(String.valueOf(API.getBestPersonSellPrice()));
+        bestPerson.setText(String.valueOf( API.getBestPersonID()));
+        bestProfit.setText(String.format("%.2f", API.getBestPersonProfit()));
+        bestBuy.setText(String.format("%.2f", API.getBestPersonBuyPrice()));
+        bestSell.setText(String.format("%.2f", API.getBestPersonSellPrice()));
         //worst
         worstPerson.setText(String.valueOf(API.getWorstPersonID()));
-        worstProfit.setText(String.valueOf(API.getWorstPersonProfit()));
-        worstBuy.setText(String.valueOf(API.getWorstPersonBuyPrice()));
-        worstSell.setText(String.valueOf(API.getWorstPersonSellPrice()));
+        worstProfit.setText(String.format("%.2f", API.getWorstPersonProfit()));
+        worstBuy.setText(String.format("%.2f", API.getWorstPersonBuyPrice()));
+        worstSell.setText(String.format("%.2f", API.getWorstPersonSellPrice()));
 
         //line chart test:
         // If the lineChart is null, we know the issue lies in the initialization process
         Double[] stocks = API.getStockPriceHistory();
 
+        series.setName("Cycle: " + API.getCycleCounter());
         if (lineChart != null) {
             if(series != null){
                 series.getData().clear();
