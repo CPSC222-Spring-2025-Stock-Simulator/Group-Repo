@@ -46,7 +46,7 @@ public class StockGUI {
     public Text worstSell;
 
 
-
+    @FXML
     private final StringProperty pauseButtonText = new SimpleStringProperty("Pause");
     CLI mainCLI = Main.getCli();
     private Random rnd;
@@ -156,7 +156,7 @@ public class StockGUI {
 
         lineChart.setTitle("Stock Data");
 
-        ToggleButton pauseButton = new ToggleButton("Pause");
+        pauseButton = new ToggleButton("Pause");
         pauseButton.setText("Pause");
 
 
