@@ -42,33 +42,38 @@ public class StockGUI {
     public void updateGUI(){
         //line chart test:
         // If the lineChart is null, we know the issue lies in the initialization process
+        Double[] stocks = API.getStockPriceHistory();
+
         if (lineChart != null) {
-            XYChart.Series<Number, Number> series = new XYChart.Series<>();
-            for (int i = 1; i <= API.getGraphLength(); i++) {
-                series.getData().add(new XYChart.Data<>(i, rnd.nextInt(1287)));
-            }
+            if(stocks != null) {
+                XYChart.Series<Number, Number> series = new XYChart.Series<>();
+                for (int i = 1; i <= API.getGraphLength(); i++) {
+                    series.getData().add(new XYChart.Data<>(i, stocks[i - 1]));
+                }
 
-
-            lineChart.getData().add(series);
+                lineChart.getData().add(series);
+            } else System.out.println("No Stocks");
         } else {
             System.out.println("lineChart is null inside updateGUI()");
         }
 
-        //Labels
+        //Index
         peopleAmount.setText(String.valueOf(API.getPeopleAmount()));
         moneyStart.setText(String.valueOf(API.getPeopleStartMoney()));
         stockStart.setText(String.valueOf(API.getStockStartPrice()));
         stockCurrent.setText(String.valueOf(API.getCurrentStockPrice()));
         cycleAmount.setText(String.valueOf(API.getCycleCount()));
         cycleLength.setText(String.valueOf(API.getCycleLength()));
+        //best
         bestPerson.setText(String.valueOf(API.getBestPersonID()));
         bestProfit.setText(String.valueOf(API.getBestPersonProfit()));
-        //bestBuy.setText(String.valueOf(API.getBestPersonID()));
-        //bestSell.setText(String.valueOf(API.getBestPersonID()));
+        bestBuy.setText(String.valueOf(API.getBestPersonBuyPrice()));
+        bestSell.setText(String.valueOf(API.getBestPersonSellPrice()));
+        //worst
         worstPerson.setText(String.valueOf(API.getWorstPersonID()));
         worstProfit.setText(String.valueOf(API.getWorstPersonProfit()));
-        //worstBuy.setText(String.valueOf(API.getBestPersonID()));
-        //worstSell.setText(String.valueOf(API.getBestPersonID()));
+        worstBuy.setText(String.valueOf(API.getWorstPersonBuyPrice()));
+        worstSell.setText(String.valueOf(API.getWorstPersonSellPrice()));
     }
     //TODO: Refreshes the GUI
 
