@@ -48,12 +48,12 @@
                         </VBox>
                         <VBox spacing="2.0">
                            <children>
-                              <Text fx:id="peopleAmount" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                              <Text fx:id="moneyStart" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                              <Text fx:id="stockStart" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                              <Text fx:id="stockCurrent" layoutX="10.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                              <Text fx:id="cycleAmount" layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                              <Text fx:id="cycleLength" layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                              <Text fx:id="peopleAmount" strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="moneyStart" strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="stockStart" strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="stockCurrent" layoutX="10.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="cycleAmount" layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="cycleLength" layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -94,10 +94,10 @@
                         </VBox>
                         <VBox spacing="2.0">
                            <children>
-                              <Text fx:id="bestPerson" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                              <Text fx:id="bestProfit" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                              <Text fx:id="bestBuy" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                              <Text fx:id="bestSell" layoutX="10.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                              <Text fx:id="bestPerson" strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="bestProfit" strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="bestBuy" strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="bestSell" layoutX="10.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -121,10 +121,10 @@
                         </VBox>
                         <VBox spacing="2.0">
                            <children>
-                              <Text fx:id="worstPerson" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                              <Text fx:id="worstProfit" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                              <Text fx:id="worstBuy" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                              <Text fx:id="worstSell" layoutX="10.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                              <Text fx:id="worstPerson" strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="worstProfit" strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="worstBuy" strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="worstSell" layoutX="10.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

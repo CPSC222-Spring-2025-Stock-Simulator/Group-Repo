@@ -1,6 +1,7 @@
 package Backend;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -21,14 +22,14 @@ public class PersonManager
         this.executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
     }
 
-    public void startDecisionProcess(Stock stock) throws InterruptedException
+    public void startDecisionProcess(Stock stock, Random rng) throws InterruptedException
     {
         CountDownLatch latch = new CountDownLatch(people.size());
 
         for (Person person : people) {
             executor.submit(() ->
             {
-                person.decision(stock);
+                person.decision(stock, rng);
                 latch.countDown();
             });
         }

@@ -156,13 +156,14 @@ public class StartScreen {
         API.setCycleLength(cycleLengthSlider.getValue());
         API.setStockStartPrice((int) stockSlider.getValue());
 
-        Parent parent = FXMLLoader.load(Objects.requireNonNull(StockGUI.class.getResource("StockGUI.fxml")));
+        FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("StockGUI.fxml")));
+
+        Parent parent = loader.load();
+        StockGUI stockGUI = loader.getController();
         Scene main = new Scene(parent);
-        StockGUI stockGUI = new StockGUI();
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setTitle("Stock Simulator");
-        stockGUI.initialize();
         window.setScene(main);
         window.show();
     }

@@ -18,6 +18,7 @@ public class Main extends Application
     private static StockGUI gui;
     private static volatile boolean isRunning = false ;
     private static volatile boolean isPaused = false ;
+    private static final StopWatch stopWatch = new StopWatch() ;
 
     public static void main(String[] args) throws InterruptedException
     {
@@ -58,17 +59,35 @@ public class Main extends Application
 
         for (int i=0 ; i<cycleCount ; i++)                                       // this is where cycles happen
         {
-
-            personManager.startDecisionProcess(stock) ;
+            stopWatch.start() ;
+            personManager.startDecisionProcess(stock, random) ;
             // past this point, all person threads have either bought/sold or neither
             // API has been updated with the most recent stuff
             // API may be accessed
 
+            while (stopWatch.elapsed() < API.getCycleLength())
+            {
+                if (isPaused)
+                    pause() ;                                       //TODO: make method to pause main thread
+            }
+            stopWatch.stop().reset() ;
 
-            //while loop that checks if pause button is pressed until reached cycle length
-
-            // update gui
+            gui.updateGUI() ;
         }
+    }
+
+    public static void pause() throws InterruptedException
+    {
+        stopWatch.stop() ;
+        gui.pause() ;
+
+        while (isPaused)
+        {
+            Thread.sleep(100) ;
+        }
+
+        gui.play();
+        stopWatch.start() ;
     }
 
     public static void setIsRunning(boolean isRunning) {
