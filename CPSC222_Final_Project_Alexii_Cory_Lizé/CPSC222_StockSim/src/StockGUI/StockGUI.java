@@ -3,10 +3,14 @@ package StockGUI;
 import Backend.API;
 import Backend.CLI;
 import Backend.Main;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.text.Text;
 
 import java.util.Random;
@@ -27,6 +31,9 @@ public class StockGUI {
     public Text worstBuy;
     public Text worstSell;
 
+
+
+    private final StringProperty pauseButtonText = new SimpleStringProperty("Pause");
     CLI mainCLI = Main.getCli();
     private Random rnd;
 
@@ -38,6 +45,20 @@ public class StockGUI {
 
     @FXML
     public NumberAxis yAxis;
+
+    @FXML
+    public ToggleButton pauseButton;
+
+    @FXML
+    private void handleToggleButtonClick(ActionEvent event){
+        if(pauseButton.isSelected()){
+            pauseButtonText.setValue("Play");
+        }
+        else{
+            pauseButtonText.setValue("Pause");
+        }
+
+    }
 
     public void updateGUI(){
         //line chart test:
@@ -105,8 +126,14 @@ public class StockGUI {
     private void setCycleLength(double seconds){
         mainCLI.setCycleLength(seconds);
     }
+    public String getPauseButtonText() {
+        return pauseButtonText.get();
+    }
 
-    @FXML
+    public StringProperty pauseButtonTextProperty() {
+        return pauseButtonText;
+    }
+
     public void initialize() {
         NumberAxis xAxis = new NumberAxis();
         xAxis.setLabel("X Axis");
@@ -116,6 +143,10 @@ public class StockGUI {
 
         LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
         lineChart.setTitle("Stock Data");
+
+        ToggleButton pauseButton = new ToggleButton("Pause");
+        pauseButton.setText("Pause");
+
 
         rnd = new Random();
 
