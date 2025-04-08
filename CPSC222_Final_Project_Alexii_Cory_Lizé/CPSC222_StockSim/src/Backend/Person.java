@@ -19,8 +19,8 @@ import java.util.Random;
 public class Person
 {
     private final Integer ID ;
-    private double buyPrice ;                                       // What price they are willing to buy at
-    private double sellPrice ;                                     // What price they are willing to sell at
+    private final double buyPrice ;                                       // What price they are willing to buy at
+    private final double sellPrice ;                                     // What price they are willing to sell at
     private double money ;                                  // How much current money a person has
     private int shares ;
 
@@ -28,10 +28,12 @@ public class Person
      * makes a person using ID
      * @param ID the threads ID
      */
-    public Person(Integer ID)
+    public Person(Integer ID, Random rng)
     {
         this.ID = ID ;
         this.money = API.getPeopleStartMoney() ;
+        this.buyPrice = rng.nextDouble(1, 1000) ;
+        this.sellPrice = rng.nextDouble(buyPrice, 1000) ;
     }
 
     public Integer getID()
@@ -104,6 +106,7 @@ public class Person
         double deltaVelocity = 0 ;       // how much to change velocity
         double deltaAcceleration = 0 ;       // how much to change acceleration
 
+
         // decide whether to affect stock acceleration or velocity
         if (strength < 0.5)
         {
@@ -114,6 +117,8 @@ public class Person
             // big strength means influence acceleration
             deltaAcceleration = isBuy? delta : -delta ;
         }
+
+
 
         stock.updateVelocity(deltaVelocity) ;
         stock.updateAcceleration(deltaAcceleration) ;

@@ -1,8 +1,6 @@
 package Backend;
 
-import java.util.ArrayList;
 import java.util.Random;
-
 import StockGUI.StockGUI;
 import StockGUI.StartScreen;
 import javafx.application.Application;

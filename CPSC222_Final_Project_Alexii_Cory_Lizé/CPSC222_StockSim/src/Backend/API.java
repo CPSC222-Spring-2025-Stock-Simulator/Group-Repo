@@ -9,6 +9,7 @@ public class API
     private static int cycleCount = 50 ;
     private static double cycleLength = 1.0 ;
     private static final int graphLength = 10 ;
+    private static double eventChance = 1.0 ;
     //-------------------------------------------------------
 
 
@@ -26,6 +27,8 @@ public class API
     private static Double worstPersonSellPrice ;
 
     private static double currentStockPrice ;
+    private static String eventType ;
+    private static double eventStrength ;
     //--------------------------------------------------------
 
 
@@ -71,7 +74,7 @@ public class API
         API.cycleCount = cycleCount ;
     }
 
-    public static double getCycleLength()
+    public static Double getCycleLength()
     {
         return cycleLength ;
     }
@@ -84,6 +87,14 @@ public class API
     public static int getGraphLength()
     {
         return graphLength ;
+    }
+
+    public static double getEventChance() {
+        return eventChance ;
+    }
+
+    public static void setEventChance(double eventChance) {
+        API.eventChance = eventChance;
     }
 
     //------------------------------------------------------------
@@ -185,6 +196,22 @@ public class API
 
     public static void setWorstPersonSellPrice(Double worstPersonSellPrice) {
         API.worstPersonSellPrice = worstPersonSellPrice;
+    }
+
+    public static String getEventType() {
+        return eventType;
+    }
+
+    public static void setEventType(String eventType) {
+        API.eventType = eventType;
+    }
+
+    public static double getEventStrength() {
+        return eventStrength;
+    }
+
+    public static void setEventStrength(double eventStrength) {
+        API.eventStrength = eventStrength;
     }
 
     //------------------------------------------------------------
