@@ -79,15 +79,11 @@ public class StockGUI {
 
 
     //TODO: Use these when triggering their respective buttons
-    private void pause(){
+    public void pause(){
         mainCLI.pause();
     }
-    private void play(){
+    public void play(){
         mainCLI.play();
-    }
-    private void quit(){
-        mainCLI.quit();
-        //TODO: Close the GUI thread using its safe close thing (I don't remember how, sorry)
     }
 
     //TODO: Use these if you add the ability to enter
