@@ -61,15 +61,13 @@ public class Main extends Application
 
             personManager.startDecisionProcess(stock) ;
             // past this point, all person threads have either bought/sold or neither
+            // API has been updated with the most recent stuff
             // API may be accessed
 
 
+            //while loop that checks if pause button is pressed until reached cycle length
 
-
-
-
-            if (!isRunning)
-                break ;
+            // update gui
         }
     }
 

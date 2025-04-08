@@ -41,9 +41,62 @@ public class PersonManager
         }
     }
 
-
     public ArrayList<Person> getPeople()
     {
         return people ;
+    }
+
+    public void updateBestWorstPerson()
+    {
+        Person best = getBest() ;
+        Person worst = getWorst() ;
+
+        API.setBestPersonID(best.getID());
+        API.setBestPersonProfit(best.getProfit());
+        API.setBestPersonBuyPrice(best.getBuyPrice());
+        API.setBestPersonSellPrice(best.getSellPrice());
+
+        API.setWorstPersonID(worst.getID());
+        API.setWorstPersonProfit(worst.getProfit());
+        API.setWorstPersonBuyPrice(worst.getBuyPrice());
+        API.setWorstPersonSellPrice(worst.getSellPrice());
+    }
+
+    private Person getBest()
+    {
+        Person best = people.getFirst() ;
+        double bestProfit = best.getProfit() ;
+
+        for (Person person : people)
+        {
+            double personProfit = person.getProfit() ;
+
+            if (personProfit > bestProfit)
+            {
+                best = person ;
+                bestProfit = personProfit ;
+            }
+        }
+
+        return best ;
+    }
+
+    private Person getWorst()
+    {
+        Person worst = people.getFirst() ;
+        double worstProfit = worst.getProfit() ;
+
+        for (Person person : people)
+        {
+            double personProfit = person.getProfit() ;
+
+            if (personProfit < worstProfit)
+            {
+                worst = person ;
+                worstProfit = personProfit ;
+            }
+        }
+
+        return worst ;
     }
 }
