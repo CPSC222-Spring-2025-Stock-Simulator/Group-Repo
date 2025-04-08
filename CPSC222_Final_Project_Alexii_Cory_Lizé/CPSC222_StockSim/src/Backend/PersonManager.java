@@ -38,8 +38,10 @@ public class PersonManager
 
         synchronized (stock)
         {
-            stock.update(); // apply velocity + acceleration to price
+            stock.update() ; // apply velocity + acceleration to price
         }
+
+        updateBestWorstPerson() ;
     }
 
     public ArrayList<Person> getPeople()
@@ -52,15 +54,15 @@ public class PersonManager
         Person best = getBest() ;
         Person worst = getWorst() ;
 
-        API.setBestPersonID(best.getID());
-        API.setBestPersonProfit(best.getProfit());
-        API.setBestPersonBuyPrice(best.getBuyPrice());
-        API.setBestPersonSellPrice(best.getSellPrice());
+        API.setBestPersonID(best.getID()) ;
+        API.setBestPersonProfit(best.getProfit()) ;
+        API.setBestPersonBuyPrice(best.getBuyPrice()) ;
+        API.setBestPersonSellPrice(best.getSellPrice()) ;
 
-        API.setWorstPersonID(worst.getID());
-        API.setWorstPersonProfit(worst.getProfit());
-        API.setWorstPersonBuyPrice(worst.getBuyPrice());
-        API.setWorstPersonSellPrice(worst.getSellPrice());
+        API.setWorstPersonID(worst.getID()) ;
+        API.setWorstPersonProfit(worst.getProfit()) ;
+        API.setWorstPersonBuyPrice(worst.getBuyPrice()) ;
+        API.setWorstPersonSellPrice(worst.getSellPrice()) ;
     }
 
     private Person getBest()
