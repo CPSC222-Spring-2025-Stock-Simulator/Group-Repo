@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
@@ -38,7 +37,6 @@
                               <Label text="Amount of People" />
                               <Label layoutX="10.0" layoutY="10.0" text="Starting Money" />
                               <Label layoutX="10.0" layoutY="10.0" text="Starting Stock Price" />
-                              <Label layoutX="10.0" layoutY="10.0" text="Current Stock Price" />
                               <Label layoutX="10.0" layoutY="10.0" text="Amount of Cycles" />
                               <Label layoutX="10.0" layoutY="10.0" text="Length of Cycles" />
                            </children>
@@ -51,7 +49,6 @@
                               <Text fx:id="peopleAmount" strokeType="OUTSIDE" strokeWidth="0.0" />
                               <Text fx:id="moneyStart" strokeType="OUTSIDE" strokeWidth="0.0" />
                               <Text fx:id="stockStart" strokeType="OUTSIDE" strokeWidth="0.0" />
-                              <Text fx:id="stockCurrent" layoutX="10.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" />
                               <Text fx:id="cycleAmount" layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" />
                               <Text fx:id="cycleLength" layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
@@ -59,25 +56,30 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
                         </VBox>
-                        <Region prefHeight="102.0" prefWidth="141.0" HBox.hgrow="ALWAYS" />
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                        <Region prefHeight="109.0" prefWidth="108.0" HBox.hgrow="ALWAYS" />
+                        <VBox alignment="TOP_CENTER" prefHeight="109.0" prefWidth="177.0">
                            <children>
                               <Region prefHeight="12.0" prefWidth="94.0" VBox.vgrow="ALWAYS" />
-                              <Button fx:id="stopButton" mnemonicParsing="false" text="Stop" />
-                              <Region layoutX="10.0" layoutY="72.0" prefHeight="12.0" prefWidth="94.0" VBox.vgrow="ALWAYS" />
+                              <HBox alignment="CENTER" prefHeight="20.0" prefWidth="100.0">
+                                 <children>
+                                    <Label prefHeight="17.0" prefWidth="131.0" text="Current Stock Price" />
+                                    <Text fx:id="stockCurrent" strokeType="OUTSIDE" strokeWidth="0.0" />
+                                 </children>
+                              </HBox>
+                              <Region layoutX="10.0" layoutY="72.0" prefHeight="27.0" prefWidth="100.0" VBox.vgrow="ALWAYS" />
                               <ToggleButton fx:id="pauseButton" mnemonicParsing="false" onAction="#handleToggleButtonClick" text="Pause" textAlignment="CENTER" />
                               <Region layoutX="10.0" layoutY="10.0" prefHeight="12.0" prefWidth="94.0" VBox.vgrow="ALWAYS" />
                            </children>
                         </VBox>
-                        <Region prefHeight="102.0" prefWidth="194.0" HBox.hgrow="ALWAYS" />
+                        <Region prefHeight="109.0" prefWidth="187.0" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
                </children>
             </VBox>
-            <VBox spacing="10.0">
+            <VBox prefWidth="210.0" spacing="10.0">
                <children>
                   <Label text="Events" />
-                  <ListView fx:id="eventDisplay" prefHeight="200.0" prefWidth="200.0" />
+                  <ListView fx:id="eventDisplay" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                   <Label text="Best Trader" />
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
