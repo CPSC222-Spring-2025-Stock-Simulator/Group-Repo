@@ -46,8 +46,6 @@ public class StockGUI {
     public Text worstSell;
 
 
-    @FXML
-    private final StringProperty pauseButtonText = new SimpleStringProperty("Pause");
     CLI mainCLI = Main.getCli();
     private Random rnd;
 
@@ -61,15 +59,18 @@ public class StockGUI {
     public NumberAxis yAxis;
 
     @FXML
-    public ToggleButton pauseButton;
+    private ToggleButton pauseButton;
 
     @FXML
     private void handleToggleButtonClick(ActionEvent event){
         if(pauseButton.isSelected()){
-            pauseButtonText.setValue("Play");
+            pauseButton.setText("Play");
+            pauseButton.setStyle("-fx-background-color: lightgreen;");
+
         }
         else{
-            pauseButtonText.setValue("Pause");
+            pauseButton.setText("Pause");
+            pauseButton.setStyle("-fx-background-color: lightcoral;");
         }
 
     }
@@ -139,13 +140,6 @@ public class StockGUI {
     private void setCycleLength(double seconds){
         mainCLI.setCycleLength(seconds);
     }
-    public String getPauseButtonText() {
-        return pauseButtonText.get();
-    }
-
-    public StringProperty pauseButtonTextProperty() {
-        return pauseButtonText;
-    }
 
     public void initialize() {
         xAxis = (NumberAxis) lineChart.getXAxis();
@@ -155,10 +149,6 @@ public class StockGUI {
         yAxis.setLabel("Y Axis");
 
         lineChart.setTitle("Stock Data");
-
-        pauseButton = new ToggleButton("Pause");
-        pauseButton.setText("Pause");
-
 
         rnd = new Random();
 
