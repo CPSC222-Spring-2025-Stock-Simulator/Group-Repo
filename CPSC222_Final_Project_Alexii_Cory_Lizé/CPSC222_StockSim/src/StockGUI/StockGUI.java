@@ -96,7 +96,7 @@ public class StockGUI {
 
         //line chart test:
         // If the lineChart is null, we know the issue lies in the initialization process
-        Double[] stocks = API.getStockPriceHistory();
+        Float[] stocks = API.getStockPriceHistory();
 
         series.setName("Cycle: " + API.getCycleCounter());
         if (lineChart != null) {
@@ -104,7 +104,7 @@ public class StockGUI {
                 series.getData().clear();
             if (stocks != null) {
                 for (int i = 1; i <= API.getGraphLength(); i++) {
-                    Double stockPrice = stocks[i - 1];
+                    Float stockPrice = stocks[i - 1];
                     if (stockPrice != null) {
                         // Add stock price to the chart
                         series.getData().add(new XYChart.Data<>(i, stockPrice));
@@ -145,7 +145,7 @@ public class StockGUI {
     private void setCycleAmount(int amount){
         mainCLI.setCycleCount(amount);
     }
-    private void setCycleLength(double seconds){
+    private void setCycleLength(float seconds){
         mainCLI.setCycleLength(seconds);
     }
 
