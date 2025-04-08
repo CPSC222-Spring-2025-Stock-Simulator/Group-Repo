@@ -18,14 +18,14 @@ public class API
     private static int cycleCounter = 0 ;
 
     private static int bestPersonID ;
-    private static int bestPersonMoney ;
+    private static Double bestPersonMoney ;
     private static int bestPersonShares ;
     private static Double bestPersonProfit ;
     private static Double bestPersonBuyPrice ;
     private static Double bestPersonSellPrice ;
 
     private static int worstPersonID ;
-    private static int worstPersonMoney ;
+    private static Double worstPersonMoney ;
     private static int worstPersonShares ;
     private static Double worstPersonProfit ;
     private static Double worstPersonBuyPrice ;
@@ -138,8 +138,8 @@ public class API
         return cycleCounter;
     }
 
-    public static void setCycleCounter(int cycleCounter) {
-        API.cycleCounter = cycleCounter;
+    public static void incrementCycleCounter() {
+        API.cycleCounter++ ;
     }
 
     public static double getCurrentStockPrice()
@@ -160,11 +160,11 @@ public class API
         API.bestPersonID = bestPersonID;
     }
 
-    public static int getBestPersonMoney() {
+    public static Double getBestPersonMoney() {
         return bestPersonMoney;
     }
 
-    public static void setBestPersonMoney(int bestPersonMoney) {
+    public static void setBestPersonMoney(Double bestPersonMoney) {
         API.bestPersonMoney = bestPersonMoney;
     }
 
@@ -208,11 +208,11 @@ public class API
         API.worstPersonID = worstPersonID;
     }
 
-    public static int getWorstPersonMoney() {
+    public static Double getWorstPersonMoney() {
         return worstPersonMoney;
     }
 
-    public static void setWorstPersonMoney(int worstPersonMoney) {
+    public static void setWorstPersonMoney(Double worstPersonMoney) {
         API.worstPersonMoney = worstPersonMoney;
     }
 

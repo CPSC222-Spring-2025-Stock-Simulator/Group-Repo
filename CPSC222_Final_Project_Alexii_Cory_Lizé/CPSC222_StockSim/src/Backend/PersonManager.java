@@ -43,24 +43,29 @@ public class PersonManager
         }
 
         updateBestWorstPerson() ;
+        updateCycleCount() ;
     }
 
-    public ArrayList<Person> getPeople()
+    private void updateCycleCount()
     {
-        return people ;
+        API.incrementCycleCounter() ;
     }
 
-    public void updateBestWorstPerson()
+    private void updateBestWorstPerson()
     {
         Person best = getBest() ;
         Person worst = getWorst() ;
 
         API.setBestPersonID(best.getID()) ;
+        API.setBestPersonMoney(best.getMoney());
+        API.setBestPersonShares(best.getShares());
         API.setBestPersonProfit(best.getProfit()) ;
         API.setBestPersonBuyPrice(best.getBuyPrice()) ;
         API.setBestPersonSellPrice(best.getSellPrice()) ;
 
         API.setWorstPersonID(worst.getID()) ;
+        API.setWorstPersonMoney(worst.getMoney()) ;
+        API.setWorstPersonShares(worst.getShares()) ;
         API.setWorstPersonProfit(worst.getProfit()) ;
         API.setWorstPersonBuyPrice(worst.getBuyPrice()) ;
         API.setWorstPersonSellPrice(worst.getSellPrice()) ;
