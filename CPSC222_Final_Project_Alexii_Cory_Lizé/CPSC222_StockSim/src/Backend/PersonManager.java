@@ -74,11 +74,11 @@ public class PersonManager
     private Person getBest()
     {
         Person best = people.getFirst() ;
-        double bestProfit = best.getProfit() ;
+        float bestProfit = best.getProfit() ;
 
         for (Person person : people)
         {
-            double personProfit = person.getProfit() ;
+            float personProfit = person.getProfit() ;
 
             if (personProfit > bestProfit)
             {
@@ -93,11 +93,11 @@ public class PersonManager
     private Person getWorst()
     {
         Person worst = people.getFirst() ;
-        double worstProfit = worst.getProfit() ;
+        float worstProfit = worst.getProfit() ;
 
         for (Person person : people)
         {
-            double personProfit = person.getProfit() ;
+            float personProfit = person.getProfit() ;
 
             if (personProfit < worstProfit)
             {

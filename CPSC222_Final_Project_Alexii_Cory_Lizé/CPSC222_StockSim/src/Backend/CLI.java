@@ -21,7 +21,7 @@ public class CLI implements Runnable
     private int startingMoney = API.getPeopleStartMoney();
     private int people = API.getPeopleAmount() ;
     private int cycleCount = API.getCycleCount() ;
-    private double cycleLength = API.getCycleLength() ;
+    private float cycleLength = API.getCycleLength() ;
     private int startingStockPrice = API.getStockStartPrice() ;
     // By seconds
 
@@ -127,14 +127,14 @@ public class CLI implements Runnable
                 break;
             case "SETDELAY":
                 if(userInput.length > 1){
-                    // Requires a double input in the second index
+                    // Requires a float input in the second index
                     try {
-                        double i =  Double.parseDouble(userInput[1]);
+                        float i =  Float.parseFloat(userInput[1]);
                         i = Math.abs(i);
                         setCycleLength(i);
                         API.setCycleLength(i);
                         System.out.println(cyanText + "Delay set to " + i + " seconds " + textReset);
-                        // Get and process a double value
+                        // Get and process a float value
                     } catch (Exception e){
                         System.out.println(redText + "Invalid Value" + textReset);
                         // Handle non-numeric values
@@ -318,14 +318,14 @@ public class CLI implements Runnable
      * Sets the delay between cycles in seconds
      * @param cycleLength Delay between cycles in seconds (can be decimal)
      */
-    public void setCycleLength(double cycleLength){
+    public void setCycleLength(float cycleLength){
         this.cycleLength = cycleLength;
     }
 
     /**
      * @return Delay between cycles in seconds
      */
-    public double getCycleLength() {
+    public float getCycleLength() {
         return cycleLength;
     }
 

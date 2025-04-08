@@ -19,12 +19,12 @@ import java.util.Random;
 public class Person
 {
     private final Integer ID ;
-    private double buyPrice ;                                       // What price they are willing to buy at
-    private double sellPrice ;                                     // What price they are willing to sell at
-    private double money ;                                  // How much current money a person has
+    private float buyPrice ;                                       // What price they are willing to buy at
+    private float sellPrice ;                                     // What price they are willing to sell at
+    private float money ;                                  // How much current money a person has
     private int shares ;
     private int FOMOCounter ;                               // fear of missing out on shares counter
-    private int FOMOLimit ;
+    private final int FOMOLimit ;
 
     /**
      * makes a person using ID
@@ -38,11 +38,11 @@ public class Person
         this.FOMOCounter = 0 ;
         this.FOMOLimit = rng.nextInt(0, API.getCycleCount()/5) ;
 
-        double delta = rng.nextDouble(0, 1.0) ;
-        double stockPrice = API.getStockStartPrice() ;
+        float delta = rng.nextFloat(0, 2.0f) ;
+        float stockPrice = API.getStockStartPrice() ;
 
-        this.buyPrice = rng.nextDouble(stockPrice*(1-delta), stockPrice * (1+delta)) ;
-        this.sellPrice = rng.nextDouble(buyPrice, stockPrice * (1+delta) ) ;
+        this.buyPrice = rng.nextFloat(stockPrice, stockPrice*(1+delta)) ;
+        this.sellPrice = rng.nextFloat(buyPrice, stockPrice * (1+delta) ) ;
 
         /*
             The reason for delta is to make sure the preferred /selling price is a function of the start stock price
@@ -55,17 +55,17 @@ public class Person
         return ID ;
     }
 
-    public double getBuyPrice()
+    public float getBuyPrice()
     {
         return buyPrice ;
     }
 
-    public double getSellPrice()
+    public float getSellPrice()
     {
         return sellPrice ;
     }
 
-    public double getMoney()
+    public float getMoney()
     {
         return money ;
     }
@@ -75,31 +75,32 @@ public class Person
         return shares ;
     }
 
-    public double getProfit()
+    public float getProfit()
     {
         return money + shares* API.getCurrentStockPrice() - API.getPeopleStartMoney() ;
     }
 
     public void decision(Stock stock, Random rng)
     {
-        double stockPrice = stock.getPrice() ;
+        float stockPrice = stock.getPrice() ;
 
-        double delta = rng.nextDouble(0.1, 1) ;    //factor of randomness
-        double strength ;
+        float delta = rng.nextFloat(0.1f, 1) ;    //factor of randomness
+        float strength ;
         boolean isBuy ;
 
         if (stockPrice < buyPrice && money > stockPrice)
         {
             isBuy = true ;
 
-            double ratio = (stockPrice/buyPrice) ;      // ratio of price/buyPrice
+            float ratio = (stockPrice/buyPrice) ;      // ratio of price/buyPrice
             strength = (1-ratio)*delta ;         // percentage of how willing you are to buy
 
-            double spend = money*strength ;                // they want to spend a percent of money
+            float spend = money*strength ;                // they want to spend a percent of money
 
             int buyStockAmount = (int)Math.floor(spend/stockPrice) ;
 
             money -= buyStockAmount*stockPrice ;
+
             shares += buyStockAmount ;
 
             sellPrice *= 2 - (stockPrice/buyPrice) ;     // increase preferred sell price based on buying difference
@@ -108,7 +109,7 @@ public class Person
         {
             isBuy = false ;
 
-            double ratio = (sellPrice/stockPrice) ;      // ratio of sellPrice/price
+            float ratio = (sellPrice/stockPrice) ;      // ratio of sellPrice/price
             strength = (1-ratio)*delta ;         // percentage of how willing you are to sell
 
             int sellStockAmount = (int)Math.ceil(shares*strength) ;                // they want to sell a percent of shares
@@ -116,14 +117,14 @@ public class Person
             money += sellStockAmount*stockPrice ;
             shares -= sellStockAmount ;
 
-
+            sellPrice *= 2 - (sellPrice/stockPrice) ;     // increase preferred sell price based on selling difference
             buyPrice *= 2 - (sellPrice/stockPrice) ; // increase preferred buy price based on selling difference
         } else
             {
                 if (FOMOCounter == FOMOLimit) // they've reached their limit and need to update their buy and sell price
                 {
-                    this.buyPrice = rng.nextDouble(stockPrice*(1-delta), stockPrice * (1+delta)) ;
-                    this.sellPrice = rng.nextDouble(buyPrice, stockPrice * (1+delta) ) ;
+                    this.buyPrice = rng.nextFloat(stockPrice*(1-delta), stockPrice * (1+delta)) ;
+                    this.sellPrice = rng.nextFloat(buyPrice, stockPrice * (1+delta) ) ;
 
                     FOMOCounter = 0 ;
                 }
@@ -134,8 +135,8 @@ public class Person
         FOMOCounter = 0 ;
 
 
-        double deltaVelocity = 0 ;       // how much to change velocity
-        double deltaAcceleration = 0 ;       // how much to change acceleration
+        float deltaVelocity = 0 ;       // how much to change velocity
+        float deltaAcceleration = 0 ;       // how much to change acceleration
 
 
         // decide whether to affect stock acceleration or velocity

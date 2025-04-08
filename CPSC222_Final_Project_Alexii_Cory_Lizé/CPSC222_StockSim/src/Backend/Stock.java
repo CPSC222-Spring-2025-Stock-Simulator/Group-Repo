@@ -4,29 +4,29 @@ import java.util.Random;
 
 public class Stock
 {
-    private double price;
-    private double velocity;
-    private double acceleration;
+    private float price;
+    private float velocity;
+    private float acceleration;
     private Random rng = new Random() ;
 
-    public Stock(double startPrice)
+    public Stock(float startPrice)
     {
         price = startPrice ;
         this.velocity = 0 ;
         this.acceleration = 0 ;
     }
 
-    public double getPrice()
+    public float getPrice()
     {
         return price ;
     }
 
-    public synchronized void updateVelocity(double deltaVelocity)
+    public synchronized void updateVelocity(float deltaVelocity)
     {
         this.velocity += deltaVelocity ;
     }
 
-    public synchronized void updateAcceleration(double deltaAcc)
+    public synchronized void updateAcceleration(float deltaAcc)
     {
         this.acceleration += deltaAcc ;
     }
@@ -36,9 +36,9 @@ public class Stock
         velocity += acceleration ;
         price += velocity ;
 
-        if (rng.nextDouble(0, 1.0) < API.getEventChance())
+        if (rng.nextFloat(0f, 1.0f) < API.getEventChance())
         {
-            double event = rng.nextDouble(0,2) ;
+            float event = rng.nextFloat(0,2) ;
 
             if (event > 1)
             {
