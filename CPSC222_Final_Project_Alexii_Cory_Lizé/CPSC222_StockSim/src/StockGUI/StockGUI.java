@@ -80,24 +80,25 @@ public class StockGUI {
         peopleAmount.setText(String.valueOf(API.getPeopleAmount()));
         moneyStart.setText(String.valueOf(API.getPeopleStartMoney()));
         stockStart.setText(String.valueOf(API.getStockStartPrice()));
-        stockCurrent.setText(String.valueOf(API.getCurrentStockPrice()));
+        stockCurrent.setText(String.format("%.2f", API.getCurrentStockPrice()));
         cycleAmount.setText(String.valueOf(API.getCycleCount()));
-        cycleLength.setText(String.valueOf(API.getCycleLength()));
+        cycleLength.setText(String.format("%.1f sec", API.getCycleLength()));
         //best
-        bestPerson.setText(String.valueOf(API.getBestPersonID()));
-        bestProfit.setText(String.valueOf(API.getBestPersonProfit()));
-        bestBuy.setText(String.valueOf(API.getBestPersonBuyPrice()));
-        bestSell.setText(String.valueOf(API.getBestPersonSellPrice()));
+        bestPerson.setText(String.valueOf( API.getBestPersonID()));
+        bestProfit.setText(String.format("%.2f", API.getBestPersonProfit()));
+        bestBuy.setText(String.format("%.2f", API.getBestPersonBuyPrice()));
+        bestSell.setText(String.format("%.2f", API.getBestPersonSellPrice()));
         //worst
         worstPerson.setText(String.valueOf(API.getWorstPersonID()));
-        worstProfit.setText(String.valueOf(API.getWorstPersonProfit()));
-        worstBuy.setText(String.valueOf(API.getWorstPersonBuyPrice()));
-        worstSell.setText(String.valueOf(API.getWorstPersonSellPrice()));
+        worstProfit.setText(String.format("%.2f", API.getWorstPersonProfit()));
+        worstBuy.setText(String.format("%.2f", API.getWorstPersonBuyPrice()));
+        worstSell.setText(String.format("%.2f", API.getWorstPersonSellPrice()));
 
         //line chart test:
         // If the lineChart is null, we know the issue lies in the initialization process
         Double[] stocks = API.getStockPriceHistory();
 
+        series.setName("Cycle: " + API.getCycleCounter());
         if (lineChart != null) {
             if(series != null){
                 series.getData().clear();
@@ -107,14 +108,8 @@ public class StockGUI {
                     if (stockPrice != null) {
                         // Add stock price to the chart
                         series.getData().add(new XYChart.Data<>(i, stockPrice));
-                    } else {
-                        // Handling null stock prices (if any)
-                        // You can either skip this entry or use a default value like 0.0 or Double.NaN
-                        series.getData().add(new XYChart.Data<>(i, 0.0));  // Or use Double.NaN for no value
-                        System.out.println("Null stock price at index: " + (i - 1));
                     }
                 }
-                System.out.println("Rounds done");
             } else {
                 System.out.println("No Stocks");
             }

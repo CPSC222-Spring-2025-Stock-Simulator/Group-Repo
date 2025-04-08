@@ -17,6 +17,10 @@ import java.io.IOException;
 
 public class StartScreen {
 
+    @FXML public Slider graphLengthSlider;
+    @FXML public TextField graphLengthText;
+    @FXML public Slider eventSlider;
+    @FXML public TextField eventText;
     @FXML private Slider cycleAmountSlider;
     @FXML private TextField cycleAmountText;
     @FXML private Slider cycleLengthSlider;
@@ -67,6 +71,20 @@ public class StartScreen {
             System.out.println("Invalid number in TextField, using default slider value.");
             stockSlider.setValue(0);
         }
+        try {
+            double s = Double.parseDouble(graphLengthText.getText());
+            graphLengthSlider.setValue(s);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid number in TextField, using default slider value.");
+            graphLengthSlider.setValue(0);
+        }
+        try {
+            double s = Double.parseDouble(eventText.getText());
+            eventSlider.setValue(s);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid number in TextField, using default slider value.");
+            eventSlider.setValue(0);
+        }
 
         cycleAmountSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             cycleAmountText.setText(String.format("%.0f", newValue.doubleValue()));
@@ -82,6 +100,12 @@ public class StartScreen {
         });
         stockSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             stockText.setText(String.format("%.0f", newValue.doubleValue()));
+        });
+        graphLengthSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            graphLengthText.setText(String.format("%.0f", newValue.doubleValue()));
+        });
+        eventSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            eventText.setText(String.format("%.0f", newValue.doubleValue()));
         });
 
         cycleAmountText.textProperty().addListener((obs, oldVal, newVal) -> {
@@ -128,6 +152,23 @@ public class StartScreen {
                 // If the input isn't a number (e.g., user types letters), just ignore
             }
         });
+        graphLengthText.textProperty().addListener((obs, oldVal, newVal) -> {
+            try {
+                double value = Double.parseDouble(newVal);
+                graphLengthSlider.setValue(value);
+            } catch (NumberFormatException e) {
+                // If the input isn't a number (e.g., user types letters), just ignore
+            }
+        });
+
+        eventText.textProperty().addListener((obs, oldVal, newVal) -> {
+            try {
+                double value = Double.parseDouble(newVal);
+                eventSlider.setValue(value);
+            } catch (NumberFormatException e) {
+                // If the input isn't a number (e.g., user types letters), just ignore
+            }
+        });
 
 
     }
@@ -140,6 +181,8 @@ public class StartScreen {
         API.setPeopleStartMoney((int) moneySlider.getValue());
         API.setCycleLength(cycleLengthSlider.getValue());
         API.setStockStartPrice((int) stockSlider.getValue());
+        API.setEventChance(eventSlider.getValue()/100);
+        API.setGraphLength((int) graphLengthSlider.getValue());
 
         FXMLLoader loader = new FXMLLoader(StockGUI.class.getResource("StockGUI.fxml"));
         AnchorPane parent = loader.load();
