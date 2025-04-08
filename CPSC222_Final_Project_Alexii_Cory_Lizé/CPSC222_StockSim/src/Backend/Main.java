@@ -60,7 +60,7 @@ public class Main extends Application
         for (int i=0 ; i<cycleCount ; i++)                                       // this is where cycles happen
         {
             stopWatch.start() ;
-            personManager.startDecisionProcess(stock) ;
+            personManager.startDecisionProcess(stock, random) ;
             // past this point, all person threads have either bought/sold or neither
             // API has been updated with the most recent stuff
             // API may be accessed

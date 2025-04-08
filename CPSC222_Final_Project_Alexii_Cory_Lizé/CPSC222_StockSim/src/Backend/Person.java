@@ -1,6 +1,8 @@
 package Backend;
 
 
+import java.util.Random;
+
 public class Person
 {
     private final Integer ID ;
@@ -49,11 +51,11 @@ public class Person
         return money + shares* API.getCurrentStockPrice() ;
     }
 
-    public void decision(Stock stock)
+    public void decision(Stock stock, Random rng)
     {
         double stockPrice = stock.getPrice() ;
 
-        double delta = Math.random() ;    //randomness
+        double delta = rng.nextDouble(0.9, 1) ;    //randomness
         double strength ;
         boolean isBuy ;
 
