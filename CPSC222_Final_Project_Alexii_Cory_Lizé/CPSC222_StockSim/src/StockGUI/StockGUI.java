@@ -12,34 +12,24 @@ import javafx.scene.text.Text;
 
 
 public class StockGUI {
-    @FXML
-    public Text peopleAmount;
-    @FXML
-    public Text moneyStart;
-    @FXML
-    public Text stockStart;
-    @FXML
-    public Text stockCurrent;
-    @FXML
-    public Text cycleAmount;
-    @FXML
-    public Text cycleLength;
-    @FXML
-    public Text bestPerson;
-    @FXML
-    public Text bestProfit;
-    @FXML
-    public Text bestBuy;
-    @FXML
-    public Text bestSell;
-    @FXML
-    public Text worstPerson;
-    @FXML
-    public Text worstProfit;
-    @FXML
-    public Text worstBuy;
-    @FXML
-    public Text worstSell;
+    @FXML public Text peopleAmount;
+    @FXML public Text moneyStart;
+    @FXML public Text stockStart;
+    @FXML public Text stockCurrent;
+    @FXML public Text cycleAmount;
+    @FXML public Text cycleLength;
+    @FXML public Text bestPerson;
+    @FXML public Text bestProfit;
+    @FXML public Text bestBuy;
+    @FXML public Text bestSell;
+    @FXML public Text bestShares;
+    @FXML public Text bestMoney;
+    @FXML public Text worstPerson;
+    @FXML public Text worstProfit;
+    @FXML public Text worstBuy;
+    @FXML public Text worstSell;
+    @FXML public Text worstShares;
+    @FXML public Text worstMoney;
 
 
     CLI mainCLI = Main.getCli();
@@ -86,11 +76,15 @@ public class StockGUI {
         bestProfit.setText(String.format("%.2f", API.getBestPersonProfit()));
         bestBuy.setText(String.format("%.2f", API.getBestPersonBuyPrice()));
         bestSell.setText(String.format("%.2f", API.getBestPersonSellPrice()));
+        bestShares.setText(String.valueOf(API.getBestPersonShares()));
+        bestMoney.setText(String.format("%.2f", API.getBestPersonMoney()));
         //worst
         worstPerson.setText(String.valueOf(API.getWorstPersonID()));
         worstProfit.setText(String.format("%.2f", API.getWorstPersonProfit()));
         worstBuy.setText(String.format("%.2f", API.getWorstPersonBuyPrice()));
         worstSell.setText(String.format("%.2f", API.getWorstPersonSellPrice()));
+        worstShares.setText(String.valueOf( API.getWorstPersonShares()));
+        worstMoney.setText(String.format("%.2f", API.getWorstPersonMoney()));
 
         //line chart test:
         // If the lineChart is null, we know the issue lies in the initialization process
