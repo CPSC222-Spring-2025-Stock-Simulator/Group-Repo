@@ -44,6 +44,11 @@ public class Person
         return shares ;
     }
 
+    public double getProfit()
+    {
+        return money + shares* API.getCurrentStockPrice() ;
+    }
+
     public void decision(Stock stock)
     {
         double stockPrice = stock.getPrice() ;
