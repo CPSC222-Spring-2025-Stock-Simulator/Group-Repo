@@ -48,13 +48,14 @@ public class Stock
                 API.setEventType("Bad");
                 API.setEventStrength(event+1);
             }
-            velocity *= event ;                             // event affect velocity (short term)
+
+            price *= event ;                             // event affect price (short term)
         } else API.setEventType(null);
 
         if (price < 1)          // prevent price below 1
             price = 1 ;
 
-        //acceleration = 0;       // reset after each update              /TODO: see if we need this or not
+        acceleration = 0;       // reset after each update              /TODO: see if we need this or not
 
         API.setCurrentStockPrice(price) ;
         API.addNextStockPrice(price);

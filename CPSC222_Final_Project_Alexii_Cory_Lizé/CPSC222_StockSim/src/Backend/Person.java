@@ -19,10 +19,12 @@ import java.util.Random;
 public class Person
 {
     private final Integer ID ;
-    private final double buyPrice ;                                       // What price they are willing to buy at
-    private final double sellPrice ;                                     // What price they are willing to sell at
+    private double buyPrice ;                                       // What price they are willing to buy at
+    private double sellPrice ;                                     // What price they are willing to sell at
     private double money ;                                  // How much current money a person has
     private int shares ;
+    private int FOMOCounter ;                               // fear of missing out on shares counter
+    private int FOMOLimit ;
 
     /**
      * makes a person using ID
@@ -32,8 +34,20 @@ public class Person
     {
         this.ID = ID ;
         this.money = API.getPeopleStartMoney() ;
-        this.buyPrice = rng.nextDouble(1, 1000) ;
-        this.sellPrice = rng.nextDouble(buyPrice, 1000) ;
+
+        this.FOMOCounter = 0 ;
+        this.FOMOLimit = rng.nextInt(0, API.getCycleCount()/5) ;
+
+        double delta = rng.nextDouble(0, 1.0) ;
+        double stockPrice = API.getStockStartPrice() ;
+
+        this.buyPrice = rng.nextDouble(stockPrice*(1-delta), stockPrice * (1+delta)) ;
+        this.sellPrice = rng.nextDouble(buyPrice, stockPrice * (1+delta) ) ;
+
+        /*
+            The reason for delta is to make sure the preferred /selling price is a function of the start stock price
+            otherwise when choosing initial stock price, the outcome will be drastic if someone's buy price was much bigger
+         */
     }
 
     public Integer getID()
@@ -63,14 +77,14 @@ public class Person
 
     public double getProfit()
     {
-        return money + shares* API.getCurrentStockPrice() ;
+        return money + shares* API.getCurrentStockPrice() - API.getPeopleStartMoney() ;
     }
 
     public void decision(Stock stock, Random rng)
     {
         double stockPrice = stock.getPrice() ;
 
-        double delta = rng.nextDouble(0.9, 1) ;    //factor of randomness
+        double delta = rng.nextDouble(0.1, 1) ;    //factor of randomness
         double strength ;
         boolean isBuy ;
 
@@ -87,6 +101,8 @@ public class Person
 
             money -= buyStockAmount*stockPrice ;
             shares += buyStockAmount ;
+
+            sellPrice *= 2 - (stockPrice/buyPrice) ;     // increase preferred sell price based on buying difference
         } else
             if (stockPrice > sellPrice && shares > 0)
         {
@@ -99,8 +115,23 @@ public class Person
 
             money += sellStockAmount*stockPrice ;
             shares -= sellStockAmount ;
-        }
-            else return ;                                               // they don't want to buy or sell
+
+
+            buyPrice *= 2 - (sellPrice/stockPrice) ; // increase preferred buy price based on selling difference
+        } else
+            {
+                if (FOMOCounter == FOMOLimit) // they've reached their limit and need to update their buy and sell price
+                {
+                    this.buyPrice = rng.nextDouble(stockPrice*(1-delta), stockPrice * (1+delta)) ;
+                    this.sellPrice = rng.nextDouble(buyPrice, stockPrice * (1+delta) ) ;
+
+                    FOMOCounter = 0 ;
+                }
+
+                return ;                                               // they don't want to buy or sell
+            }
+
+        FOMOCounter = 0 ;
 
 
         double deltaVelocity = 0 ;       // how much to change velocity
@@ -117,7 +148,6 @@ public class Person
             // big strength means influence acceleration
             deltaAcceleration = isBuy? delta : -delta ;
         }
-
 
 
         stock.updateVelocity(deltaVelocity) ;

@@ -8,8 +8,8 @@ public class API
     private static int peopleAmount = 100 ;
     private static int cycleCount = 50 ;
     private static double cycleLength = 1.0 ;
-    private static final int graphLength = 10 ;
-    private static double eventChance = 1.0 ;
+    private static int graphLength = 50 ;
+    private static double eventChance = 0.5 ;
     //-------------------------------------------------------
 
 

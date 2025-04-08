@@ -28,53 +28,9 @@ public class Main extends Application
         cli = new CLI(random) ;
         Thread t = new Thread(cli);
         t.start();
-        // Start and run the Backend.CLI
+
         Thread javafxThread = new Thread(() -> Application.launch());
         javafxThread.start();
-
-        // TODO: Start the GUI here
-
-        while (!cli.running) {
-            Thread.onSpinWait();
-        }
-        // Wait for start to be typed in the Backend.CLI
-        //TODO: If a start button has been implemented it should also pass this
-
-
-      /*  int startingMoney = cli.getStartingMoney() ;
-        int peopleCount = cli.getPeople() ;
-        int cycleCount = cli.getCycleCount() ;
-        int startingStock = cli.getStartingStockPrice() ;
-        // Grabs initial values. Will be the default values unless modified through the Backend.CLI
-
-
-
-
-        Stock stock = new Stock(startingStock) ;
-
-        System.out.print("PROGRAM STARTED\n$ ");
-        //TODO: Remove this
-
-        PersonManager personManager = new PersonManager() ;
-        ArrayList<Person> people = personManager.getPeople() ;
-
-        for (int i=0 ; i<cycleCount ; i++)                                       // this is where cycles happen
-        {
-            stopWatch.start() ;
-            personManager.startDecisionProcess(stock, random) ;
-            // past this point, all person threads have either bought/sold or neither
-            // API has been updated with the most recent stuff
-            // API may be accessed
-
-            while (stopWatch.elapsed() < API.getCycleLength())
-            {
-                if (isPaused)
-                    pause() ;                                       //TODO: make method to pause main thread
-            }
-            stopWatch.stop().reset() ;
-
-            Platform.runLater(() -> stockGUI.updateGUI() );
-        }*/
     }
 
     public static void pause() throws InterruptedException
