@@ -1,6 +1,9 @@
 package StockGUI;
 
 import Backend.API;
+import Backend.Backend;
+import Backend.Main;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,41 +12,26 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Objects;
 
 public class StartScreen {
-    @FXML
-    private Slider cycleAmountSlider;
 
-    @FXML
-    private TextField cycleAmountText;
+    @FXML private Slider cycleAmountSlider;
+    @FXML private TextField cycleAmountText;
+    @FXML private Slider cycleLengthSlider;
+    @FXML private TextField cycleLengthText;
+    @FXML private Slider moneySlider;
+    @FXML private TextField moneyText;
+    @FXML private Slider peopleSlider;
+    @FXML private TextField peopleText;
+    @FXML private Slider stockSlider;
+    @FXML private TextField stockText;
 
-    @FXML
-    private Slider cycleLengthSlider;
-
-    @FXML
-    private TextField cycleLengthText;
-
-    @FXML
-    private Slider moneySlider;
-
-    @FXML
-    private TextField moneyText;
-
-    @FXML
-    private Slider peopleSlider;
-
-    @FXML
-    private TextField peopleText;
-
-    @FXML
-    private Slider stockSlider;
-
-    @FXML
-    private TextField stockText;
+    private StockGUI stockGUI;
 
     @FXML
     public void initialize(){
@@ -148,7 +136,7 @@ public class StartScreen {
     }
 
     @FXML
-    private void startClicked(ActionEvent event) throws IOException{
+    private void startClicked(ActionEvent event) throws IOException, InterruptedException {
 
         API.setCycleCount((int) cycleAmountSlider.getValue());
         API.setPeopleAmount((int) peopleSlider.getValue());
@@ -156,15 +144,39 @@ public class StartScreen {
         API.setCycleLength(cycleLengthSlider.getValue());
         API.setStockStartPrice((int) stockSlider.getValue());
 
-        FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("StockGUI.fxml")));
+        FXMLLoader loader = new FXMLLoader(StockGUI.class.getResource("StockGUI.fxml"));
+        AnchorPane parent = loader.load();
+        stockGUI = loader.getController();
+        Main.setStockGUI(stockGUI);
 
-        Parent parent = loader.load();
-        StockGUI stockGUI = loader.getController();
+        if (stockGUI != null) {
+            System.out.println("StockGUI controller loaded successfully!");
+        } else {
+            System.out.println("StockGUI controller is null.");
+        }
+
         Scene main = new Scene(parent);
-
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setTitle("Stock Simulator");
         window.setScene(main);
         window.show();
+
+        new Thread(() -> {
+            try {
+                // Ensure stockGUI is initialized before running the simulation
+                while (stockGUI == null) {
+                    Thread.sleep(100); // Sleep briefly and retry
+                }
+
+                System.out.println("Starting the simulation...");
+                Backend.runSimulation();  // Start the simulation
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
+    }
+
+    public StockGUI getStockGUI() {
+        return stockGUI;
     }
 }

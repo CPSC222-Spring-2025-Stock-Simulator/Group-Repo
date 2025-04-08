@@ -93,7 +93,7 @@
                                  <padding>
                                     <Insets right="15.0" />
                                  </padding>
-                              </Label>
+                           </Label>
                               <Slider fx:id="cycleLengthSlider" max="5.0" min="0.1" />
                               <TextField fx:id="cycleLengthText" prefHeight="25.0" prefWidth="86.0" text="1.0" />
                            </children>

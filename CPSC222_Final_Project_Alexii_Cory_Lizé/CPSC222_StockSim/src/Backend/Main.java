@@ -2,23 +2,23 @@ package Backend;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import StockGUI.StockGUI;
 import StockGUI.StartScreen;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application
 {
+    private static StockGUI stockGUI;
     private static CLI cli;
-    private static StockGUI gui;
-    private static volatile boolean isRunning = false ;
-    private static volatile boolean isPaused = false ;
-    private static final StopWatch stopWatch = new StopWatch() ;
+    //private static volatile boolean isRunning = false ;
+    //private static volatile boolean isPaused = false ;
+    //private static final StopWatch stopWatch = new StopWatch() ;
+    private static Random random;
 
     public static void main(String[] args) throws InterruptedException
     {
@@ -30,17 +30,19 @@ public class Main extends Application
         Thread t = new Thread(cli);
         t.start();
         // Start and run the Backend.CLI
-        launch(args);
+        Thread javafxThread = new Thread(() -> Application.launch());
+        javafxThread.start();
+
         // TODO: Start the GUI here
 
-        while (!isRunning) {
+        while (!cli.running) {
             Thread.onSpinWait();
         }
         // Wait for start to be typed in the Backend.CLI
         //TODO: If a start button has been implemented it should also pass this
 
 
-        int startingMoney = cli.getStartingMoney() ;
+      /*  int startingMoney = cli.getStartingMoney() ;
         int peopleCount = cli.getPeople() ;
         int cycleCount = cli.getCycleCount() ;
         int startingStock = cli.getStartingStockPrice() ;
@@ -72,42 +74,43 @@ public class Main extends Application
             }
             stopWatch.stop().reset() ;
 
-            gui.updateGUI() ;
-        }
+            Platform.runLater(() -> stockGUI.updateGUI() );
+        }*/
     }
 
     public static void pause() throws InterruptedException
     {
-        stopWatch.stop() ;
-        gui.pause() ;
+        Backend.getStopWatch().stop() ;
+        StockGUI.pause() ;
 
-        while (isPaused)
+        while (Backend.isIsPaused())
         {
             Thread.sleep(100) ;
         }
 
-        gui.play();
-        stopWatch.start() ;
+        StockGUI.play();
+        Backend.getStopWatch().start() ;
     }
 
-    public static void setIsRunning(boolean isRunning) {
-        Main.isRunning = isRunning;
-    }
+   /* public static void setIsRunning(boolean isRunning) {
+        Backend.isIsRunning() = isRunning;
+    }*/
 
     public static CLI getCli() {
         return cli;
     }
 
-    public static StockGUI getGui() {
-        return gui;
-    }
-
-    public static void setIsPaused(boolean isPaused) {
+   /* public static void setIsPaused(boolean isPaused) {
         Main.isPaused = isPaused;
-    }
+    }*/
+
+   /* public static boolean getIsPaused() {
+        return isPaused;
+    }*/
 
     @Override
     public void start(Stage stage) throws Exception {
+        
         FXMLLoader fxmlLoader = new FXMLLoader(StockGUI.class.getResource("StartScreen.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
 
@@ -118,10 +121,35 @@ public class Main extends Application
             System.exit(0);
         });
 
+        stockGUI = startScreen.getStockGUI();
+
+        if (stockGUI != null) {
+            System.out.println("StockGUI is loaded successfully.");
+        } else {
+            System.out.println("Error: StockGUI is not initialized.");
+        }
+
         stage.setTitle("Stock Simulator");
         stage.setScene(scene);
         stage.show();
 
+        updateGUIStatic();
+    }
 
+    private static void updateGUIStatic() {
+        Platform.runLater(() -> {
+            if (stockGUI != null) {
+                stockGUI.updateGUI();
+            } else {
+                System.out.println("StockGUI is not initialized yet.");
+            }
+        });
+    }
+
+    public static void setStockGUI(StockGUI gui) {
+        stockGUI = gui;
+    }
+    public static StockGUI getStockGUI() {
+        return stockGUI;
     }
 }

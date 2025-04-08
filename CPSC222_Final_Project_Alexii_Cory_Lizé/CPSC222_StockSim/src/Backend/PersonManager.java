@@ -40,6 +40,8 @@ public class PersonManager
         {
             stock.update(); // apply velocity + acceleration to price
         }
+
+        updateBestWorstPerson();
     }
 
     public ArrayList<Person> getPeople()

@@ -1,11 +1,13 @@
 package Backend;
 
+import StockGUI.StockGUI;
+
 import java.util.Random;
 import java.util.Scanner;
 
 public class CLI implements Runnable
 {
-
+    StockGUI stockGUI;
     Random random;
     Scanner scanner = new Scanner(System.in);
 
@@ -254,7 +256,7 @@ public class CLI implements Runnable
      * Allows the main program to run
      */
     public void start(){
-        Main.setIsRunning(true);
+        Backend.setIsRunning(true);
     }
 
     /**
@@ -269,15 +271,17 @@ public class CLI implements Runnable
     /**
      * Pauses program
      */
-    public void pause(){
-        Main.setIsPaused(true);
+    public static void pause() throws InterruptedException {
+        Backend.setIsPaused(true);
+        Main.pause();
     }
 
     /**
      * Unpauses program
      */
-    public void play(){
-        Main.setIsPaused(false);
+    public static void play() throws InterruptedException {
+        Backend.setIsPaused(false);
+        Main.pause();
     }
 
     /**
@@ -354,7 +358,7 @@ public class CLI implements Runnable
      * Forces a GUI refresh
      */
     public void forceUpdate(){
-        Main.getGui().updateGUI();
+        stockGUI.updateGUI();
     }
 
     public int getStartingStockPrice() {
@@ -364,4 +368,6 @@ public class CLI implements Runnable
     public void setStartingStockPrice(int startingStockPrice) {
         this.startingStockPrice = startingStockPrice;
     }
+
+
 }

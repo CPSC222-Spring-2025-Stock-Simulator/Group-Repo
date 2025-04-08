@@ -1,10 +1,7 @@
 package StockGUI;
 
-import Backend.API;
-import Backend.CLI;
-import Backend.Main;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import Backend.*;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
@@ -13,7 +10,6 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.text.Text;
 
-import java.util.Random;
 
 public class StockGUI {
     @FXML
@@ -47,10 +43,12 @@ public class StockGUI {
 
 
     CLI mainCLI = Main.getCli();
-    private Random rnd;
 
     @FXML
     public LineChart<Number, Number> lineChart;
+    @FXML
+    private XYChart.Series<Number, Number> series;
+
 
     @FXML
     public NumberAxis xAxis;
@@ -62,22 +60,23 @@ public class StockGUI {
     private ToggleButton pauseButton;
 
     @FXML
-    private void handleToggleButtonClick(ActionEvent event){
+    private void handleToggleButtonClick(ActionEvent event) throws InterruptedException {
         if(pauseButton.isSelected()){
             pauseButton.setText("Play");
             pauseButton.setStyle("-fx-background-color: lightgreen;");
-
+            pause();
         }
         else{
             pauseButton.setText("Pause");
             pauseButton.setStyle("-fx-background-color: lightcoral;");
+            play();
         }
 
     }
 
+
     public void updateGUI(){
         //Index
-        System.out.println(API.getPeopleAmount());
         peopleAmount.setText(String.valueOf(API.getPeopleAmount()));
         moneyStart.setText(String.valueOf(API.getPeopleStartMoney()));
         stockStart.setText(String.valueOf(API.getStockStartPrice()));
@@ -100,17 +99,31 @@ public class StockGUI {
         Double[] stocks = API.getStockPriceHistory();
 
         if (lineChart != null) {
-            if(stocks != null) {
-                XYChart.Series<Number, Number> series = new XYChart.Series<>();
+            if(series != null){
+                series.getData().clear();
+            if (stocks != null) {
                 for (int i = 1; i <= API.getGraphLength(); i++) {
-                    series.getData().add(new XYChart.Data<>(i, stocks[i - 1]));
+                    Double stockPrice = stocks[i - 1];
+                    if (stockPrice != null) {
+                        // Add stock price to the chart
+                        series.getData().add(new XYChart.Data<>(i, stockPrice));
+                    } else {
+                        // Handling null stock prices (if any)
+                        // You can either skip this entry or use a default value like 0.0 or Double.NaN
+                        series.getData().add(new XYChart.Data<>(i, 0.0));  // Or use Double.NaN for no value
+                        System.out.println("Null stock price at index: " + (i - 1));
+                    }
                 }
-
-                lineChart.getData().add(series);
-            } else System.out.println("No Stocks");
+                System.out.println("Rounds done");
+            } else {
+                System.out.println("No Stocks");
+            }
         } else {
-            System.out.println("lineChart is null inside updateGUI()");
+            System.out.println("series is null inside updateGUI()");
         }
+        } else {
+                System.out.println("lineChart is null inside updateGUI()");
+            }
 
 
     }
@@ -118,11 +131,11 @@ public class StockGUI {
 
 
     //TODO: Use these when triggering their respective buttons
-    public void pause(){
-        mainCLI.pause();
+    public static void pause() throws InterruptedException {
+        CLI.pause();
     }
-    public void play(){
-        mainCLI.play();
+    public static void play() throws InterruptedException {
+        CLI.play();
     }
 
     //TODO: Use these if you add the ability to enter
@@ -142,18 +155,42 @@ public class StockGUI {
     }
 
     public void initialize() {
-        xAxis = (NumberAxis) lineChart.getXAxis();
+        System.out.println("initialize() method called");
+        if (lineChart == null) {
+            System.out.println("LineChart is null, initializing...");
+            lineChart = new LineChart<>(xAxis, yAxis);
+        }
+        if (series == null) {
+            System.out.println("Series is null, initializing...");
+            series = new XYChart.Series<>();
+            lineChart.getData().add(series);
+        }
+
+        // Continue with your other setup code
         xAxis.setLabel("X Axis");
-
-        yAxis = (NumberAxis) lineChart.getYAxis();
         yAxis.setLabel("Y Axis");
-
         lineChart.setTitle("Stock Data");
 
-        rnd = new Random();
+        peopleAmount.setText("");
+        moneyStart.setText("");
+        stockStart.setText("");
+        stockCurrent.setText("");
+        cycleAmount.setText("");
+        cycleLength.setText("");
+        //best
+        bestPerson.setText("");
+        bestProfit.setText("");
+        bestBuy.setText("");
+        bestSell.setText("");
+        //worst
+        worstPerson.setText("");
+        worstProfit.setText("");
+        worstBuy.setText("");
+        worstSell.setText("");
 
-        updateGUI();
+        System.out.println("LineChart has been initialized.");
+
+        Platform.runLater(this::updateGUI);
+
     }
-
-
 }
