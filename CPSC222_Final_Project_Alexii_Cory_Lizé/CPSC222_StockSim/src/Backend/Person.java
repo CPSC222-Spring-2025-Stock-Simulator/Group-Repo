@@ -1,8 +1,21 @@
 package Backend;
 
+/**
+ * This file is part of the final concurrency project
+ * 		CPSC 222 Final Project Winter 2025
+ *
+ * Logic for people or participants in the stock market
+ *
+ * @author Cory Stecyk
+ * Student Number: 230154922
+ * @version 2024.2.3
+ */
 
 import java.util.Random;
 
+/**
+ *
+ */
 public class Person
 {
     private final Integer ID ;
@@ -55,7 +68,7 @@ public class Person
     {
         double stockPrice = stock.getPrice() ;
 
-        double delta = rng.nextDouble(0.9, 1) ;    //randomness
+        double delta = rng.nextDouble(0.9, 1) ;    //factor of randomness
         double strength ;
         boolean isBuy ;
 

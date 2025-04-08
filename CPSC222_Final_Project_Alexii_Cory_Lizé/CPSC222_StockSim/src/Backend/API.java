@@ -13,7 +13,7 @@ public class API
 
 
     //------- DYNAMIC VALUES ---------------------------------
-    private static Double[] stockPriceHistory ;
+    private static Double[] stockPriceHistory = new Double[graphLength];
 
     private static int bestPersonID ;
     private static Double bestPersonProfit ;
