@@ -9,19 +9,24 @@ public class API
     private static int cycleCount = 50 ;
     private static double cycleLength = 1.0 ;
     private static int graphLength = 50 ;
-    private static double eventChance = .9 ;
+    private static double eventChance = .5 ;
     //-------------------------------------------------------
 
 
     //------- DYNAMIC VALUES ---------------------------------
-    private static Double[] stockPriceHistory = new Double[graphLength];
+    private static final Double[] stockPriceHistory = new Double[graphLength];
+    private static int cycleCounter = 0 ;
 
     private static int bestPersonID ;
+    private static int bestPersonMoney ;
+    private static int bestPersonShares ;
     private static Double bestPersonProfit ;
     private static Double bestPersonBuyPrice ;
     private static Double bestPersonSellPrice ;
 
     private static int worstPersonID ;
+    private static int worstPersonMoney ;
+    private static int worstPersonShares ;
     private static Double worstPersonProfit ;
     private static Double worstPersonBuyPrice ;
     private static Double worstPersonSellPrice ;
@@ -89,6 +94,11 @@ public class API
         return graphLength ;
     }
 
+    public static void setGraphLength(int graphLength)
+    {
+        API.graphLength = graphLength ;
+    }
+
     public static double getEventChance() {
         return eventChance ;
     }
@@ -124,6 +134,14 @@ public class API
         stockPriceHistory[i] = stockPrice ;
     }
 
+    public static int getCycleCounter() {
+        return cycleCounter;
+    }
+
+    public static void setCycleCounter(int cycleCounter) {
+        API.cycleCounter = cycleCounter;
+    }
+
     public static double getCurrentStockPrice()
     {
         return currentStockPrice ;
@@ -140,6 +158,22 @@ public class API
 
     public static void setBestPersonID(int bestPersonID) {
         API.bestPersonID = bestPersonID;
+    }
+
+    public static int getBestPersonMoney() {
+        return bestPersonMoney;
+    }
+
+    public static void setBestPersonMoney(int bestPersonMoney) {
+        API.bestPersonMoney = bestPersonMoney;
+    }
+
+    public static int getBestPersonShares() {
+        return bestPersonShares;
+    }
+
+    public static void setBestPersonShares(int bestPersonShares) {
+        API.bestPersonShares = bestPersonShares;
     }
 
     public static Double getBestPersonProfit() {
@@ -172,6 +206,22 @@ public class API
 
     public static void setWorstPersonID(int worstPersonID) {
         API.worstPersonID = worstPersonID;
+    }
+
+    public static int getWorstPersonMoney() {
+        return worstPersonMoney;
+    }
+
+    public static void setWorstPersonMoney(int worstPersonMoney) {
+        API.worstPersonMoney = worstPersonMoney;
+    }
+
+    public static int getWorstPersonShares() {
+        return worstPersonShares;
+    }
+
+    public static void setWorstPersonShares(int worstPersonShares) {
+        API.worstPersonShares = worstPersonShares;
     }
 
     public static Double getWorstPersonProfit() {

@@ -13,9 +13,6 @@ public class Main extends Application
 {
     private static StockGUI stockGUI;
     private static CLI cli;
-    //private static volatile boolean isRunning = false ;
-    //private static volatile boolean isPaused = false ;
-    //private static final StopWatch stopWatch = new StopWatch() ;
     private static Random random;
 
     public static void main(String[] args) throws InterruptedException
@@ -47,21 +44,9 @@ public class Main extends Application
         Backend.getStopWatch().start() ;
     }
 
-   /* public static void setIsRunning(boolean isRunning) {
-        Backend.isIsRunning() = isRunning;
-    }*/
-
     public static CLI getCli() {
         return cli;
     }
-
-   /* public static void setIsPaused(boolean isPaused) {
-        Main.isPaused = isPaused;
-    }*/
-
-   /* public static boolean getIsPaused() {
-        return isPaused;
-    }*/
 
     @Override
     public void start(Stage stage) throws Exception {
