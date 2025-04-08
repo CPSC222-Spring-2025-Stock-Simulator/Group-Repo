@@ -14,7 +14,7 @@ public class API
 
 
     //------- DYNAMIC VALUES ---------------------------------
-    private static final Double[] stockPriceHistory = new Double[graphLength];
+    private static Double[] stockPriceHistory;
     private static int cycleCounter = 0 ;
 
     private static int bestPersonID ;
@@ -97,6 +97,7 @@ public class API
     public static void setGraphLength(int graphLength)
     {
         API.graphLength = graphLength ;
+        stockPriceHistory = new Double[graphLength];
     }
 
     public static double getEventChance() {

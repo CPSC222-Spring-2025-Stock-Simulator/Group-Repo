@@ -63,12 +63,10 @@ public class StockGUI {
     private void handleToggleButtonClick(ActionEvent event) throws InterruptedException {
         if(pauseButton.isSelected()){
             pauseButton.setText("Play");
-            pauseButton.setStyle("-fx-background-color: lightgreen;");
             pause();
         }
         else{
             pauseButton.setText("Pause");
-            pauseButton.setStyle("-fx-background-color: lightcoral;");
             play();
         }
 
