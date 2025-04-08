@@ -23,6 +23,7 @@ public class Main extends Application
     public static void main(String[] args) throws InterruptedException
     {
 
+        System.out.println("some thing random");
         Random random = new Random();
 
 

@@ -13,7 +13,7 @@ public class Backend {
 
 
     public static void runSimulation() throws InterruptedException {
-        System.out.println("Simulation started");
+        System.out.println("Something random");
         Stock stock = new Stock(API.getStockStartPrice());
 
         Thread guiUpdaterThread = new Thread(() -> {
