@@ -14,19 +14,23 @@ public class Backend
         Stock stock = new Stock(API.getStockStartPrice()) ;
 
         Thread guiUpdaterThread = new Thread(() -> {
-            while (!isSimulationFinished) {
-                try {
-                    // Wait for a moment to avoid high CPU usage
-                    Thread.sleep((long) (API.getCycleLength()*1000));  // Update the GUI once every second
-                    if (Main.getStockGUI() != null) {
-                        Platform.runLater(() -> Main.getStockGUI().updateGUI());
-                    } else {
-                        System.out.println("StockGUI is not initialized yet.");
-                    }                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            while (!isSimulationFinished)
+            {
+                try
+                {
+                    // wait for a moment to stop CPU from killing itself
+                    Thread.sleep((long) (API.getCycleLength()*1000));  // update gui according to cycle length
+                    if (Main.getStockGUI() != null)
+                    {
+                        Platform.runLater(() -> Main.getStockGUI().updateGUI()) ;
+                    } else{
+                        System.out.println("StockGUI is not initialized yet.") ;
+                    }
+                } catch (InterruptedException e){
+                    e.printStackTrace();                // i don't know but it stopped crying
                 }
             }
-        });
+        }) ;
 
         guiUpdaterThread.start() ;  // Start the GUI update thread
 
