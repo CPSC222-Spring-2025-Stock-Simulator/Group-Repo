@@ -9,7 +9,7 @@ public class API
     private static int cycleCount = 50 ;
     private static double cycleLength = 1.0 ;
     private static int graphLength = 50 ;
-    private static double eventChance = 0.5 ;
+    private static double eventChance = .9 ;
     //-------------------------------------------------------
 
 
