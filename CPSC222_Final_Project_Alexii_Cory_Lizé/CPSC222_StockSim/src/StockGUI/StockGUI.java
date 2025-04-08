@@ -125,10 +125,10 @@ public class StockGUI {
 
     //TODO: Use these when triggering their respective buttons
     public static void pause() throws InterruptedException {
-        CLI.pause();
+        Backend.setIsPaused(true);
     }
     public static void play() throws InterruptedException {
-        CLI.play();
+        Backend.setIsPaused(false);
     }
 
     //TODO: Use these if you add the ability to enter
