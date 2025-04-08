@@ -64,12 +64,9 @@ public class Main extends Application
             // API may be accessed
 
 
+            //while loop that checks if pause button is pressed until reached cycle length
 
-
-
-
-            if (!isRunning)
-                break ;
+            // update gui
         }
     }
 

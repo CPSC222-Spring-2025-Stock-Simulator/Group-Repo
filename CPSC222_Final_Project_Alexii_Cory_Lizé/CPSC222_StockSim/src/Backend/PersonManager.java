@@ -41,9 +41,33 @@ public class PersonManager
         }
     }
 
-
     public ArrayList<Person> getPeople()
     {
         return people ;
+    }
+
+    public void updateBestWorstPerson()
+    {
+        Person best = getBest() ;
+        Person worst = getWorst() ;
+
+
+    }
+
+    private Person getBest()
+    {
+        Person best = people.getFirst() ;
+
+        for (Person person : people)
+        {
+
+        }
+
+        return null ;
+    }
+
+    private Person getWorst()
+    {
+        return null ;
     }
 }

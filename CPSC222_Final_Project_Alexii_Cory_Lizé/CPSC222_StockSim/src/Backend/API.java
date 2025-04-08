@@ -16,10 +16,14 @@ public class API
     private static Double[] stockPriceHistory ;
 
     private static int bestPersonID ;
-    private static int bestPersonProfit ;
+    private static Double bestPersonProfit ;
+    private static Double bestPersonBuyPrice ;
+    private static Double bestPersonSellPrice ;
 
     private static int worstPersonID ;
-    private static int worstPersonProfit ;
+    private static Double worstPersonProfit ;
+    private static Double worstPersonBuyPrice ;
+    private static Double worstPersonSellPrice ;
 
     private static double currentStockPrice ;
     //--------------------------------------------------------
@@ -77,24 +81,9 @@ public class API
         API.cycleLength = cycleLength;
     }
 
-    public static int getGraphLength() {
-        return graphLength;
-    }
-
-    public static int getBestPersonID() {
-        return bestPersonID;
-    }
-
-    public static int getBestPersonProfit() {
-        return bestPersonProfit;
-    }
-
-    public static int getWorstPersonID() {
-        return worstPersonID;
-    }
-
-    public static int getWorstPersonProfit() {
-        return worstPersonProfit;
+    public static int getGraphLength()
+    {
+        return graphLength ;
     }
 
     //------------------------------------------------------------
@@ -131,7 +120,71 @@ public class API
 
     public static void setCurrentStockPrice(double currentStockPrice)
     {
-        API.currentStockPrice = currentStockPrice;
+        API.currentStockPrice = currentStockPrice ;
+    }
+
+    public static int getBestPersonID() {
+        return bestPersonID;
+    }
+
+    public static void setBestPersonID(int bestPersonID) {
+        API.bestPersonID = bestPersonID;
+    }
+
+    public static Double getBestPersonProfit() {
+        return bestPersonProfit;
+    }
+
+    public static void setBestPersonProfit(Double bestPersonProfit) {
+        API.bestPersonProfit = bestPersonProfit;
+    }
+
+    public static Double getBestPersonBuyPrice() {
+        return bestPersonBuyPrice;
+    }
+
+    public static void setBestPersonBuyPrice(Double bestPersonBuyPrice) {
+        API.bestPersonBuyPrice = bestPersonBuyPrice;
+    }
+
+    public static Double getBestPersonSellPrice() {
+        return bestPersonSellPrice;
+    }
+
+    public static void setBestPersonSellPrice(Double bestPersonSellPrice) {
+        API.bestPersonSellPrice = bestPersonSellPrice;
+    }
+
+    public static int getWorstPersonID() {
+        return worstPersonID;
+    }
+
+    public static void setWorstPersonID(int worstPersonID) {
+        API.worstPersonID = worstPersonID;
+    }
+
+    public static Double getWorstPersonProfit() {
+        return worstPersonProfit;
+    }
+
+    public static void setWorstPersonProfit(Double worstPersonProfit) {
+        API.worstPersonProfit = worstPersonProfit;
+    }
+
+    public static Double getWorstPersonBuyPrice() {
+        return worstPersonBuyPrice;
+    }
+
+    public static void setWorstPersonBuyPrice(Double worstPersonBuyPrice) {
+        API.worstPersonBuyPrice = worstPersonBuyPrice;
+    }
+
+    public static Double getWorstPersonSellPrice() {
+        return worstPersonSellPrice;
+    }
+
+    public static void setWorstPersonSellPrice(Double worstPersonSellPrice) {
+        API.worstPersonSellPrice = worstPersonSellPrice;
     }
 
     //------------------------------------------------------------

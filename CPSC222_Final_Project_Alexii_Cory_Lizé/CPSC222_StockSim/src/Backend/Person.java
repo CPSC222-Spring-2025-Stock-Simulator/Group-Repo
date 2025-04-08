@@ -6,7 +6,7 @@ public class Person
     private final Integer ID ;
     private double buyPrice ;                                       // What price they are willing to buy at
     private double sellPrice ;                                     // What price they are willing to sell at
-    private double money ;                                  // How much current money a person has\
+    private double money ;                                  // How much current money a person has
     private int shares ;
 
     /**
@@ -19,8 +19,30 @@ public class Person
         this.money = API.getPeopleStartMoney() ;
     }
 
+    public Integer getID()
+    {
+        return ID ;
+    }
 
+    public double getBuyPrice()
+    {
+        return buyPrice ;
+    }
 
+    public double getSellPrice()
+    {
+        return sellPrice ;
+    }
+
+    public double getMoney()
+    {
+        return money ;
+    }
+
+    public int getShares()
+    {
+        return shares ;
+    }
 
     public void decision(Stock stock)
     {
