@@ -54,7 +54,6 @@ public class Stock
     public void eventUpdate()
     {
         if (isEventForced)
-            privateForceEvent(// get event input from cli);
             return ;
 
         if (rng.nextFloat(0f, 1.0f) < API.getEventChance())
