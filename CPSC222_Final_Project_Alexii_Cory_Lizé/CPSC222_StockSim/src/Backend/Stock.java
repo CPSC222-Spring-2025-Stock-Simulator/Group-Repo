@@ -54,7 +54,7 @@ public class Stock
     public void eventUpdate()
     {
         if (isEventForced)
-            forceEvent(// get event input from cli);
+            privateForceEvent(// get event input from cli);
             return ;
 
         if (rng.nextFloat(0f, 1.0f) < API.getEventChance())
@@ -76,7 +76,8 @@ public class Stock
 
     public void forceEvent(float event) throws InterruptedException
     {
-        Thread.sleep((long) (API.getCycleLength()*1000));
+        isEventForced = true ;
+        Thread.sleep((long) (API.getCycleLength()*1000)) ;
         privateForceEvent(event) ;
     }
 
