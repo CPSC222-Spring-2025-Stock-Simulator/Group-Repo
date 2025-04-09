@@ -1,159 +1,181 @@
 package StockGUI;
 
-import Backend.API;
-import Backend.CLI;
-import Backend.Main;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import Backend.*;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.text.Text;
 
-import java.util.Random;
 
 public class StockGUI {
-    @FXML
-    public Text peopleAmount;
-    @FXML
-    public Text moneyStart;
-    @FXML
-    public Text stockStart;
-    @FXML
-    public Text stockCurrent;
-    @FXML
-    public Text cycleAmount;
-    @FXML
-    public Text cycleLength;
-    @FXML
-    public Text bestPerson;
-    @FXML
-    public Text bestProfit;
-    @FXML
-    public Text bestBuy;
-    @FXML
-    public Text bestSell;
-    @FXML
-    public Text worstPerson;
-    @FXML
-    public Text worstProfit;
-    @FXML
-    public Text worstBuy;
-    @FXML
-    public Text worstSell;
+    @FXML public Text peopleAmount;
+    @FXML public Text moneyStart;
+    @FXML public Text stockStart;
+    @FXML public Text stockCurrent;
+    @FXML public Text cycleAmount;
+    @FXML public Text cycleLength;
+    @FXML public Text bestPerson;
+    @FXML public Text bestProfit;
+    @FXML public Text bestBuy;
+    @FXML public Text bestSell;
+    @FXML public Text bestShares;
+    @FXML public Text bestMoney;
+    @FXML public Text worstPerson;
+    @FXML public Text worstProfit;
+    @FXML public Text worstBuy;
+    @FXML public Text worstSell;
+    @FXML public Text worstShares;
+    @FXML public Text worstMoney;
 
 
-    CLI mainCLI = Main.getCli();
-    private Random rnd;
+
+    @FXML public ListView<String> eventDisplay;
+
+    @FXML public LineChart<Number, Number> lineChart;
+    @FXML private XYChart.Series<Number, Number> series;
+    @FXML public NumberAxis xAxis;
+    @FXML public NumberAxis yAxis;
+    @FXML private ToggleButton pauseButton;
 
     @FXML
-    public LineChart<Number, Number> lineChart;
-
-    @FXML
-    public NumberAxis xAxis;
-
-    @FXML
-    public NumberAxis yAxis;
-
-    @FXML
-    private ToggleButton pauseButton;
-
-    @FXML
-    private void handleToggleButtonClick(ActionEvent event){
+    private void handleToggleButtonClick(ActionEvent event) throws InterruptedException {
         if(pauseButton.isSelected()){
             pauseButton.setText("Play");
-            pauseButton.setStyle("-fx-background-color: lightgreen;");
-
+            pause();
         }
         else{
             pauseButton.setText("Pause");
-            pauseButton.setStyle("-fx-background-color: lightcoral;");
+            play();
         }
 
     }
+
 
     public void updateGUI(){
         //Index
-        System.out.println(API.getPeopleAmount());
         peopleAmount.setText(String.valueOf(API.getPeopleAmount()));
         moneyStart.setText(String.valueOf(API.getPeopleStartMoney()));
         stockStart.setText(String.valueOf(API.getStockStartPrice()));
-        stockCurrent.setText(String.valueOf(API.getCurrentStockPrice()));
+        stockCurrent.setText(String.format("%.2f", API.getCurrentStockPrice()));
         cycleAmount.setText(String.valueOf(API.getCycleCount()));
-        cycleLength.setText(String.valueOf(API.getCycleLength()));
+        cycleLength.setText(String.format("%.1f sec", API.getCycleLength()));
         //best
-        bestPerson.setText(String.valueOf(API.getBestPersonID()));
-        bestProfit.setText(String.valueOf(API.getBestPersonProfit()));
-        bestBuy.setText(String.valueOf(API.getBestPersonBuyPrice()));
-        bestSell.setText(String.valueOf(API.getBestPersonSellPrice()));
+        bestPerson.setText(String.valueOf( API.getBestPersonID()));
+        bestProfit.setText(String.format("%.2f", API.getBestPersonProfit()));
+        bestBuy.setText(String.format("%.2f", API.getBestPersonBuyPrice()));
+        bestSell.setText(String.format("%.2f", API.getBestPersonSellPrice()));
+        bestShares.setText(String.valueOf(API.getBestPersonShares()));
+        bestMoney.setText(String.format("%.2f", API.getBestPersonMoney()));
         //worst
         worstPerson.setText(String.valueOf(API.getWorstPersonID()));
-        worstProfit.setText(String.valueOf(API.getWorstPersonProfit()));
-        worstBuy.setText(String.valueOf(API.getWorstPersonBuyPrice()));
-        worstSell.setText(String.valueOf(API.getWorstPersonSellPrice()));
+        worstProfit.setText(String.format("%.2f", API.getWorstPersonProfit()));
+        worstBuy.setText(String.format("%.2f", API.getWorstPersonBuyPrice()));
+        worstSell.setText(String.format("%.2f", API.getWorstPersonSellPrice()));
+        worstShares.setText(String.valueOf( API.getWorstPersonShares()));
+        worstMoney.setText(String.format("%.2f", API.getWorstPersonMoney()));
 
         //line chart test:
         // If the lineChart is null, we know the issue lies in the initialization process
-        Double[] stocks = API.getStockPriceHistory();
+        Float[] stocks = API.getStockPriceHistory();
 
+        series.setName("Cycle: " + API.getCycleCounter());
         if (lineChart != null) {
-            if(stocks != null) {
-                XYChart.Series<Number, Number> series = new XYChart.Series<>();
+            if(series != null){
+                series.getData().clear();
+            if (stocks != null) {
                 for (int i = 1; i <= API.getGraphLength(); i++) {
-                    series.getData().add(new XYChart.Data<>(i, stocks[i - 1]));
+                    Float stockPrice = stocks[i - 1];
+                    if (stockPrice != null) {
+                        // Add stock price to the chart
+                        series.getData().add(new XYChart.Data<>(i, stockPrice));
+                    }
                 }
-
-                lineChart.getData().add(series);
-            } else System.out.println("No Stocks");
+            } else {
+                System.out.println("No Stocks");
+            }
         } else {
-            System.out.println("lineChart is null inside updateGUI()");
+            System.out.println("series is null inside updateGUI()");
         }
+        } else {
+                System.out.println("lineChart is null inside updateGUI()");
+            }
 
+        if(API.getEventType() != null) {
+            eventDisplay.getItems().addFirst(API.getEventType() + " event: "+ String.format("%.2f",API.getEventStrength()));
 
-    }
-    //TODO: Refreshes the GUI
-
-
-    //TODO: Use these when triggering their respective buttons
-    public void pause(){
-        mainCLI.pause();
-    }
-    public void play(){
-        mainCLI.play();
+        }
     }
 
-    //TODO: Use these if you add the ability to enter
-    // values before the main program starts or just
-    // delete if we don't get around to that
-    private void setPeople(int numPeople){
-        mainCLI.setPeople(numPeople);
+    public static void pause() throws InterruptedException {
+        Backend.setIsPaused(true);
     }
-    private void setMoney(int amount){
-        mainCLI.setStartingMoney(amount);
-    }
-    private void setCycleAmount(int amount){
-        mainCLI.setCycleCount(amount);
-    }
-    private void setCycleLength(double seconds){
-        mainCLI.setCycleLength(seconds);
+
+    public static void play() throws InterruptedException {
+        Backend.setIsPaused(false);
     }
 
     public void initialize() {
-        xAxis = (NumberAxis) lineChart.getXAxis();
+        System.out.println("initialize() method called");
+        if (lineChart == null) {
+            System.out.println("LineChart is null, initializing...");
+            lineChart = new LineChart<>(xAxis, yAxis);
+        }
+        if (series == null) {
+            System.out.println("Series is null, initializing...");
+            series = new XYChart.Series<>();
+            lineChart.getData().add(series);
+        }
+
+        // Continue with your other setup code
         xAxis.setLabel("X Axis");
-
-        yAxis = (NumberAxis) lineChart.getYAxis();
         yAxis.setLabel("Y Axis");
-
         lineChart.setTitle("Stock Data");
 
-        rnd = new Random();
+        peopleAmount.setText("");
+        moneyStart.setText("");
+        stockStart.setText("");
+        stockCurrent.setText("");
+        cycleAmount.setText("");
+        cycleLength.setText("");
+        //best
+        bestPerson.setText("");
+        bestProfit.setText("");
+        bestBuy.setText("");
+        bestSell.setText("");
+        //worst
+        worstPerson.setText("");
+        worstProfit.setText("");
+        worstBuy.setText("");
+        worstSell.setText("");
 
-        updateGUI();
+        System.out.println("LineChart has been initialized.");
+
+        eventDisplay.setCellFactory(lv -> new ListCell<String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null) {
+                    setText(null);
+                    setStyle("");
+                } else {
+                    setText(item);
+                    if (item.startsWith("Good")) {
+                        setStyle("-fx-background-color: lightgreen; -fx-text-fill: black;");
+                    } else {
+                        setStyle("-fx-background-color: lightcoral; -fx-text-fill: black;");
+                    }
+                }
+            }
+        });
+
+        Platform.runLater(this::updateGUI);
+
     }
-
-
 }

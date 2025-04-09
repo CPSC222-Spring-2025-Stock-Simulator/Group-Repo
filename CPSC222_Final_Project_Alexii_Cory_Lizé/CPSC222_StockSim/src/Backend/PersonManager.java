@@ -10,6 +10,7 @@ public class PersonManager
 {
     private static ArrayList<Person> people;
     private final ExecutorService executor ;
+    private final Random rng = new Random() ;
 
     public PersonManager()
     {
@@ -17,12 +18,12 @@ public class PersonManager
 
         for (int i=0 ; i<API.getPeopleAmount() ; i++)
         {
-            people.add(new Person(i)) ;
+            people.add(new Person(i, rng)) ;
         }
         this.executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
     }
 
-    public void startDecisionProcess(Stock stock, Random rng) throws InterruptedException
+    public void startDecisionProcess(Stock stock) throws InterruptedException
     {
         CountDownLatch latch = new CountDownLatch(people.size());
 
@@ -34,43 +35,50 @@ public class PersonManager
             });
         }
 
-        latch.await(); // Wait for everyone
+        latch.await() ; // wait for everyone
 
         synchronized (stock)
         {
-            stock.update(); // apply velocity + acceleration to price
+            stock.update() ; // apply velocity and acceleration to price
         }
+
+        updateBestWorstPerson() ;
+        updateCycleCount() ;
     }
 
-    public ArrayList<Person> getPeople()
+    private void updateCycleCount()
     {
-        return people ;
+        API.incrementCycleCounter() ;
     }
 
-    public void updateBestWorstPerson()
+    private void updateBestWorstPerson()
     {
         Person best = getBest() ;
         Person worst = getWorst() ;
 
-        API.setBestPersonID(best.getID());
-        API.setBestPersonProfit(best.getProfit());
-        API.setBestPersonBuyPrice(best.getBuyPrice());
-        API.setBestPersonSellPrice(best.getSellPrice());
+        API.setBestPersonID(best.getID()) ;
+        API.setBestPersonMoney(best.getMoney());
+        API.setBestPersonShares(best.getShares());
+        API.setBestPersonProfit(best.getProfit()) ;
+        API.setBestPersonBuyPrice(best.getBuyPrice()) ;
+        API.setBestPersonSellPrice(best.getSellPrice()) ;
 
-        API.setWorstPersonID(worst.getID());
-        API.setWorstPersonProfit(worst.getProfit());
-        API.setWorstPersonBuyPrice(worst.getBuyPrice());
-        API.setWorstPersonSellPrice(worst.getSellPrice());
+        API.setWorstPersonID(worst.getID()) ;
+        API.setWorstPersonMoney(worst.getMoney()) ;
+        API.setWorstPersonShares(worst.getShares()) ;
+        API.setWorstPersonProfit(worst.getProfit()) ;
+        API.setWorstPersonBuyPrice(worst.getBuyPrice()) ;
+        API.setWorstPersonSellPrice(worst.getSellPrice()) ;
     }
 
     private Person getBest()
     {
         Person best = people.getFirst() ;
-        double bestProfit = best.getProfit() ;
+        float bestProfit = best.getProfit() ;
 
         for (Person person : people)
         {
-            double personProfit = person.getProfit() ;
+            float personProfit = person.getProfit() ;
 
             if (personProfit > bestProfit)
             {
@@ -85,11 +93,11 @@ public class PersonManager
     private Person getWorst()
     {
         Person worst = people.getFirst() ;
-        double worstProfit = worst.getProfit() ;
+        float worstProfit = worst.getProfit() ;
 
         for (Person person : people)
         {
-            double personProfit = person.getProfit() ;
+            float personProfit = person.getProfit() ;
 
             if (personProfit < worstProfit)
             {

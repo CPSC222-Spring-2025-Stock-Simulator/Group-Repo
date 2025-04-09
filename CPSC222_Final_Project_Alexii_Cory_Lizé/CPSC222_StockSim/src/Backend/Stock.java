@@ -1,37 +1,56 @@
 package Backend;
 
+import java.util.Random;
+
 public class Stock
 {
-    private double price;
-    private double velocity;
-    private double acceleration;
+    private float price;
+    private float velocity;
+    private float acceleration;
+    private Random rng = new Random() ;
 
-    public Stock(double startPrice)
+    public Stock(float startPrice)
     {
         price = startPrice ;
         this.velocity = 0 ;
         this.acceleration = 0 ;
     }
 
-    public double getPrice()
+    public float getPrice()
     {
         return price ;
     }
 
-    public synchronized void updateVelocity(double deltaVelocity)
+    public synchronized void updateVelocity(float deltaVelocity)
     {
         this.velocity += deltaVelocity ;
     }
 
-    public synchronized void updateAcceleration(double deltaAcc)
+    public synchronized void updateAcceleration(float deltaAcc)
     {
         this.acceleration += deltaAcc ;
     }
 
     public synchronized void update()
     {
-        velocity += acceleration;
-        price += velocity;
+        velocity += acceleration ;
+        price += velocity ;
+
+        if (rng.nextFloat(0f, 1.0f) < API.getEventChance())
+        {
+            float event = rng.nextFloat(0,2) ;
+
+            if (event > 1)
+            {
+                API.setEventType("Good");
+                API.setEventStrength(event);
+            } else {
+                API.setEventType("Bad");
+                API.setEventStrength(2-event);
+            }
+
+            price *= event ;                             // event affect price (short term)
+        } else API.setEventType(null);
 
         if (price < 1)          // prevent price below 1
             price = 1 ;

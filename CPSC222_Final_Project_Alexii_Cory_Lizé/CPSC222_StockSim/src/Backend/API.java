@@ -7,25 +7,33 @@ public class API
     private static int stockStartPrice = 10 ;
     private static int peopleAmount = 100 ;
     private static int cycleCount = 50 ;
-    private static double cycleLength = 1.0 ;
-    private static final int graphLength = 10 ;
+    private static float cycleLength = 1.0f ;
+    private static int graphLength = 50 ;
+    private static float eventChance = .5f ;
     //-------------------------------------------------------
 
 
     //------- DYNAMIC VALUES ---------------------------------
-    private static Double[] stockPriceHistory ;
+    private static Float[] stockPriceHistory ;
+    private static int cycleCounter = 0 ;
 
     private static int bestPersonID ;
-    private static Double bestPersonProfit ;
-    private static Double bestPersonBuyPrice ;
-    private static Double bestPersonSellPrice ;
+    private static Float bestPersonMoney ;
+    private static int bestPersonShares ;
+    private static Float bestPersonProfit ;
+    private static Float bestPersonBuyPrice ;
+    private static Float bestPersonSellPrice ;
 
     private static int worstPersonID ;
-    private static Double worstPersonProfit ;
-    private static Double worstPersonBuyPrice ;
-    private static Double worstPersonSellPrice ;
+    private static Float worstPersonMoney ;
+    private static int worstPersonShares ;
+    private static Float worstPersonProfit ;
+    private static Float worstPersonBuyPrice ;
+    private static Float worstPersonSellPrice ;
 
-    private static double currentStockPrice ;
+    private static float currentStockPrice ;
+    private static String eventType ;
+    private static float eventStrength ;
     //--------------------------------------------------------
 
 
@@ -71,12 +79,12 @@ public class API
         API.cycleCount = cycleCount ;
     }
 
-    public static double getCycleLength()
+    public static Float getCycleLength()
     {
         return cycleLength ;
     }
 
-    public static void setCycleLength(double cycleLength)
+    public static void setCycleLength(float cycleLength)
     {
         API.cycleLength = cycleLength;
     }
@@ -86,18 +94,32 @@ public class API
         return graphLength ;
     }
 
+    public static void setGraphLength(int graphLength)
+    {
+        API.graphLength = graphLength ;
+        stockPriceHistory = new Float[graphLength] ;
+    }
+
+    public static float getEventChance() {
+        return eventChance ;
+    }
+
+    public static void setEventChance(float eventChance) {
+        API.eventChance = eventChance;
+    }
+
     //------------------------------------------------------------
 
 
 
     //------------- DYNAMIC VALUES SETTERS/GETTERS----------------
 
-    public static Double[] getStockPriceHistory()
+    public static Float[] getStockPriceHistory()
     {
         return stockPriceHistory ;
     }
 
-    public static void addNextStockPrice(double stockPrice)
+    public static void addNextStockPrice(float stockPrice)
     {
         int i=0 ;
 
@@ -113,12 +135,20 @@ public class API
         stockPriceHistory[i] = stockPrice ;
     }
 
-    public static double getCurrentStockPrice()
+    public static int getCycleCounter() {
+        return cycleCounter;
+    }
+
+    public static void incrementCycleCounter() {
+        API.cycleCounter++ ;
+    }
+
+    public static float getCurrentStockPrice()
     {
         return currentStockPrice ;
     }
 
-    public static void setCurrentStockPrice(double currentStockPrice)
+    public static void setCurrentStockPrice(float currentStockPrice)
     {
         API.currentStockPrice = currentStockPrice ;
     }
@@ -131,27 +161,43 @@ public class API
         API.bestPersonID = bestPersonID;
     }
 
-    public static Double getBestPersonProfit() {
+    public static Float getBestPersonMoney() {
+        return bestPersonMoney;
+    }
+
+    public static void setBestPersonMoney(Float bestPersonMoney) {
+        API.bestPersonMoney = bestPersonMoney;
+    }
+
+    public static int getBestPersonShares() {
+        return bestPersonShares;
+    }
+
+    public static void setBestPersonShares(int bestPersonShares) {
+        API.bestPersonShares = bestPersonShares;
+    }
+
+    public static Float getBestPersonProfit() {
         return bestPersonProfit;
     }
 
-    public static void setBestPersonProfit(Double bestPersonProfit) {
+    public static void setBestPersonProfit(Float bestPersonProfit) {
         API.bestPersonProfit = bestPersonProfit;
     }
 
-    public static Double getBestPersonBuyPrice() {
+    public static Float getBestPersonBuyPrice() {
         return bestPersonBuyPrice;
     }
 
-    public static void setBestPersonBuyPrice(Double bestPersonBuyPrice) {
+    public static void setBestPersonBuyPrice(Float bestPersonBuyPrice) {
         API.bestPersonBuyPrice = bestPersonBuyPrice;
     }
 
-    public static Double getBestPersonSellPrice() {
+    public static Float getBestPersonSellPrice() {
         return bestPersonSellPrice;
     }
 
-    public static void setBestPersonSellPrice(Double bestPersonSellPrice) {
+    public static void setBestPersonSellPrice(Float bestPersonSellPrice) {
         API.bestPersonSellPrice = bestPersonSellPrice;
     }
 
@@ -163,28 +209,60 @@ public class API
         API.worstPersonID = worstPersonID;
     }
 
-    public static Double getWorstPersonProfit() {
+    public static Float getWorstPersonMoney() {
+        return worstPersonMoney;
+    }
+
+    public static void setWorstPersonMoney(Float worstPersonMoney) {
+        API.worstPersonMoney = worstPersonMoney;
+    }
+
+    public static int getWorstPersonShares() {
+        return worstPersonShares;
+    }
+
+    public static void setWorstPersonShares(int worstPersonShares) {
+        API.worstPersonShares = worstPersonShares;
+    }
+
+    public static Float getWorstPersonProfit() {
         return worstPersonProfit;
     }
 
-    public static void setWorstPersonProfit(Double worstPersonProfit) {
+    public static void setWorstPersonProfit(Float worstPersonProfit) {
         API.worstPersonProfit = worstPersonProfit;
     }
 
-    public static Double getWorstPersonBuyPrice() {
+    public static Float getWorstPersonBuyPrice() {
         return worstPersonBuyPrice;
     }
 
-    public static void setWorstPersonBuyPrice(Double worstPersonBuyPrice) {
+    public static void setWorstPersonBuyPrice(Float worstPersonBuyPrice) {
         API.worstPersonBuyPrice = worstPersonBuyPrice;
     }
 
-    public static Double getWorstPersonSellPrice() {
+    public static Float getWorstPersonSellPrice() {
         return worstPersonSellPrice;
     }
 
-    public static void setWorstPersonSellPrice(Double worstPersonSellPrice) {
+    public static void setWorstPersonSellPrice(Float worstPersonSellPrice) {
         API.worstPersonSellPrice = worstPersonSellPrice;
+    }
+
+    public static String getEventType() {
+        return eventType;
+    }
+
+    public static void setEventType(String eventType) {
+        API.eventType = eventType;
+    }
+
+    public static float getEventStrength() {
+        return eventStrength;
+    }
+
+    public static void setEventStrength(float eventStrength) {
+        API.eventStrength = eventStrength;
     }
 
     //------------------------------------------------------------
