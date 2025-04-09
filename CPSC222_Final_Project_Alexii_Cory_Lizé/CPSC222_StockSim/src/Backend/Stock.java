@@ -36,6 +36,22 @@ public class Stock
         velocity += acceleration ;
         price += velocity ;
 
+        eventUpdate() ;
+
+        // price*= .9f ;
+        velocity-=API.getStockStartPrice()*.1f ;
+
+        if (price < 1)          // prevent price below 1
+            price = 1 ;
+
+        acceleration = 0;       // reset after each update              /TODO: see if we need this or not
+
+        API.setCurrentStockPrice(price) ;
+        API.addNextStockPrice(price);
+    }
+
+    public void eventUpdate()
+    {
         if (rng.nextFloat(0f, 1.0f) < API.getEventChance())
         {
             float event = rng.nextFloat(0,2) ;
@@ -49,15 +65,7 @@ public class Stock
                 API.setEventStrength(2-event);
             }
 
-            price *= event ;                             // event affect price (short term)
+            price += API.getStockStartPrice()*event ;                             // event affect price (short term)
         } else API.setEventType(null);
-
-        if (price < 1)          // prevent price below 1
-            price = 1 ;
-
-        acceleration = 0;       // reset after each update              /TODO: see if we need this or not
-
-        API.setCurrentStockPrice(price) ;
-        API.addNextStockPrice(price);
     }
 }

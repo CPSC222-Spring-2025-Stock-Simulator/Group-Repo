@@ -36,13 +36,13 @@ public class Person
         this.money = API.getPeopleStartMoney() ;
 
         this.FOMOCounter = 0 ;
-        this.FOMOLimit = rng.nextInt(0, API.getCycleCount()/5) ;
+        this.FOMOLimit = rng.nextInt(1, 20) ;
 
-        float delta = rng.nextFloat(0, 2.0f) ;
+        //float delta = rng.nextFloat(0, 2.0f) ;
         float stockPrice = API.getStockStartPrice() ;
 
-        this.buyPrice = rng.nextFloat(stockPrice, stockPrice*(1+delta)) ;
-        this.sellPrice = rng.nextFloat(buyPrice, stockPrice * (1+delta) ) ;
+        this.buyPrice = rng.nextFloat(1, stockPrice * 2 ) ;
+        this.sellPrice = rng.nextFloat(buyPrice, stockPrice * 2 ) ;
 
         /*
             The reason for delta is to make sure the preferred /selling price is a function of the start stock price
@@ -87,6 +87,8 @@ public class Person
         float delta = rng.nextFloat(0.1f, 1) ;    //factor of randomness
         float strength ;
         boolean isBuy ;
+        int buyStockAmount ;
+        int sellStockAmount ;
 
         if (stockPrice < buyPrice && money > stockPrice)
         {
@@ -97,14 +99,14 @@ public class Person
 
             float spend = money*strength ;                // they want to spend a percent of money
 
-            int buyStockAmount = (int)Math.floor(spend/stockPrice) ;
+            buyStockAmount = (int)Math.floor(spend/stockPrice) ;
 
             money -= buyStockAmount*stockPrice ;
 
             shares += buyStockAmount ;
 
-            buyPrice *= 2 - (stockPrice/buyPrice) ; // increase preferred buy price based on buying difference
-            sellPrice *= 2 - (stockPrice/buyPrice) ;     // increase preferred sell price based on selling difference
+            //buyPrice *= 2 - (stockPrice/buyPrice) ; // increase preferred buy price based on buying difference
+            //sellPrice *= 2 - (stockPrice/buyPrice) ;     // increase preferred sell price based on selling difference
         } else
             if (stockPrice > sellPrice && shares > 0)
         {
@@ -113,7 +115,7 @@ public class Person
             float ratio = (sellPrice/stockPrice) ;      // ratio of sellPrice/price
             strength = (1-ratio)*delta ;         // percentage of how willing you are to sell
 
-            int sellStockAmount = (int)Math.ceil(shares*strength) ;                // they want to sell a percent of shares
+            sellStockAmount = (int)Math.ceil(shares*strength) ;                // they want to sell a percent of shares
 
             money += sellStockAmount*stockPrice ;
             shares -= sellStockAmount ;
@@ -128,6 +130,7 @@ public class Person
 
                     FOMOCounter = 0 ;
                 }
+                FOMOCounter++ ;
 
                 return ;                                               // they don't want to buy or sell
             }
