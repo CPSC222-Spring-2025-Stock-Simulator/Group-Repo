@@ -41,7 +41,11 @@ public class CLI implements Runnable
         System.out.println("$ " + greenText + "Welcome to the StockSim Backend.CLI type HELP for a list of commands" + textReset);
         running = true;
         while(running){
-            requestInteraction();
+            try {
+                requestInteraction();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
         System.exit(0);
     }
@@ -49,7 +53,7 @@ public class CLI implements Runnable
     /**
      * Runs the interactive user input command line
      */
-    private void requestInteraction(){
+    private void requestInteraction() throws InterruptedException {
         System.out.print("$ ");
 
         String[] userInput = scanner.nextLine().split(" ");
@@ -169,11 +173,11 @@ public class CLI implements Runnable
                 if(userInput.length > 1){
                     // Requires an integer input in the second index
                     try {
-                        int i =  Integer.parseInt(userInput[1]);
-                        if(i<-10) i = -10;
-                        if(i>10) i = 10;
+                        float i =  Float.parseFloat(userInput[1]);
+                        if(i<0) i = 0f;
+                        if(i>2) i = 2f;
                         // Preventing values that are out of range
-                        forceEvent(i);
+                        Backend.getStock().forceEvent(i);
                         System.out.println(cyanText + "Event " + i + " executed" + textReset);
                         // Get and process an integer value
                     } catch (Exception e){
@@ -183,8 +187,8 @@ public class CLI implements Runnable
                 }
                 else{
                     // Chooses a random event if not given a specific value
-                    int i = random.nextInt(0,21) - 10;
-                    forceEvent(i);
+                    float i = random.nextFloat(0.0f, 2.0f);
+                    Backend.getStock().forceEvent(i);
                     System.out.println(cyanText + "Event " + i + " executed"+ textReset);
                 }
                 break;
@@ -346,13 +350,7 @@ public class CLI implements Runnable
         return cycleCount ;
     }
 
-    /**
-     * Forces a certain event to occur
-     * @param eventNum The corresponding event value
-     */
-    public void forceEvent(int eventNum){
 
-    }
 
     /**
      * Forces a GUI refresh

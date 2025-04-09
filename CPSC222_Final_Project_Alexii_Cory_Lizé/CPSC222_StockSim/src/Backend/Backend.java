@@ -8,10 +8,10 @@ public class Backend
     private static boolean isRunning = true ;
     private static final StopWatch stopWatch = new StopWatch() ;
     private static boolean isSimulationFinished ;
-
+    private static Stock stock;
     public static void runSimulation() throws InterruptedException
     {
-        Stock stock = new Stock(API.getStockStartPrice()) ;
+        stock = new Stock(API.getStockStartPrice()) ;
 
         Thread guiUpdaterThread = new Thread(() -> {
             while (!isSimulationFinished)
@@ -78,5 +78,9 @@ public class Backend
     public static void setIsPaused(boolean b)
     {
         isPaused = b ;
+    }
+
+    public static Stock getStock() {
+        return stock;
     }
 }
