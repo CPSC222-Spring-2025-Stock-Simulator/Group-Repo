@@ -35,7 +35,6 @@ public class StockGUI {
 
 
 
-    //CLI mainCLI = Main.getCli();
     @FXML public ListView<String> eventDisplay;
 
     @FXML public LineChart<Number, Number> lineChart;
@@ -112,32 +111,14 @@ public class StockGUI {
 
         }
     }
-    //TODO: Refreshes the GUI
 
-
-    //TODO: Use these when triggering their respective buttons
     public static void pause() throws InterruptedException {
         Backend.setIsPaused(true);
     }
+
     public static void play() throws InterruptedException {
         Backend.setIsPaused(false);
     }
-
-   /* //TODO: Use these if you add the ability to enter
-    // values before the main program starts or just
-    // delete if we don't get around to that
-    private void setPeople(int numPeople){
-        mainCLI.setPeople(numPeople);
-    }
-    private void setMoney(int amount){
-        mainCLI.setStartingMoney(amount);
-    }
-    private void setCycleAmount(int amount){
-        mainCLI.setCycleCount(amount);
-    }
-    private void setCycleLength(float seconds){
-        mainCLI.setCycleLength(seconds);
-    }*/
 
     public void initialize() {
         System.out.println("initialize() method called");
