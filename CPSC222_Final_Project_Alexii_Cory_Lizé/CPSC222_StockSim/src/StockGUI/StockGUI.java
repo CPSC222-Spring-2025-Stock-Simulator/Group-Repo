@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.text.Text;
 
@@ -32,22 +33,15 @@ public class StockGUI {
     @FXML public Text worstMoney;
 
 
-    CLI mainCLI = Main.getCli();
 
-    @FXML
-    public LineChart<Number, Number> lineChart;
-    @FXML
-    private XYChart.Series<Number, Number> series;
+    //CLI mainCLI = Main.getCli();
+    @FXML public ListView<String> eventDisplay;
 
-
-    @FXML
-    public NumberAxis xAxis;
-
-    @FXML
-    public NumberAxis yAxis;
-
-    @FXML
-    private ToggleButton pauseButton;
+    @FXML public LineChart<Number, Number> lineChart;
+    @FXML private XYChart.Series<Number, Number> series;
+    @FXML public NumberAxis xAxis;
+    @FXML public NumberAxis yAxis;
+    @FXML private ToggleButton pauseButton;
 
     @FXML
     private void handleToggleButtonClick(ActionEvent event) throws InterruptedException {
@@ -112,7 +106,9 @@ public class StockGUI {
                 System.out.println("lineChart is null inside updateGUI()");
             }
 
-
+        if(API.getEventType() != null) {
+            eventDisplay.getItems().add(API.getEventType() + " event: " + API.getEventStrength());
+        }
     }
     //TODO: Refreshes the GUI
 
@@ -125,7 +121,7 @@ public class StockGUI {
         Backend.setIsPaused(false);
     }
 
-    //TODO: Use these if you add the ability to enter
+   /* //TODO: Use these if you add the ability to enter
     // values before the main program starts or just
     // delete if we don't get around to that
     private void setPeople(int numPeople){
@@ -139,7 +135,7 @@ public class StockGUI {
     }
     private void setCycleLength(float seconds){
         mainCLI.setCycleLength(seconds);
-    }
+    }*/
 
     public void initialize() {
         System.out.println("initialize() method called");

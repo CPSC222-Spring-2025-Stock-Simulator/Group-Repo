@@ -32,8 +32,8 @@ public class Main extends Application
 
     public static void pause() throws InterruptedException
     {
-        Backend.getStopWatch().stop() ;
-        StockGUI.pause() ;
+        Backend.getStopWatch().stop();
+        StockGUI.pause();
 
         while (Backend.isIsPaused())
         {
@@ -41,7 +41,7 @@ public class Main extends Application
         }
 
         StockGUI.play();
-        Backend.getStopWatch().start() ;
+        Backend.getStopWatch().start();
     }
 
     public static CLI getCli() {
