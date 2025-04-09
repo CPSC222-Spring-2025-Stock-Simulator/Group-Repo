@@ -68,4 +68,19 @@ public class Stock
             price += API.getStockStartPrice()*event ;                             // event affect price (short term)
         } else API.setEventType(null);
     }
+
+    public void forceEevnt(float event)
+    {
+        // bad event is (0.0,1.0], good event is (1.0,2.0]
+        if (event > 1)
+        {
+            API.setEventType("Good");
+            API.setEventStrength(event);
+        } else {
+            API.setEventType("Bad");
+            API.setEventStrength(2-event);
+        }
+
+        price += API.getStockStartPrice()*event ;                             // event affect price (short term)else API.setEventType(null);
+    }
 }
