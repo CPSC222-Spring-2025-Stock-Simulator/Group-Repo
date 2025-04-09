@@ -103,7 +103,8 @@ public class Person
 
             shares += buyStockAmount ;
 
-            sellPrice *= 2 - (stockPrice/buyPrice) ;     // increase preferred sell price based on buying difference
+            buyPrice *= 2 - (stockPrice/buyPrice) ; // increase preferred buy price based on buying difference
+            sellPrice *= 2 - (stockPrice/buyPrice) ;     // increase preferred sell price based on selling difference
         } else
             if (stockPrice > sellPrice && shares > 0)
         {
@@ -117,8 +118,7 @@ public class Person
             money += sellStockAmount*stockPrice ;
             shares -= sellStockAmount ;
 
-            sellPrice *= 2 - (sellPrice/stockPrice) ;     // increase preferred sell price based on selling difference
-            buyPrice *= 2 - (sellPrice/stockPrice) ; // increase preferred buy price based on selling difference
+            //sellPrice *= 2 - (sellPrice/stockPrice) ;     // increase preferred sell price based on selling difference
         } else
             {
                 if (FOMOCounter == FOMOLimit) // they've reached their limit and need to update their buy and sell price
