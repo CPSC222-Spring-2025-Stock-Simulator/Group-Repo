@@ -46,7 +46,7 @@ public class Stock
                 API.setEventStrength(event);
             } else {
                 API.setEventType("Bad");
-                API.setEventStrength(event+1);
+                API.setEventStrength(2-event);
             }
 
             price *= event ;                             // event affect price (short term)
