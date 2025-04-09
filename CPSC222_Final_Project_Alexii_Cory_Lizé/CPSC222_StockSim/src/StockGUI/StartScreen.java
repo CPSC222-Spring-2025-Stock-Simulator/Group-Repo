@@ -197,8 +197,14 @@ public class StartScreen {
 
         Scene main = new Scene(parent);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setTitle("Stock Simulator");
+
+        double currentWidth = window.getWidth();
+        double currentHeight = window.getHeight();
+
         window.setScene(main);
+        window.setWidth(currentWidth);
+        window.setHeight(currentHeight);
+        window.setTitle("Stock Simulator");
         window.show();
 
         new Thread(() -> {

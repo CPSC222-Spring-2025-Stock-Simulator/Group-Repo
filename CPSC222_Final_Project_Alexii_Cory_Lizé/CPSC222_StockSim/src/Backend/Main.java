@@ -12,19 +12,19 @@ import javafx.stage.Stage;
 public class Main extends Application
 {
     private static StockGUI stockGUI;
-    private static CLI cli;
+    //private static CLI cli;
     private static Random random;
 
     public static void main(String[] args) throws InterruptedException
     {
-
-        System.out.println("some thing random");
         Random random = new Random();
 
 
-        cli = new CLI(random) ;
+        /*cli = new CLI(random) ;
         Thread t = new Thread(cli);
         t.start();
+
+         */
 
         Thread javafxThread = new Thread(() -> Application.launch());
         javafxThread.start();
@@ -38,15 +38,16 @@ public class Main extends Application
         while (Backend.isIsPaused())
         {
             Thread.sleep(100) ;
+            API.setEventType(null);
         }
 
         StockGUI.play();
         Backend.getStopWatch().start();
     }
 
-    public static CLI getCli() {
+    /*public static CLI getCli() {
         return cli;
-    }
+    }*/
 
     @Override
     public void start(Stage stage) throws Exception {
