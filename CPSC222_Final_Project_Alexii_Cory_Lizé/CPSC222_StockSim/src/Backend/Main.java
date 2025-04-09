@@ -38,6 +38,7 @@ public class Main extends Application
         while (Backend.isIsPaused())
         {
             Thread.sleep(100) ;
+            API.setEventType(null);
         }
 
         StockGUI.play();
