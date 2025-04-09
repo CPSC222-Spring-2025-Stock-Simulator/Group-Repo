@@ -76,7 +76,6 @@ public class Stock
     public void forceEvent(float event) throws InterruptedException
     {
         isEventForced = true ;
-        Thread.sleep((long) (API.getCycleLength()*1000)) ;
         privateForceEvent(event) ;
     }
 
