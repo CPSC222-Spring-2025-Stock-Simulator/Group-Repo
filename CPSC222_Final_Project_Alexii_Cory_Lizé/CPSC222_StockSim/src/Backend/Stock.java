@@ -7,7 +7,7 @@ public class Stock
     private float price ;
     private float velocity ;
     private float acceleration ;
-    private Random rng = new Random() ;
+    private final Random rng = new Random() ;
     private boolean isEventForced ;
 
     public Stock(float startPrice)
@@ -33,14 +33,30 @@ public class Stock
         this.acceleration += deltaAcc ;
     }
 
-    public synchronized void update() {
+    public synchronized void update()
+    {
         velocity += acceleration ;
         price += velocity ;
 
-        eventUpdate() ;
+        //eventUpdate() ;
+        if (rng.nextFloat(0f, 1.0f) < API.getEventChance())
+        {
+            float event = rng.nextFloat(0, 2) ;
 
-        // price*= .9f ;
-        velocity -= API.getStockStartPrice() * .1f ;
+            if (event > 1)
+            {
+                API.setEventType("Good") ;
+                API.setEventStrength(event) ;
+            } else {
+                API.setEventType("Bad") ;
+                API.setEventStrength(2 - event) ;
+            }
+
+            price *= event ;                             // event affect price (short term)
+        } else API.setEventType(null) ;
+
+        //price*= .9f ;
+        //velocity *= .90f ;
 
         if (price < 1)          // prevent price below 1
             price = 1 ;
