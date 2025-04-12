@@ -1,7 +1,20 @@
 package Backend ;
 
+/**
+ * This file is part of the final concurrency project
+ * 		CPSC 222 Final Project Winter 2025
+ *
+ * Logic for handling Person class using thread pools
+ *
+ * @author Cory 230154922, Alexii 230154409, Lize 230157950
+ * @version 2024.2.3
+ */
+
 import javafx.application.Platform ;
 
+/**
+ * main for all backend stuff. runs simulation and starts cycles
+ */
 public class Backend
 {
     private static boolean isPaused = false ;

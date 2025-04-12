@@ -1,5 +1,15 @@
 package Backend;
 
+/**
+ * This file is part of the final concurrency project
+ * 		CPSC 222 Final Project Winter 2025
+ *
+ * Main Class to start and initialize everything
+ *
+ * @author Cory 230154922, Alexii 230154409, Lize 230157950
+ * @version 2024.2.3
+ */
+
 import java.util.Random;
 import StockGUI.StockGUI;
 import StockGUI.StartScreen;
@@ -9,12 +19,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Main class
+ */
 public class Main extends Application
 {
     private static StockGUI stockGUI;
     private static CLI cli;
     private static Random random;
 
+    /**
+     * main method
+     * @param args args
+     * @throws InterruptedException exception
+     */
     public static void main(String[] args) throws InterruptedException
     {
         Random random = new Random();
@@ -30,6 +48,10 @@ public class Main extends Application
         javafxThread.start();
     }
 
+    /**
+     * used to pause cycle during runtime
+     * @throws InterruptedException exception
+     */
     public static void pause() throws InterruptedException
     {
         Backend.getStopWatch().stop();
@@ -49,6 +71,11 @@ public class Main extends Application
         return cli;
     }*/
 
+    /**
+     * start the gui thread
+     * @param stage stage
+     * @throws Exception exception
+     */
     @Override
     public void start(Stage stage) throws Exception {
         
@@ -77,6 +104,9 @@ public class Main extends Application
         updateGUIStatic();
     }
 
+    /**
+     * update gui
+     */
     private static void updateGUIStatic() {
         Platform.runLater(() -> {
             if (stockGUI != null) {
@@ -87,9 +117,18 @@ public class Main extends Application
         });
     }
 
+    /**
+     * set stock gui
+     * @param gui stock gui
+     */
     public static void setStockGUI(StockGUI gui) {
         stockGUI = gui;
     }
+
+    /**
+     * getter for stock gui
+     * @return stock gui
+     */
     public static StockGUI getStockGUI() {
         return stockGUI;
     }

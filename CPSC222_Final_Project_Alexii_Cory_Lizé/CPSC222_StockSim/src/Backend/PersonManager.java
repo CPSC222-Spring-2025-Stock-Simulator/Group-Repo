@@ -1,17 +1,34 @@
 package Backend;
 
+/**
+ * This file is part of the final concurrency project
+ * 		CPSC 222 Final Project Winter 2025
+ *
+ * Logic for handling Person class using thread pools
+ *
+ * @author Cory Stecyk
+ * Student Number: 230154922
+ * @version 2024.2.3
+ */
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * used to manage people and assign threads tasks for people to decide
+ */
 public class PersonManager
 {
     private static ArrayList<Person> people;
     private final ExecutorService executor ;
     private final Random rng = new Random() ;
 
+    /**
+     * constructor for manager of a list of people
+     */
     public PersonManager()
     {
         people = new ArrayList<>(API.getPeopleAmount()) ;
@@ -23,6 +40,11 @@ public class PersonManager
         this.executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
     }
 
+    /**
+     * assigns decisions as a task to threads in a thread pool
+     * @param stock stock
+     * @throws InterruptedException exception
+     */
     public void startDecisionProcess(Stock stock) throws InterruptedException
     {
         CountDownLatch latch = new CountDownLatch(people.size());
@@ -46,11 +68,17 @@ public class PersonManager
         updateCycleCount() ;
     }
 
+    /**
+     * updates what teh current cycle is to be displayed
+     */
     private void updateCycleCount()
     {
         API.incrementCycleCounter() ;
     }
 
+    /**
+     * updates the best and worst person to be displayed
+     */
     private void updateBestWorstPerson()
     {
         Person best = getBest() ;
@@ -71,6 +99,10 @@ public class PersonManager
         API.setWorstPersonSellPrice(worst.getSellPrice()) ;
     }
 
+    /**
+     * gets the best person
+     * @return best person
+     */
     private Person getBest()
     {
         Person best = people.getFirst() ;
@@ -90,6 +122,10 @@ public class PersonManager
         return best ;
     }
 
+    /**
+     * gets the worst person
+     * @return worst person
+     */
     private Person getWorst()
     {
         Person worst = people.getFirst() ;

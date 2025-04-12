@@ -1,5 +1,15 @@
 package StockGUI;
 
+/**
+ * This file is part of the final concurrency project
+ * 		CPSC 222 Final Project Winter 2025
+ *
+ * Logic for handling the start screen GUI
+ *
+ * @author Lize 230157950
+ * @version 2024.2.3
+ */
+
 import Backend.Backend ;
 import Backend.API;
 import Backend.Main;
