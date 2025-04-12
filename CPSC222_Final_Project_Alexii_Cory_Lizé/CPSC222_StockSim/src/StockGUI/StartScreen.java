@@ -12,8 +12,14 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import java.io.IOException;
+
+/**
+ * This file creates the start screen GUI
+ *
+ * @author Lize Engelbrecht, Cory Stecyk
+ * @version 2024.2.3
+ */
 
 public class StartScreen {
 
@@ -34,8 +40,12 @@ public class StartScreen {
 
     private StockGUI stockGUI;
 
+    /**
+     * The initialize method initializes the sliders, and text boxes that allow the user input.
+     */
     @FXML
     public void initialize(){
+        //Setting the slider for each input to take the default value in their respective text field
         try {
             float cA = Float.parseFloat(cycleAmountText.getText());
             cycleAmountSlider.setValue(cA);
@@ -86,6 +96,7 @@ public class StartScreen {
             eventSlider.setValue(0);
         }
 
+        //Setting the text field of each input to change if their respective slider has been adjusted
         cycleAmountSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             cycleAmountText.setText(String.format("%.0f", newValue.floatValue()));
         });
@@ -108,12 +119,13 @@ public class StartScreen {
             eventText.setText(String.format("%.0f", newValue.floatValue()));
         });
 
+        //Setting the slider for each input to take the value in their respective text field if it has changed
         cycleAmountText.textProperty().addListener((obs, oldVal, newVal) -> {
             try {
                 float value = Float.parseFloat(newVal);
                 cycleAmountSlider.setValue(value);
             } catch (NumberFormatException e) {
-                // If the input isn't a number (e.g., user types letters), just ignore
+                // If the input isn't a number, just ignore
             }
         });
 
@@ -122,7 +134,7 @@ public class StartScreen {
                 float value = Float.parseFloat(newVal);
                 cycleLengthSlider.setValue(value);
             } catch (NumberFormatException e) {
-                // If the input isn't a number (e.g., user types letters), just ignore
+                // If the input isn't a number, just ignore
             }
         });
 
@@ -131,7 +143,7 @@ public class StartScreen {
                 float value = Float.parseFloat(newVal);
                 moneySlider.setValue(value);
             } catch (NumberFormatException e) {
-                // If the input isn't a number (e.g., user types letters), just ignore
+                // If the input isn't a number, just ignore
             }
         });
 
@@ -140,7 +152,7 @@ public class StartScreen {
                 float value = Float.parseFloat(newVal);
                 peopleSlider.setValue(value);
             } catch (NumberFormatException e) {
-                // If the input isn't a number (e.g., user types letters), just ignore
+                // If the input isn't a number, just ignore
             }
         });
 
@@ -149,7 +161,7 @@ public class StartScreen {
                 float value = Float.parseFloat(newVal);
                 stockSlider.setValue(value);
             } catch (NumberFormatException e) {
-                // If the input isn't a number (e.g., user types letters), just ignore
+                // If the input isn't a number, just ignore
             }
         });
         graphLengthText.textProperty().addListener((obs, oldVal, newVal) -> {
@@ -157,7 +169,7 @@ public class StartScreen {
                 float value = Float.parseFloat(newVal);
                 graphLengthSlider.setValue(value);
             } catch (NumberFormatException e) {
-                // If the input isn't a number (e.g., user types letters), just ignore
+                // If the input isn't a number, just ignore
             }
         });
 
@@ -166,16 +178,23 @@ public class StartScreen {
                 float value = Float.parseFloat(newVal);
                 eventSlider.setValue(value);
             } catch (NumberFormatException e) {
-                // If the input isn't a number (e.g., user types letters), just ignore
+                // If the input isn't a number, just ignore
             }
         });
 
 
     }
 
+    /**
+     * This method is called when the start button on the GUI was clicked. It sets all the values that the user has inputted
+     * and then starts the second GUI that displays everything.
+     * @param event button clicked
+     * @throws IOException  no button to click
+     */
     @FXML
-    private void startClicked(ActionEvent event) throws IOException, InterruptedException {
+    private void startClicked(ActionEvent event) throws IOException{
 
+        //Setting all the input values to the variables that are used throughout the code
         API.setCycleCount((int) cycleAmountSlider.getValue());
         API.setPeopleAmount((int) peopleSlider.getValue());
         API.setPeopleStartMoney((int) moneySlider.getValue());
@@ -184,20 +203,24 @@ public class StartScreen {
         API.setEventChance((float) (eventSlider.getValue()/100));
         API.setGraphLength((int) graphLengthSlider.getValue());
 
+        //Initializing the stockGUI
         FXMLLoader loader = new FXMLLoader(StockGUI.class.getResource("StockGUI.fxml"));
         AnchorPane parent = loader.load();
         stockGUI = loader.getController();
         Main.setStockGUI(stockGUI);
 
+        //check if the stockGUI was set successfully, without this check the code can crash.
         if (stockGUI != null) {
             System.out.println("StockGUI controller loaded successfully!");
         } else {
             System.out.println("StockGUI controller is null.");
         }
 
+        //Creating the scene and window for the display
         Scene main = new Scene(parent);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
+        //This allows the stockGUI window to open at the same size as the startScreen
         double currentWidth = window.getWidth();
         double currentHeight = window.getHeight();
 
@@ -207,6 +230,7 @@ public class StartScreen {
         window.setTitle("Stock Simulator");
         window.show();
 
+        //Run the simulation on a separate thread
         new Thread(() -> {
             try {
                 // Ensure stockGUI is initialized before running the simulation

@@ -12,6 +12,12 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.text.Text;
 
+/**
+ * This file creates the stock display GUI
+ *
+ * @author Lize Engelbrecht, Alexii Saliken, Cory Stecyk
+ * @version 2024.2.3
+ */
 
 public class StockGUI {
     @FXML public Text peopleAmount;
@@ -33,18 +39,22 @@ public class StockGUI {
     @FXML public Text worstShares;
     @FXML public Text worstMoney;
 
-
-
     @FXML public ListView<String> eventDisplay;
 
     @FXML public LineChart<Number, Number> lineChart;
     @FXML private XYChart.Series<Number, Number> series;
     @FXML public NumberAxis xAxis;
     @FXML public NumberAxis yAxis;
+
     @FXML private ToggleButton pauseButton;
 
+    /**
+     * this method determines what happens when the toggle button is clicked, when it changes states it will pause or play
+     * the simulation
+     * @param event button was clicked
+     */
     @FXML
-    private void handleToggleButtonClick(ActionEvent event) throws InterruptedException {
+    private void handleToggleButtonClick(ActionEvent event){
         if(pauseButton.isSelected()){
             pauseButton.setText("Play");
             pause();
@@ -56,23 +66,26 @@ public class StockGUI {
 
     }
 
-
+    /**
+     * this method is called everytime that the threads for people and stock have finished running through calculation to
+     * display what changes occurred.
+     */
     public void updateGUI(){
-        //Index
+        //Index text changes
         peopleAmount.setText(String.valueOf(API.getPeopleAmount()));
         moneyStart.setText(String.valueOf(API.getPeopleStartMoney()));
         stockStart.setText(String.valueOf(API.getStockStartPrice()));
         stockCurrent.setText(String.format("%.2f", API.getCurrentStockPrice()));
         cycleAmount.setText(String.valueOf(API.getCycleCount()));
         cycleLength.setText(String.format("%.1f sec", API.getCycleLength()));
-        //best
+        //Best trader text changes
         bestPerson.setText(String.valueOf( API.getBestPersonID()));
         bestProfit.setText(String.format("%.2f", API.getBestPersonProfit()));
         bestBuy.setText(String.format("%.2f", API.getBestPersonBuyPrice()));
         bestSell.setText(String.format("%.2f", API.getBestPersonSellPrice()));
         bestShares.setText(String.valueOf(API.getBestPersonShares()));
         bestMoney.setText(String.format("%.2f", API.getBestPersonMoney()));
-        //worst
+        //Worst trader text changes
         worstPerson.setText(String.valueOf(API.getWorstPersonID()));
         worstProfit.setText(String.format("%.2f", API.getWorstPersonProfit()));
         worstBuy.setText(String.format("%.2f", API.getWorstPersonBuyPrice()));
@@ -80,10 +93,8 @@ public class StockGUI {
         worstShares.setText(String.valueOf( API.getWorstPersonShares()));
         worstMoney.setText(String.format("%.2f", API.getWorstPersonMoney()));
 
-        //line chart test:
-        // If the lineChart is null, we know the issue lies in the initialization process
         Float[] stocks = API.getStockPriceHistory();
-
+        // Line Chart updates to add more points
         series.setName("Cycle: " + API.getCycleCounter());
         if (lineChart != null) {
             if(series != null){
@@ -106,22 +117,32 @@ public class StockGUI {
                 System.out.println("lineChart is null inside updateGUI()");
             }
 
+        //Adds the event that occurred to the top of the event list view, if an event has occurred.
         if(API.getEventType() != null) {
             eventDisplay.getItems().addFirst(API.getEventType() + " event: "+ String.format("%.2f",API.getEventStrength()));
 
         }
     }
 
-    public static void pause() throws InterruptedException {
+    /**
+     * Sets a value in the backend class to true that sends the threads to sleep
+     */
+    public static void pause(){
         Backend.setIsPaused(true);
     }
 
-    public static void play() throws InterruptedException {
+    /**
+     * Sets a value in the backend class to false that lets the threads run again
+     */
+    public static void play(){
         Backend.setIsPaused(false);
     }
 
+    /**
+     * Initializes the line chart, series, text boxes, and list view.
+     */
     public void initialize() {
-        System.out.println("initialize() method called");
+        //initialization of the line chart and series if they have not been initialized by the controller
         if (lineChart == null) {
             System.out.println("LineChart is null, initializing...");
             lineChart = new LineChart<>(xAxis, yAxis);
@@ -132,23 +153,21 @@ public class StockGUI {
             lineChart.getData().add(series);
         }
 
-        // Continue with your other setup code
         xAxis.setLabel("");
         yAxis.setLabel("Stock Price");
         lineChart.setTitle("Stock Data");
 
+        // Sets default text to nothing if no information has been added to be displayed
         peopleAmount.setText("");
         moneyStart.setText("");
         stockStart.setText("");
         stockCurrent.setText("");
         cycleAmount.setText("");
         cycleLength.setText("");
-        //best
         bestPerson.setText("");
         bestProfit.setText("");
         bestBuy.setText("");
         bestSell.setText("");
-        //worst
         worstPerson.setText("");
         worstProfit.setText("");
         worstBuy.setText("");
@@ -156,6 +175,7 @@ public class StockGUI {
 
         System.out.println("LineChart has been initialized.");
 
+        //Changes the cell colour for each event.
         eventDisplay.setCellFactory(lv -> new ListCell<String>() {
             @Override
             protected void updateItem(String item, boolean empty) {
@@ -175,6 +195,7 @@ public class StockGUI {
             }
         });
 
+        //Runs the updateGUI method later to ensure that everything has had time to initialize.
         Platform.runLater(this::updateGUI);
 
     }
