@@ -36,13 +36,17 @@ public class Person
         this.money = API.getPeopleStartMoney() ;
 
         this.FOMOCounter = 0 ;
-        this.FOMOLimit = rng.nextInt(0, API.getCycleCount()/5) ;
+        this.FOMOLimit = rng.nextInt(1, API.getCycleCount()/10 + 10) ;
 
         float delta = rng.nextFloat(0, 2.0f) ;
         float stockPrice = API.getStockStartPrice() ;
 
-        this.buyPrice = rng.nextFloat(stockPrice, stockPrice*(1+delta)) ;
-        this.sellPrice = rng.nextFloat(buyPrice, stockPrice * (1+delta) ) ;
+
+        //this.buyPrice = rng.nextFloat(20, 1000 ) ;            fixed bounds
+        //this.sellPrice = rng.nextFloat(buyPrice, 1000 ) ;     fixed bounds
+
+        this.buyPrice = rng.nextFloat(1, stockPrice * 2 ) ;
+        this.sellPrice = rng.nextFloat(buyPrice, stockPrice * 4 ) ;
 
         /*
             The reason for delta is to make sure the preferred /selling price is a function of the start stock price
@@ -87,9 +91,13 @@ public class Person
         float delta = rng.nextFloat(0.1f, 1) ;    //factor of randomness
         float strength ;
         boolean isBuy ;
+        int buyStockAmount = 0;
+        int sellStockAmount = 0;
 
         if (stockPrice < buyPrice && money > stockPrice)
         {
+            if (rng.nextBoolean())
+                return;
             isBuy = true ;
 
             float ratio = (stockPrice/buyPrice) ;      // ratio of price/buyPrice
@@ -97,23 +105,25 @@ public class Person
 
             float spend = money*strength ;                // they want to spend a percent of money
 
-            int buyStockAmount = (int)Math.floor(spend/stockPrice) ;
+            buyStockAmount = (int)Math.floor(spend/stockPrice) ;
 
             money -= buyStockAmount*stockPrice ;
 
             shares += buyStockAmount ;
 
-            buyPrice *= 2 - (stockPrice/buyPrice) ; // increase preferred buy price based on buying difference
-            sellPrice *= 2 - (stockPrice/buyPrice) ;     // increase preferred sell price based on selling difference
+            //buyPrice *= 2 - (stockPrice/buyPrice) ; // increase preferred buy price based on buying difference
+            //sellPrice *= 2 - (stockPrice/buyPrice) ;     // increase preferred sell price based on selling difference
         } else
             if (stockPrice > sellPrice && shares > 0)
         {
+            if (rng.nextBoolean())
+                return;
             isBuy = false ;
 
             float ratio = (sellPrice/stockPrice) ;      // ratio of sellPrice/price
             strength = (1-ratio)*delta ;         // percentage of how willing you are to sell
 
-            int sellStockAmount = (int)Math.ceil(shares*strength) ;                // they want to sell a percent of shares
+            sellStockAmount = (int)Math.ceil(shares*strength) ;                // they want to sell a percent of shares
 
             money += sellStockAmount*stockPrice ;
             shares -= sellStockAmount ;
@@ -121,6 +131,7 @@ public class Person
             //sellPrice *= 2 - (sellPrice/stockPrice) ;     // increase preferred sell price based on selling difference
         } else
             {
+
                 if (FOMOCounter == FOMOLimit) // they've reached their limit and need to update their buy and sell price
                 {
                     this.buyPrice = rng.nextFloat(stockPrice*(1-delta), stockPrice * (1+delta)) ;
@@ -128,6 +139,9 @@ public class Person
 
                     FOMOCounter = 0 ;
                 }
+                FOMOCounter++ ;
+
+
 
                 return ;                                               // they don't want to buy or sell
             }
@@ -138,16 +152,17 @@ public class Person
         float deltaVelocity = 0 ;       // how much to change velocity
         float deltaAcceleration = 0 ;       // how much to change acceleration
 
+        float changeRatio = (strength*(delta))/API.getPeopleAmount() ;
 
         // decide whether to affect stock acceleration or velocity
         if (strength < 0.5)
         {
             // small strength means influence velocity
-            deltaVelocity = isBuy? delta : -delta ;
+            deltaVelocity = isBuy? changeRatio*buyStockAmount : -changeRatio*sellStockAmount ;
         } else
         {
             // big strength means influence acceleration
-            deltaAcceleration = isBuy? delta : -delta ;
+            deltaAcceleration = isBuy? changeRatio*buyStockAmount : -changeRatio*sellStockAmount ;
         }
 
 
