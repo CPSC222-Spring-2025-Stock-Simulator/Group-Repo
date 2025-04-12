@@ -4,7 +4,7 @@ package StockGUI;
  * This file is part of the final concurrency project
  * 		CPSC 222 Final Project Winter 2025
  *
- * Logic for handling Person class using thread pools
+ * Logic for Displaying GUI
  *
  * @author Lize 230157950, Alexii 230154409
  * @version 2024.2.3
