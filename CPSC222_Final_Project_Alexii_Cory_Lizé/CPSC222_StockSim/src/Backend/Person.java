@@ -14,7 +14,7 @@ package Backend;
 import java.util.Random;
 
 /**
- *
+ * person class, every person has their own unique behavior and decisions to buy or sell
  */
 public class Person
 {
@@ -27,7 +27,8 @@ public class Person
     private final int FOMOLimit ;
 
     /**
-     * makes a person using ID
+     * Makes a person using ID.
+     * A person is given random bounds from where they should buy and sell based on bounds around the stock start price
      * @param ID the threads ID
      */
     public Person(Integer ID, Random rng)
@@ -54,36 +55,65 @@ public class Person
          */
     }
 
+    /**
+     * getter for ID
+     * @return id
+     */
     public Integer getID()
     {
         return ID ;
     }
 
+    /**
+     * getter for person buy price
+     * @return buy price
+     */
     public float getBuyPrice()
     {
         return buyPrice ;
     }
 
+    /**
+     * getter for person sell price
+     * @return sell price
+     */
     public float getSellPrice()
     {
         return sellPrice ;
     }
 
+    /**
+     * getter for person current money
+     * @return person current money
+     */
     public float getMoney()
     {
         return money ;
     }
 
+    /**
+     * getter for shares
+     * @return shares
+     */
     public int getShares()
     {
         return shares ;
     }
 
+    /**
+     * getter for person profit
+     * @return money + shares * shares Price - money person started with
+     */
     public float getProfit()
     {
         return money + shares* API.getCurrentStockPrice() - API.getPeopleStartMoney() ;
     }
 
+    /**
+     * decision method for people to make a decision in the stock market
+     * @param stock stock they are deciding on
+     * @param rng random
+     */
     public void decision(Stock stock, Random rng)
     {
         float stockPrice = stock.getPrice() ;
@@ -96,7 +126,7 @@ public class Person
 
         if (stockPrice < buyPrice && money > stockPrice)
         {
-            if (rng.nextBoolean())
+            if (rng.nextBoolean())                          // used so only half the amount of people buying, buy
                 return;
             isBuy = true ;
 
@@ -116,7 +146,7 @@ public class Person
         } else
             if (stockPrice > sellPrice && shares > 0)
         {
-            if (rng.nextBoolean())
+            if (rng.nextBoolean())                      // used so only half the amount of people selling, sell
                 return;
             isBuy = false ;
 
@@ -152,17 +182,18 @@ public class Person
         float deltaVelocity = 0 ;       // how much to change velocity
         float deltaAcceleration = 0 ;       // how much to change acceleration
 
-        float changeRatio = (strength*(delta))/API.getPeopleAmount() ;
+        float buyChangeRatio = ((strength*(delta))/API.getPeopleAmount())*buyStockAmount ;
+        float sellChangeRatio = ((strength*(delta))/API.getPeopleAmount())*sellStockAmount ;
 
         // decide whether to affect stock acceleration or velocity
         if (strength < 0.5)
         {
             // small strength means influence velocity
-            deltaVelocity = isBuy? changeRatio*buyStockAmount : -changeRatio*sellStockAmount ;
+            deltaVelocity = isBuy? buyChangeRatio : -sellChangeRatio ;
         } else
         {
             // big strength means influence acceleration
-            deltaAcceleration = isBuy? changeRatio*buyStockAmount : -changeRatio*sellStockAmount ;
+            deltaAcceleration = isBuy? buyChangeRatio : -sellChangeRatio ;
         }
 
 

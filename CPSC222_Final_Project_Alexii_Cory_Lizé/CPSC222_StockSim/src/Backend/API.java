@@ -1,5 +1,19 @@
 package Backend;
 
+/**
+ * This file is part of the final concurrency project
+ * 		CPSC 222 Final Project Winter 2025
+ *
+ * Storage for data to be handled by frontend and backend
+ *
+ * @author Cory Stecyk
+ * Student Number: 230154922
+ * @version 2024.2.3
+ */
+
+/**
+ * API class, mainly used as a storage unit for front and bank end to pass information
+ */
 public class API
 {
     //------- DEFAULT VALUES ---------------------------------
@@ -119,6 +133,10 @@ public class API
         return stockPriceHistory ;
     }
 
+    /**
+     * adds the next stock price and adjusts position of prices in list to display nicely
+     * @param stockPrice current stock price
+     */
     public static void addNextStockPrice(float stockPrice)
     {
         int i=0 ;
