@@ -1,7 +1,7 @@
+
+
 package Backend;
-
 import StockGUI.StockGUI;
-
 import java.util.Random;
 import java.util.Scanner;
 
@@ -18,11 +18,15 @@ public class CLI implements Runnable
     // Text Colouring
 
     boolean running = false;
+    // Whether the system is running or not
+
     private int startingMoney = API.getPeopleStartMoney();
     private int people = API.getPeopleAmount() ;
     private int cycleCount = API.getCycleCount() ;
-    private float cycleLength = API.getCycleLength() ;
     private int startingStockPrice = API.getStockStartPrice() ;
+    // Initial values
+
+    private float cycleLength = API.getCycleLength() ;
     // By seconds
 
 
@@ -68,11 +72,6 @@ public class CLI implements Runnable
                 // Displays the list of functions that the user can utilize
                 help();
                 break;
-            case "START":
-                System.out.println(cyanText + "Starting Program" + textReset);
-                start();
-                // Starts the main program
-                break;
             case "QUIT":
                 System.out.println(cyanText + "Quitting Program" + textReset);
                 // Hard quits the program
@@ -80,12 +79,12 @@ public class CLI implements Runnable
                 break;
             case "PAUSE":
                 // Temporarily pauses the program
-                //TODO: Pause the program
+                pause();
                 System.out.println(cyanText + "Program Paused" + textReset);
                 break;
             case "PLAY":
                 // Runs the program
-                //TODO: Unpause the program
+                play();
                 System.out.println(cyanText + "Program Unpaused" + textReset);
                 break;
             case "SETPEOPLE":
@@ -192,12 +191,7 @@ public class CLI implements Runnable
                     System.out.println(cyanText + "Event " + i + " executed"+ textReset);
                 }
                 break;
-            case "FORCEUPDATE":
-                // Forces a GUI refresh
-                //TODO: add this.
-                System.out.println(cyanText + "GUI Refreshed"+ textReset);
 
-                break;
             default:
                 if(userInput.length > 1 || !userInput[0].isEmpty()){
                     // If given a nonempty input, prints an error message
@@ -206,6 +200,9 @@ public class CLI implements Runnable
         }
     }
 
+    /**
+     * Prints a menu with all available functions
+     */
     private void help(){
         System.out.println(
                 greenText +
@@ -214,9 +211,6 @@ public class CLI implements Runnable
                 ┏━━━━━━━━━━━┓
                 ┃ Functions ┃
                 ┗━━━━━━━━━━━┛
-                
-                > START
-                >> Starts the main program
                 
                 > QUIT
                 >> Ends program immediately
@@ -248,20 +242,13 @@ public class CLI implements Runnable
                 
                 > FORCEEVENT [value] 
                 >> Forces a specific event to occur
-                
-                > FORCEUPDATE
-                >> Forces a refresh of the GUI
+               
                 """
                 + textReset
         );
     }
 
-    /**
-     * Allows the main program to run
-     */
-    public void start(){
-        Backend.setIsRunning(true);
-    }
+
 
     /**
      * Ends program and closes
@@ -291,6 +278,7 @@ public class CLI implements Runnable
     /**
      * Sets the number of people for the program
      * @param people The number of starting people
+     * @deprecated use GUI instead
      */
     public void setPeople(int people){
         this.people = people;
@@ -298,6 +286,7 @@ public class CLI implements Runnable
 
     /**
      * @return The number of starting people
+     * @deprecated use API instead
      */
     public int getPeople() {
         return people;
@@ -306,6 +295,7 @@ public class CLI implements Runnable
     /**
      * Sets the amount of money the people start with
      * @param startingMoney The amount of money each person starts with
+     * @deprecated use GUI instead
      */
     public void setStartingMoney(int startingMoney){
         this.startingMoney = startingMoney;
@@ -313,6 +303,7 @@ public class CLI implements Runnable
 
     /**
      * @return The amount of starting money
+     * @deprecated use API instead
      */
     public int getStartingMoney(){
         return this.startingMoney;
@@ -321,6 +312,7 @@ public class CLI implements Runnable
     /**
      * Sets the delay between cycles in seconds
      * @param cycleLength Delay between cycles in seconds (can be decimal)
+     * @deprecated use GUI instead
      */
     public void setCycleLength(float cycleLength){
         this.cycleLength = cycleLength;
@@ -328,6 +320,7 @@ public class CLI implements Runnable
 
     /**
      * @return Delay between cycles in seconds
+     * @deprecated use API instead
      */
     public float getCycleLength() {
         return cycleLength;
@@ -336,6 +329,7 @@ public class CLI implements Runnable
     /**
      * sets amount of cycle to occur before ending the program
      * @param cycleCount
+     * @deprecated use GUI instead
      */
     public void setCycleCount(int cycleCount)
     {
@@ -344,28 +338,36 @@ public class CLI implements Runnable
 
     /**
      * @return returns amount of cycle to happen before program ends
+     * @deprecated use API instead
      */
     public int getCycleCount()
     {
         return cycleCount ;
     }
 
-
-
     /**
      * Forces a GUI refresh
+     * @deprecated does not update the GUI anymore
      */
     public void forceUpdate(){
         stockGUI.updateGUI();
     }
 
+    /**
+     * Gets the current stock price
+     * @return The current stock price
+     * @deprecated use API instead
+     */
     public int getStartingStockPrice() {
         return startingStockPrice;
     }
 
+    /**
+     * Sets the starting stock price
+     * @param startingStockPrice
+     * @deprecated use GUI instead
+     */
     public void setStartingStockPrice(int startingStockPrice) {
         this.startingStockPrice = startingStockPrice;
     }
-
-
 }
