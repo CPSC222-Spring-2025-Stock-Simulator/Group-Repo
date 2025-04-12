@@ -133,8 +133,8 @@ public class StockGUI {
         }
 
         // Continue with your other setup code
-        xAxis.setLabel("X Axis");
-        yAxis.setLabel("Y Axis");
+        xAxis.setLabel("");
+        yAxis.setLabel("Stock Price");
         lineChart.setTitle("Stock Data");
 
         peopleAmount.setText("");
